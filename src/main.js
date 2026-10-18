@@ -165,9 +165,14 @@ class VideoStoryApp {
       this.heroVideo.play().catch(() => {});
       this.titleVideo.play().catch(() => {});
 
+      // Smooth synchronization without decoder seek-thrashing
+      let lastSync = 0;
       const syncHeroVideos = () => {
-        if (Math.abs(this.titleVideo.currentTime - this.heroVideo.currentTime) > 0.08) {
+        const now = performance.now();
+        if (now - lastSync < 1000) return; // Check at most once per second
+        if (Math.abs(this.titleVideo.currentTime - this.heroVideo.currentTime) > 0.4) {
           this.titleVideo.currentTime = this.heroVideo.currentTime;
+          lastSync = now;
         }
       };
       this.heroVideo.addEventListener('timeupdate', syncHeroVideos);
@@ -177,6 +182,9 @@ class VideoStoryApp {
       });
       this.heroVideo.addEventListener('pause', () => {
         this.titleVideo.pause();
+      });
+      this.heroVideo.addEventListener('seeked', () => {
+        this.titleVideo.currentTime = this.heroVideo.currentTime;
       });
     }
 
