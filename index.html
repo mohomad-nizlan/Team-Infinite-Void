@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Beyond the Stars | Infinite Void | Exploring the Unknown Universe</title>
+  <meta name="description" content="Beyond the Stars | Infinite Void | Exploring the Unknown Universe — Discarded Equipment on Moon & Mars.">
+  <link rel="icon" type="image/png" href="/assets/logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/src/style.css">
+</head>
+<body>
+
+  <!-- ===== STARFIELD BACKGROUND ===== -->
+  <canvas id="starfield"></canvas>
+
+  <!-- ===== HERO PAGE ===== -->
+  <div id="hero-page" class="hero-page">
+    <div class="hero-video-wrap">
+      <video
+        id="hero-bg-video"
+        class="hero-bg-video"
+        src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4"
+        autoplay
+        muted
+        loop
+        playsinline
+      ></video>
+      <div class="hero-video-shade"></div>
+    </div>
+
+    <div class="hero-mockup-container">
+      <div class="hero-big-title-wrap">
+        <div class="hero-title-video-wrap">
+          <!-- Straight text aligned cleanly with ample space above letter I of INFINITE -->
+          <div class="hero-curved-wrap">
+            <svg viewBox="0 0 1000 460" class="hero-curved-svg" preserveAspectRatio="xMidYMid meet">
+              <text x="156" y="-14" fill="#ffffff" opacity="0.95" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="600" letter-spacing="4">The Team</text>
+            </svg>
+          </div>
+
+          <svg class="hero-title-svg" viewBox="0 0 1000 460" preserveAspectRatio="xMidYMid meet">
+            <defs>
+              <mask id="void-text-mask" maskUnits="userSpaceOnUse" x="0" y="0" width="1000" height="460">
+                <rect width="1000" height="460" fill="black" />
+                <text x="500" y="185" text-anchor="middle" font-family="'Anton', 'Impact', sans-serif" font-weight="900" font-size="200" letter-spacing="14" fill="white">INFINITE</text>
+                <text x="500" y="405" text-anchor="middle" font-family="'Anton', 'Impact', sans-serif" font-weight="900" font-size="200" letter-spacing="38" fill="white">VOID</text>
+              </mask>
+            </defs>
+
+            <!-- Crisp fallback text layer ensuring title is always visible -->
+            <g class="title-fallback-text" opacity="0.95">
+              <text x="500" y="185" text-anchor="middle" font-family="'Anton', 'Impact', sans-serif" font-weight="900" font-size="200" letter-spacing="14" fill="#ffffff">INFINITE</text>
+              <text x="500" y="405" text-anchor="middle" font-family="'Anton', 'Impact', sans-serif" font-weight="900" font-size="200" letter-spacing="38" fill="#ffffff">VOID</text>
+            </g>
+
+            <foreignObject x="0" y="0" width="1000" height="460" mask="url(#void-text-mask)">
+              <video
+                id="title-mask-video"
+                class="title-mask-video"
+                src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4"
+                autoplay
+                muted
+                loop
+                playsinline
+              ></video>
+            </foreignObject>
+          </svg>
+          <h1 class="sr-only">INFINITE VOID</h1>
+        </div>
+      </div>
+
+      <div class="hero-subtext-bottom">
+        <span>Exploring the Unknown Universe</span>
+      </div>
+
+      <div class="hero-cta-wrap">
+        <button class="btn-launch-exact" id="btn-launch">LAUNCH</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- ===== FULLSCREEN VIDEO & FRAME SCRUBBER ===== -->
+  <div id="frame-screen" class="frame-screen hidden">
+    <div class="minimal-controls">
+      <button class="icon-btn audio-btn" id="audio-toggle-btn" title="Toggle Sound (M)">
+        <span id="audio-icon">🔊</span>
+      </button>
+      <button class="icon-btn exit-btn" id="frame-exit-btn" title="Exit (Esc)">✕</button>
+    </div>
+
+    <!-- Screen 1: Full-Screen Video 1 -->
+    <section class="video-screen-phase" id="video-screen-phase">
+      <video
+        id="scene-video"
+        src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4"
+        preload="auto"
+        autoplay
+        muted
+        playsinline
+      ></video>
+    </section>
+
+    <!-- Screen 2: Full-Screen Image (Replaces Select Agent) -->
+    <section class="video-screen-phase" id="image-screen-phase">
+      <img
+        id="scene-image-meet"
+        src="/frames/scene-2/meet.png"
+        alt="Encounter"
+        class="scene-media-img"
+        onerror="this.onerror=null; this.src='/frames/scene-2/meet.jpg';"
+      />
+    </section>
+
+    <!-- Screen 3: Full-Screen Video 2 (Below the image) -->
+    <section class="video-screen-phase" id="video-screen-phase-2">
+      <video
+        id="scene-video-2"
+        src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165437/202610130842_1_jdqgez.mp4"
+        preload="auto"
+        autoplay
+        muted
+        playsinline
+      ></video>
+    </section>
+  </div>
+
+  <script type="module" src="/src/main.js"></script>
+</body>
+</html>
