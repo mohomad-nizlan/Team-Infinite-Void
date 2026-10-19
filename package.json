@@ -1,0 +1,10 @@
+{
+  "name": "infinite-void-nasa-space-apps",
+  "private": true,
+  "version": "1.0.0",
+  "scripts": {
+    "dev": "python -m http.server 5173",
+    "start": "python -m http.server 5173",
+    "serve": "python -m http.server 5173"
+  }
+}
