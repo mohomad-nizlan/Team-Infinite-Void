@@ -6,5 +6,8 @@
     "dev": "python -m http.server 5173",
     "start": "python -m http.server 5173",
     "serve": "python -m http.server 5173"
+  },
+  "dependencies": {
+    "gsap": "^3.15.0"
   }
 }

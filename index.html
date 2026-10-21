@@ -9,15 +9,148 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css">
+  <link rel="stylesheet" href="style.css?v=20261021s">
+  <link rel="stylesheet" href="InfiniteMenu.css?v=20261021s">
+  <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
+  <script type="importmap">
+  {
+    "imports": {
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+    }
+  }
+  </script>
 </head>
 <body>
+
+  <!-- ===== LOADING SCREEN (Uiverse.io by JkHuger) ===== -->
+  <div id="loading-screen" class="loading-screen">
+    <div class="box-of-star1">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
+    </div>
+    <div class="box-of-star2">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
+    </div>
+    <div class="box-of-star3">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
+    </div>
+    <div class="box-of-star4">
+      <div class="star star-position1"></div>
+      <div class="star star-position2"></div>
+      <div class="star star-position3"></div>
+      <div class="star star-position4"></div>
+      <div class="star star-position5"></div>
+      <div class="star star-position6"></div>
+      <div class="star star-position7"></div>
+    </div>
+    <div data-js="astro" class="astronaut">
+      <div class="head"></div>
+      <div class="arm arm-left"></div>
+      <div class="arm arm-right"></div>
+      <div class="body">
+        <div class="panel"></div>
+      </div>
+      <div class="leg leg-left"></div>
+      <div class="leg leg-right"></div>
+      <div class="schoolbag"></div>
+    </div>
+    <div class="loading-text-wrap">
+      <span class="loading-text">INITIALIZING MISSION</span>
+      <span class="loading-dots">...</span>
+    </div>
+  </div>
 
   <!-- ===== STARFIELD BACKGROUND ===== -->
   <canvas id="starfield"></canvas>
 
   <!-- ===== HERO PAGE ===== -->
   <div id="hero-page" class="hero-page">
+    <!-- ===== STAGGERED MENU (Hero Section) ===== -->
+    <div id="staggered-menu" class="staggered-menu-wrapper" style="--sm-accent: #ffffff;" data-position="right">
+      <div id="sm-prelayers" class="sm-prelayers" aria-hidden="true">
+        <div class="sm-prelayer" style="background: #252836;"></div>
+        <div class="sm-prelayer" style="background: #111218;"></div>
+      </div>
+
+      <header class="staggered-menu-header" aria-label="Main navigation header">
+        <button
+          id="sm-toggle-btn"
+          class="sm-toggle"
+          aria-label="Open menu"
+          aria-expanded="false"
+          aria-controls="staggered-menu-panel"
+          type="button"
+        >
+          <span class="sm-toggle-text">MENU</span>
+          <span class="sm-close-mark" aria-hidden="true" title="Close menu">✕</span>
+        </button>
+      </header>
+
+      <aside id="staggered-menu-panel" class="staggered-menu-panel" aria-hidden="true">
+        <div class="sm-panel-inner">
+          <ul class="sm-panel-list" role="list">
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#hero-page" aria-label="Go to home page">
+                <span class="sm-panel-itemLabel">Home</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#missions-page" aria-label="Explore 20 discarded relics missions">
+                <span class="sm-panel-itemLabel">Missions</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#infinite-menu-page" aria-label="Explore 3D Celestial Discoveries Sphere">
+                <span class="sm-panel-itemLabel">Discoveries</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#experience" id="sm-nav-experience" aria-label="Launch deep space experience">
+                <span class="sm-panel-itemLabel">Experience</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#team-section" aria-label="About The Team Infinite Void">
+                <span class="sm-panel-itemLabel">About</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#demo-1" aria-label="Demo 1">
+                <span class="sm-panel-itemLabel">Demo 1</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#demo-2" aria-label="Demo 2">
+                <span class="sm-panel-itemLabel">Demo 2</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#demo-3" aria-label="Demo 3">
+                <span class="sm-panel-itemLabel">Demo 3</span>
+              </a>
+            </li>
+          </ul>
+        </div>
+      </aside>
+    </div>
+
     <div class="hero-video-wrap">
       <video
         id="hero-bg-video"
@@ -43,7 +176,7 @@
           <div class="hero-curved-wrap">
             <svg viewBox="0 0 1000 460" class="hero-curved-svg" preserveAspectRatio="xMidYMid meet">
               <text x="156" y="-14" fill="#ffffff" opacity="0.95" font-family="'Space Grotesk', sans-serif" font-size="20" font-weight="600" letter-spacing="4">The Team</text>
-              <text id="hero-subtext-svg" x="960" y="460" text-anchor="end" fill="#ffffff" opacity="0.88" font-family="'Space Grotesk', sans-serif" font-size="19" font-weight="300" letter-spacing="3">Exploring the Unknown Universe</text>
+              <text id="hero-subtext-svg" x="626" y="455" text-anchor="start" fill="#ffffff" opacity="0.88" font-family="'Space Grotesk', sans-serif" font-size="18.5" font-weight="300" letter-spacing="2.8">Exploring the Unknown Universe</text>
             </svg>
           </div>
 
@@ -88,6 +221,38 @@
       </div>
     </div>
   </div>
+
+  <!-- ===== 2ND PAGE: 20 NASA MISSIONS WITH DISCARDED EQUIPMENT ===== -->
+  <section id="missions-page" class="missions-page">
+    <div class="missions-bg-image" id="missions-bg-image"></div>
+    <div class="missions-overlay-gradient"></div>
+
+    <div class="missions-layout">
+      <!-- LEFT: OPTION WHEEL (Shifted further to the left) -->
+      <div class="missions-wheel-pane">
+        <div id="option-wheel-root" class="option-wheel-root"></div>
+      </div>
+
+      <!-- RIGHT: JUST HEADING AND PARAGRAPH DIRECTLY OVER THE IMAGE -->
+      <div class="missions-text-pane">
+        <h2 class="mission-heading" id="mission-heading">APOLLO 11</h2>
+        <p class="mission-subheading" id="mission-subheading">Moon • Sea of Tranquility (1969)</p>
+        <p class="mission-paragraph" id="mission-paragraph">
+          Humanity's first footsteps. When the Eagle's ascent stage launched back to orbit, it left behind the gold-foil descent stage, seismic experiments, the laser retroreflector, the television camera, and the astronauts' jettisoned life-support backpacks at Tranquility Base.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== 3RD PAGE: INFINITE MENU (3D Celestial Spherical Showcase - Above the Team) ===== -->
+  <section id="infinite-menu-page" class="infinite-menu-page">
+    <div class="infinite-menu-topbar">
+      <h2 class="infinite-menu-heading">COSMIC BODIES & DISCOVERIES</h2>
+      <span class="infinite-menu-hint">DRAG SPHERE • ARROWS NAVIGATE • ENTER/CLICK TO EXPLORE</span>
+    </div>
+
+    <div id="infinite-menu-root" class="infinite-menu-root"></div>
+  </section>
 
   <!-- ===== FULLSCREEN VIDEO & FRAME SCRUBBER ===== -->
   <div id="frame-screen" class="frame-screen hidden">
@@ -137,8 +302,49 @@
         <source src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165437/202610130842_1_jdqgez.mp4" type="video/mp4">
       </video>
     </section>
+
+    <!-- Screen 4: Full-Screen Video 3 (Scene 10) -->
+    <section class="video-screen-phase" id="video-screen-phase-3">
+      <video
+        id="scene-video-3"
+        preload="metadata"
+        muted
+        playsinline
+      >
+        <source src="public/frames/scene-10/scene_10.mp4" type="video/mp4">
+        <source src="./public/frames/scene-10/scene_10.mp4" type="video/mp4">
+        <source src="public/frames/scene-10/ORIGINAL_SCENE_10.mp4" type="video/mp4">
+        <source src="./public/frames/scene-10/ORIGINAL_SCENE_10.mp4" type="video/mp4">
+      </video>
+    </section>
   </div>
 
-  <script defer src="main.js"></script>
+  <!-- ===== TEAM MEMBERS SECTION ===== -->
+  <section id="team-section" class="team-section">
+    <div class="team-header">
+      <h2 class="team-title">MEET THE <span class="team-title-accent">TEAM</span></h2>
+      <p class="team-desc">
+        Pioneers exploring the cosmic frontier and unearthing relics across the deep void.
+      </p>
+      <div class="team-desc-gap" aria-hidden="true"></div>
+    </div>
+
+    <!-- Names at the top of the origin of each tie -->
+    <div class="team-stage-wrapper">
+      <div class="team-tie-origins" id="team-tie-origins">
+        <span class="tie-origin-label" data-index="0">Rifa</span>
+        <span class="tie-origin-label" data-index="1">Rashini</span>
+        <span class="tie-origin-label" data-index="2">Atheeqa</span>
+        <span class="tie-origin-label" data-index="3">Nizlan</span>
+        <span class="tie-origin-label" data-index="4">Byon</span>
+        <span class="tie-origin-label" data-index="5">Malik</span>
+      </div>
+
+      <!-- Single unified 3D lanyard stage: Full width, zero left/right margin clipping -->
+      <div class="team-lanyard-stage" id="team-lanyard-stage"></div>
+    </div>
+  </section>
+
+  <script type="module" src="main.js?v=20261021s"></script>
 </body>
 </html>
