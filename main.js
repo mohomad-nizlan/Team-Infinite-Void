@@ -3,8 +3,9 @@
    Main JS: Smooth Video Player + 2-Screen Snap (Video -> Astronauts)
    ============================================================== */
 import * as THREE from 'three';
+import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261021k';
-import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021s';
+import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
 
 // ─── 1. STARFIELD BACKGROUND ─────────────────────────────────
 class Starfield {
@@ -866,26 +867,112 @@ function initMissionsPage() {
   updateMissionShowcase(3);
 }
 
+// ─── CELESTIAL BODIES: SPACE MATERIALS & DISCOVERIES ─────────
+const CELESTIAL_BODIES_DISCOVERIES = [
+  {
+    name: 'The Sun',
+    material: 'Thermonuclear Plasma • 73% Hydrogen, 25% Helium • Magnetic Flux',
+    discovery: 'Parker Solar Probe touched the solar corona at 1,300°C (2021), unravelling magnetic switchbacks, coronal heating mechanisms, and high-speed solar wind origins.',
+    image: 'public/assets/celestial/sun.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'The Moon',
+    material: 'Anorthosite Crust • Titanium Ilmenite • Polar Water Ice • Regolith',
+    discovery: 'LCROSS & Chandrayaan verified billions of tons of water ice in permanently shadowed polar craters; Chang\'e-5 returned fresh volcanic basalts and mineral Changesite-(Y).',
+    image: 'public/assets/celestial/moon.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Mercury',
+    material: 'Superdense Metallic Iron Core (85% radius) • Graphite Crust • Sodium Exosphere',
+    discovery: 'NASA MESSENGER detected volatile water ice in permanently frozen polar craters despite 430°C solar radiation, alongside a dynamic active magnetic field.',
+    image: 'public/assets/celestial/mercury.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Venus',
+    material: 'Supercritical CO2 Atmosphere • Sulfuric Acid Clouds • Basaltic Volcanics',
+    discovery: 'Magellan radar and archival studies confirmed active volcanic lava flows (2023); atmospheric probes identified anomalous chemical disequilibria in temperate cloud decks.',
+    image: 'public/assets/celestial/venus.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Mars',
+    material: 'Iron-Rich Basaltic Regolith • Ferric Oxide Dust • Permafrost & Delta Clays',
+    discovery: 'Curiosity & Perseverance uncovered ancient habitable lacustrine mudstones, organic carbon macromolecules, delta clay minerals, and sub-glacial radar lake signatures.',
+    image: 'public/assets/celestial/mars.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Jupiter',
+    material: 'Liquid Metallic Hydrogen Mantle • Ammonia Ice Crystals • Superheated Core',
+    discovery: 'Juno spacecraft pierced deep atmospheric belts, revealing a diffuse fuzzy core, deep-rooted Great Red Spot roots (300 km), and polygonal polar cyclonic storms.',
+    image: 'public/assets/celestial/jupiter.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Europa',
+    material: 'Cracked Water-Ice Shell (20 km) • Global Subsurface Saline Ocean (100 km deep)',
+    discovery: 'Active cryovolcanic water plumes erupt into space; JWST confirmed carbon dioxide sourced directly from its interior ocean, making it prime target for astrobiology.',
+    image: 'public/assets/celestial/europa.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Saturn & Rings',
+    material: '99% Pure Water Ice Shards • Silicate Nanodust • Metallic Hydrogen Interior',
+    discovery: 'Cassini Grand Finale dives confirmed "ring rain" depositing tons of ice into the atmosphere per second, along with a persistent geometric hexagon at the north pole.',
+    image: 'public/assets/celestial/saturn.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Neptune',
+    material: 'Supercritical Water-Methane-Ammonia Fluid • Hydrocarbon Haze • Diamond Rain',
+    discovery: 'Voyager 2 and JWST revealed supersonic winds clocking 2,100 km/h, transient Great Dark Spots, and active nitrogen-ice cryogeysers on captured moon Triton.',
+    image: 'public/assets/celestial/neptune.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Asteroid Bennu',
+    material: 'Pristine Carbonaceous Chondrite • Hydrated Clay Minerals • Prebiotic Amino Acids',
+    discovery: 'NASA OSIRIS-REx collected and returned primordial regolith (2023), identifying abundant carbon, water-bearing crystals, and organic molecules dating back 4.5 billion years.',
+    image: 'public/assets/celestial/asteroid.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Sagittarius A*',
+    material: 'Supermassive Gravitational Singularity • Relativistic Accretion Plasma Disk',
+    discovery: 'Event Horizon Telescope resolved the first direct radio shadow of the Milky Way\'s central black hole (2022), verifying Einstein\'s General Relativity at extreme spacetime curves.',
+    image: 'public/assets/celestial/blackhole.jpg',
+    link: '#experience'
+  },
+  {
+    name: 'Cosmic Nebula',
+    material: 'Molecular Hydrogen Clouds • Stellar Dust Filaments • Ionized Emission Plasma',
+    discovery: 'James Webb Space Telescope pierced dust shrouds to image stellar nurseries in Carina and Orion, pinpointing the birth of protostars and planetary disks in deep cosmos.',
+    image: 'public/assets/celestial/nebula.jpg',
+    link: '#experience'
+  }
+];
+
 function initInfiniteMenuPage() {
   const root = document.getElementById('infinite-menu-root');
   if (!root) return;
 
-  const items = NASA_RELIC_MISSIONS.map(m => {
-    const cleanImg = m.img.replace(/^(\.\/)?/, '');
-    const cleanSite = m.site.split('(')[0].trim();
+  const items = CELESTIAL_BODIES_DISCOVERIES.map(c => {
     return {
-      image: cleanImg,
-      title: m.name.toUpperCase(),
-      description: `${m.body.toUpperCase()} • ${cleanSite} (${m.year}) — ${m.desc.length > 120 ? m.desc.slice(0, 118) + '...' : m.desc}`,
-      link: '#experience'
+      image: c.image,
+      title: c.name.toUpperCase(),
+      description: `<span class="celestial-mat-badge">${c.material}</span><span class="celestial-disc-text">${c.discovery}</span>`,
+      link: c.link || '#experience'
     };
   });
 
   window.infiniteMenu = new VanillaInfiniteMenu(root, {
     items,
-    count: 160,
-    tileSize: 0.63,
-    roundness: 0.2,
+    count: 144,
+    tileSize: 0.64,
+    roundness: 0.22,
     zoom: 1.65,
     pullBack: 1,
     stretch: 0.6,
@@ -902,22 +989,6 @@ function initInfiniteMenuPage() {
       if (launchBtn) launchBtn.click();
     }
   });
-
-  // Wire scroll hint button to smoothly go to team section
-  const scrollHint = document.getElementById('infinite-menu-scrollhint');
-  if (scrollHint) {
-    scrollHint.addEventListener('click', () => {
-      const teamSection = document.getElementById('team-section');
-      if (teamSection) teamSection.scrollIntoView({ behavior: 'smooth' });
-    });
-    scrollHint.addEventListener('keydown', (e) => {
-      if (e.key === 'Enter' || e.key === ' ') {
-        e.preventDefault();
-        const teamSection = document.getElementById('team-section');
-        if (teamSection) teamSection.scrollIntoView({ behavior: 'smooth' });
-      }
-    });
-  }
 }
 
 /* ==============================================================
@@ -1226,7 +1297,9 @@ class FullPageSectionController {
       document.getElementById('hero-page'),
       document.getElementById('missions-page'),
       document.getElementById('infinite-menu-page'),
-      document.getElementById('team-section')
+      document.getElementById('team-section'),
+      document.getElementById('scientists-section'),
+      document.getElementById('cosmos-section')
     ].filter(Boolean);
 
     if (this.sections.length === 0) return;
@@ -1316,8 +1389,9 @@ class FullPageSectionController {
         return;
       }
 
-      // Allow option wheel to spin internally if cursor is over it
+      // Allow option wheel and cosmos 3D orbit controls to handle wheel internally
       if (e.target && e.target.closest('#option-wheel-root')) return;
+      if (e.target && e.target.closest('#cosmos-canvas-container')) return;
 
       e.preventDefault();
 
@@ -1367,6 +1441,7 @@ class FullPageSectionController {
       if (frameScreen && !frameScreen.classList.contains('hidden')) return;
       if (e.target && e.target.closest('#team-lanyard-stage')) return;
       if (e.target && e.target.closest('.infinite-menu__canvas')) return;
+      if (e.target && e.target.closest('#cosmos-canvas-container')) return;
 
       if (e.changedTouches.length === 1) {
         const diff = touchStartY - e.changedTouches[0].clientY;
@@ -1413,6 +1488,426 @@ class FullPageSectionController {
   }
 }
 
+// ─── 7. NASA SCIENTISTS 3D IMAGE STREAM HERO CORRIDOR ─────────────────
+function initScientistsHeroCorridor() {
+  const container = document.getElementById('corridor-viewport');
+  if (!container) return;
+
+  const NASA_IMAGES = [
+    {
+      src: "https://images.unsplash.com/photo-1581093577421-f561a654a353?auto=format&fit=crop&w=800&q=80",
+      alt: "NASA astrophysicist analyzing planetary spectroscopy in the laboratory",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1614727187346-ec3a009092b0?auto=format&fit=crop&w=800&q=80",
+      alt: "Astronaut scientist performing extravehicular research outside the ISS",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
+      alt: "NASA Earth observation telemetry and global sensor network",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=800&q=80",
+      alt: "Atmospheric research vantage from low Earth orbit",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=800&q=80",
+      alt: "Pioneering rocket launch propelled by NASA propulsion engineers",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&fit=crop&w=800&q=80",
+      alt: "Deep horizon exploration captured during planetary exploration",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
+      alt: "Cosmic nebula mapped by the Hubble and James Webb science teams",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1464802686167-b939a6910659?auto=format&fit=crop&w=800&q=80",
+      alt: "Deep celestial stellar nursery surveyed by NASA astrophysicists",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80",
+      alt: "Earth climate and magnetic boundary research mission",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1507499739999-097706ad8914?auto=format&fit=crop&w=800&q=80",
+      alt: "High-altitude telescope observatory tracking near-Earth asteroids",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1517976487502-5f65f3f98c8c?auto=format&fit=crop&w=800&q=80",
+      alt: "Flight trajectory testing at Cape Canaveral",
+    },
+    {
+      src: "https://images.unsplash.com/photo-1447433589675-4aaa569f3e05?auto=format&fit=crop&w=800&q=80",
+      alt: "Milky Way core spectroscopy study by deep space scientists",
+    },
+  ];
+
+  const p = {
+    perspective: 30,
+    cardWidth: 18,
+    cardHeight: 25,
+    cardRadius: 0.4,
+    birthHeight: 2.6,
+    exitHeight: 46,
+    railBirth: -11,
+    railExit: 44,
+    fan: 3.3,
+    turnBirth: 6,
+    turnExit: 28,
+    stops: 24,
+  };
+
+  const cards = 10;
+  const speed = 16;
+  const axis = 52;
+
+  function generateKeyframes(dir, name) {
+    const steps = [];
+    for (let s = 0; s <= p.stops; s++) {
+      const u = s / p.stops;
+      const scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u);
+      const z = p.perspective * (1 - 1 / scale);
+      const rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
+      const turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
+      steps.push(
+        `${(u * 100).toFixed(2)}%{transform:translate3d(${(dir * rail).toFixed(2)}cqw,0,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)}`
+      );
+    }
+    return `@keyframes ${name}{${steps.join('')}}`;
+  }
+
+  const rightAnim = 'ish-r-nasa';
+  const leftAnim = 'ish-l-nasa';
+  const cardClass = 'ish-c-nasa';
+
+  const styleEl = document.createElement('style');
+  styleEl.textContent = `
+    ${generateKeyframes(1, rightAnim)}
+    ${generateKeyframes(-1, leftAnim)}
+    @media(prefers-reduced-motion:reduce){.${cardClass}{animation-play-state:paused!important}}
+  `;
+  document.head.appendChild(styleEl);
+
+  const stage = document.createElement('div');
+  stage.className = 'corridor-3d-stage';
+  stage.style.perspective = `${p.perspective}cqw`;
+  stage.style.perspectiveOrigin = `50% ${axis}%`;
+
+  [rightAnim, leftAnim].forEach(animName => {
+    for (let i = 0; i < cards; i++) {
+      const imgData = NASA_IMAGES[i % NASA_IMAGES.length];
+      const card = document.createElement('div');
+      card.className = `corridor-card ${cardClass}`;
+      card.style.left = '50%';
+      card.style.top = `${axis}%`;
+      card.style.width = `${p.cardWidth}cqw`;
+      card.style.height = `${p.cardHeight}cqw`;
+      card.style.marginLeft = `${-p.cardWidth / 2}cqw`;
+      card.style.marginTop = `${-p.cardHeight / 2}cqw`;
+      card.style.borderRadius = `${p.cardRadius}cqw`;
+      card.style.animation = `${animName} ${speed}s linear infinite`;
+      card.style.animationDelay = `${-(i * speed) / cards}s`;
+      card.style.backfaceVisibility = 'hidden';
+
+      const img = document.createElement('img');
+      img.src = imgData.src;
+      img.alt = imgData.alt;
+      img.loading = 'lazy';
+      img.decoding = 'async';
+      img.draggable = false;
+
+      card.appendChild(img);
+      stage.appendChild(card);
+    }
+  });
+
+  container.appendChild(stage);
+
+  // Scientist Spotlight interactive switcher
+  const scientistsData = [
+    {
+      name: "Katherine Johnson",
+      role: "ORBITAL TRAJECTORY SPECIALIST",
+      desc: "Calculated the exact flight trajectories, launch windows, and emergency return paths for Project Mercury, the Apollo 11 lunar landing, and the Space Shuttle program.",
+      quote: '"Like what you do, and then you will do your best."'
+    },
+    {
+      name: "Dr. Nancy Grace Roman",
+      role: "CHIEF OF ASTRONOMY • 'MOTHER OF HUBBLE'",
+      desc: "NASA's first Chief of Astronomy. Conceived and fought for space telescopes operating above Earth's atmosphere, leading directly to the Hubble Space Telescope.",
+      quote: '"I was told from the beginning that women could not be scientists. I ignored them."'
+    },
+    {
+      name: "Dr. Carl Sagan",
+      role: "PLANETARY SCIENTIST & ASTROBIOLOGIST",
+      desc: "Designed the Golden Record messages aboard Voyager 1 & 2, unraveled Venus's extreme greenhouse atmosphere, and inspired generations to explore the cosmos.",
+      quote: '"Somewhere, something incredible is waiting to be known."'
+    },
+    {
+      name: "Dr. Eugene Shoemaker",
+      role: "LUNAR GEOLOGIST & IMPACT PIONEER",
+      desc: "Trained Apollo astronauts on lunar craters, co-discovered Comet Shoemaker-Levy 9, and founded planetary geology as a formal scientific discipline.",
+      quote: '"The Moon is a cosmic tapestry of solar system history."'
+    },
+    {
+      name: "Dr. Katie Bouman",
+      role: "COMPUTATIONAL IMAGING & ASTROPHYSICS",
+      desc: "Led the breakthrough CHIRP algorithm that aligned petabytes of Event Horizon Telescope data to capture humanity's very first direct image of a supermassive black hole.",
+      quote: '"No one of us could have done it alone. Teamwork makes the impossible visible."'
+    }
+  ];
+
+  const tabs = document.querySelectorAll('.spotlight-tab');
+  const roleEl = document.getElementById('spotlight-role');
+  const nameEl = document.getElementById('spotlight-name');
+  const descEl = document.getElementById('spotlight-desc');
+  const quoteEl = document.getElementById('spotlight-quote');
+
+  tabs.forEach(tab => {
+    tab.addEventListener('click', () => {
+      const idx = parseInt(tab.getAttribute('data-index'), 10);
+      if (isNaN(idx) || !scientistsData[idx]) return;
+
+      tabs.forEach(t => t.classList.remove('active'));
+      tab.classList.add('active');
+
+      const data = scientistsData[idx];
+      if (roleEl) roleEl.textContent = data.role;
+      if (nameEl) nameEl.textContent = data.name;
+      if (descEl) descEl.textContent = data.desc;
+      if (quoteEl) quoteEl.textContent = data.quote;
+    });
+  });
+}
+
+// ─── 8. COSMOS 3D ORBIT GALLERY (Particle Sphere + Outward Orbiting Images) ───
+function initCosmosOrbitGallery() {
+  const container = document.getElementById('cosmos-canvas-container');
+  if (!container) return;
+
+  const images = [
+    "https://cdn.21st.dev/assets/mirror/63/63dd9755c755cf0633ea36c78a64d26ce861f83faf2950e45b6d0323063165cb.jpg",
+    "https://cdn.21st.dev/assets/mirror/8f/8f2e7dffe0d66b0c75205b38287682aef6d2063425038ed0e4d7db9b6f263bc7.jpg",
+    "https://cdn.21st.dev/assets/mirror/22/2231063bbc8df9b5f879d985c257f46d781684b340bc17ab82e836157c4e2a63.jpg",
+    "https://cdn.21st.dev/assets/mirror/e6/e63c95b73a702ee4cdd684b5bcb8b314fdf365a1170dc103f272bdb17593b916.jpg",
+    "https://cdn.21st.dev/assets/mirror/57/57e5fa1b3a6556c99c5b886760587d2ede7a81d418ec7452edd62909c188f380.jpg",
+    "https://cdn.21st.dev/assets/mirror/c0/c0d7bd9dd8d7188c78921deefa43ed2d8ec43764e5cb26f6a76460f50693d902.jpg",
+    "https://cdn.21st.dev/assets/mirror/82/825eacecce852a8c5ef1e6500af399824f6b3f90a1ff9725726534f1e3c15376.jpg",
+    "https://cdn.21st.dev/assets/mirror/0f/0fc0ed0dae94aea0b89567ece95646b86d1d4811216dcddd5ef811532f48aa84.jpg",
+    "https://cdn.21st.dev/assets/mirror/44/44d9e457e6ddbfbf9e28824082d21c56262079e7bbe1653d90dcc4aa3870ca95.jpg",
+    "https://cdn.21st.dev/assets/mirror/a3/a3a2f5ef8b462460fd06629b004cebc66741b432f5a54688ad78bd205ceb88dc.jpg",
+    "https://cdn.21st.dev/assets/mirror/85/85f9dcd8a3db2020ff08432bd3ba77e3c1a6105b5e9f7a6a3ba6f63c1cad420d.jpg",
+    "https://cdn.21st.dev/assets/mirror/43/43a549178a56d34ddba4f6024f27c5ec0ed82b4d8132bd813de0d1edea175399.jpg",
+    "https://cdn.21st.dev/assets/mirror/bf/bfa125b36137d6464bea9ada9bf7a9d7d3ed5a0d1fb5ef491a7e89f40e9d7688.jpg",
+    "https://cdn.21st.dev/assets/mirror/6a/6a53ab92753c4facc64134d260460346b5323741017d7d2753e2a32e1e626e5e.jpg",
+    "https://cdn.21st.dev/assets/mirror/69/699f4fa61d3312af842265920a6707628ba67eaea7ac00e2040edadb4505eac8.jpg",
+    "https://cdn.21st.dev/assets/mirror/14/148264ce8b3e45ecffa2a2b76444622633e331d31b082b7be643321de592d9d1.jpg",
+    "https://cdn.21st.dev/assets/mirror/60/6038d39fe65bc218b6a036a800f835753519a043fb0376002c989ba30a6f90dc.jpg",
+    "https://cdn.21st.dev/assets/mirror/83/838c3fb6be73c52b9d8442d3a96015b2b2c275e6cd0ba5cc297fadbb8d2d7a17.jpg",
+    "https://cdn.21st.dev/assets/mirror/34/340c464d061db93bf3b78145ad1894047524c4bd93cf5d485b73cb65fc3ea908.jpg",
+    "https://cdn.21st.dev/assets/mirror/6c/6caf1639774c907db8059602e59b7bad37eb17974e1d9dd640553aee88c43af2.jpg",
+    "https://cdn.21st.dev/assets/mirror/e9/e9893051287acf74ab64bd28a4dfa2bdf86b83192e1453e452d56ede2068ca57.jpg",
+    "https://cdn.21st.dev/assets/mirror/29/2944be541f9877030efbb253e2925dbfc3171766809d1b506a31b34c82889126.jpg",
+    "https://cdn.21st.dev/assets/mirror/60/607e443f43f933177bd1f3ddcd5592a226c74c04be21ba7a716c6e7fb4640a39.jpg",
+    "https://cdn.21st.dev/assets/mirror/14/144b1358bfdfcbac71e1f90d5d4b41cf6e5a57d16e919af24e972d6895b47a4d.jpg"
+  ];
+
+  const PARTICLE_COUNT = 1500;
+  const PARTICLE_SIZE_MIN = 0.005;
+  const PARTICLE_SIZE_MAX = 0.01;
+  const SPHERE_RADIUS = 9;
+  const POSITION_RANDOMNESS = 4;
+  const ROTATION_SPEED_X = 0.0;
+  const ROTATION_SPEED_Y = 0.0005;
+  const PARTICLE_OPACITY = 1;
+  const IMAGE_COUNT = images.length;
+  const IMAGE_SIZE = 1.5;
+
+  const width = container.clientWidth || window.innerWidth;
+  const height = container.clientHeight || window.innerHeight;
+
+  const scene = new THREE.Scene();
+  const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
+  camera.position.set(-10, 1.5, 10);
+
+  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
+  renderer.setSize(width, height);
+  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
+  renderer.toneMapping = THREE.ACESFilmicToneMapping;
+  container.appendChild(renderer.domElement);
+
+  const controls = new OrbitControls(camera, renderer.domElement);
+  controls.enablePan = true;
+  controls.enableZoom = true;
+  controls.enableRotate = true;
+  controls.enableDamping = true;
+  controls.dampingFactor = 0.05;
+  controls.minDistance = 2.5;
+  controls.maxDistance = 35;
+
+  // Lights matching React component
+  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
+  scene.add(ambientLight);
+
+  const pointLight = new THREE.PointLight(0xffffff, 1, 100);
+  pointLight.position.set(10, 10, 10);
+  scene.add(pointLight);
+
+  // Group containing particles and orbiting images
+  const group = new THREE.Group();
+  scene.add(group);
+
+  // 1500 Particles
+  const sphereGeo = new THREE.SphereGeometry(1, 8, 6);
+  const sphereMat = new THREE.MeshBasicMaterial({
+    transparent: true,
+    opacity: PARTICLE_OPACITY
+  });
+  const instancedParticles = new THREE.InstancedMesh(sphereGeo, sphereMat, PARTICLE_COUNT);
+  const dummy = new THREE.Object3D();
+  const color = new THREE.Color();
+
+  for (let i = 0; i < PARTICLE_COUNT; i++) {
+    const phi = Math.acos(-1 + (2 * i) / PARTICLE_COUNT);
+    const theta = Math.sqrt(PARTICLE_COUNT * Math.PI) * phi;
+    const radiusVariation = SPHERE_RADIUS + (Math.random() - 0.5) * POSITION_RANDOMNESS;
+
+    const x = radiusVariation * Math.cos(theta) * Math.sin(phi);
+    const y = radiusVariation * Math.cos(phi);
+    const z = radiusVariation * Math.sin(theta) * Math.sin(phi);
+
+    const scale = Math.random() * (PARTICLE_SIZE_MAX - PARTICLE_SIZE_MIN) + PARTICLE_SIZE_MIN;
+    dummy.position.set(x, y, z);
+    dummy.scale.set(scale, scale, scale);
+    dummy.updateMatrix();
+    instancedParticles.setMatrixAt(i, dummy.matrix);
+
+    // Yellow-orange star hues matching component
+    color.setHSL(
+      Math.random() * 0.1 + 0.05,
+      0.8,
+      0.6 + Math.random() * 0.3
+    );
+    instancedParticles.setColorAt(i, color);
+  }
+  instancedParticles.instanceMatrix.needsUpdate = true;
+  if (instancedParticles.instanceColor) instancedParticles.instanceColor.needsUpdate = true;
+  group.add(instancedParticles);
+
+  // Orbiting Images Ring
+  const textureLoader = new THREE.TextureLoader();
+  textureLoader.setCrossOrigin('anonymous');
+  const planeGeo = new THREE.PlaneGeometry(IMAGE_SIZE, IMAGE_SIZE);
+
+  function makeFallbackTexture(idx) {
+    const cvs = document.createElement('canvas');
+    cvs.width = 256;
+    cvs.height = 256;
+    const ctx = cvs.getContext('2d');
+    const hue = (idx * 360 / IMAGE_COUNT) % 360;
+    ctx.fillStyle = `hsl(${hue}, 70%, 35%)`;
+    ctx.fillRect(0, 0, 256, 256);
+    ctx.fillStyle = '#ffffff';
+    ctx.font = 'bold 26px sans-serif';
+    ctx.textAlign = 'center';
+    ctx.textBaseline = 'middle';
+    ctx.fillText(`STAR-STUFF #${idx + 1}`, 128, 128);
+    return new THREE.CanvasTexture(cvs);
+  }
+
+  for (let i = 0; i < IMAGE_COUNT; i++) {
+    const angle = (i / IMAGE_COUNT) * Math.PI * 2;
+    const x = SPHERE_RADIUS * Math.cos(angle);
+    const y = 0; // Aligned on X-Z plane
+    const z = SPHERE_RADIUS * Math.sin(angle);
+
+    const position = new THREE.Vector3(x, y, z);
+    const center = new THREE.Vector3(0, 0, 0);
+    const outwardDirection = position.clone().sub(center).normalize();
+
+    const euler = new THREE.Euler();
+    const matrix = new THREE.Matrix4();
+    matrix.lookAt(position, position.clone().add(outwardDirection), new THREE.Vector3(0, 1, 0));
+    euler.setFromRotationMatrix(matrix);
+
+    const mat = new THREE.MeshBasicMaterial({
+      side: THREE.DoubleSide,
+      transparent: true,
+      opacity: 1
+    });
+
+    textureLoader.load(
+      images[i],
+      (tex) => {
+        tex.colorSpace = THREE.SRGBColorSpace;
+        mat.map = tex;
+        mat.needsUpdate = true;
+      },
+      undefined,
+      () => {
+        mat.map = makeFallbackTexture(i);
+        mat.needsUpdate = true;
+      }
+    );
+
+    const mesh = new THREE.Mesh(planeGeo, mat);
+    mesh.position.set(x, y, z);
+    mesh.rotation.copy(euler);
+    group.add(mesh);
+  }
+
+  // Animation loop with controllable auto-spin
+  let isSpinning = true;
+  function animate() {
+    requestAnimationFrame(animate);
+    if (isSpinning) {
+      group.rotation.y += ROTATION_SPEED_Y;
+      group.rotation.x += ROTATION_SPEED_X;
+    }
+    controls.update();
+    renderer.render(scene, camera);
+  }
+  animate();
+
+  // Reset Camera View button
+  const resetBtn = document.getElementById('cosmos-reset-cam');
+  if (resetBtn) {
+    resetBtn.addEventListener('click', () => {
+      gsap.to(camera.position, {
+        x: -10,
+        y: 1.5,
+        z: 10,
+        duration: 1.2,
+        ease: 'power2.inOut',
+        onUpdate: () => controls.update()
+      });
+    });
+  }
+
+  // Toggle Auto-spin button
+  const spinBtn = document.getElementById('cosmos-toggle-spin');
+  const spinLabel = document.getElementById('cosmos-spin-label');
+  if (spinBtn) {
+    spinBtn.addEventListener('click', () => {
+      isSpinning = !isSpinning;
+      if (spinLabel) {
+        spinLabel.textContent = `Auto-Spin: ${isSpinning ? 'ON' : 'OFF'}`;
+      }
+    });
+  }
+
+  // Responsive resize
+  window.addEventListener('resize', () => {
+    const w = container.clientWidth || window.innerWidth;
+    const h = container.clientHeight || window.innerHeight;
+    camera.aspect = w / h;
+    camera.updateProjectionMatrix();
+    renderer.setSize(w, h);
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initLoadingScreen();
   new Starfield();
@@ -1428,6 +1923,8 @@ document.addEventListener('DOMContentLoaded', () => {
     changeMenuColorOnOpen: false
   });
   initUnifiedLanyardStage();
+  initScientistsHeroCorridor();
+  initCosmosOrbitGallery();
   new FullPageSectionController();
 
   console.log('🚀 Infinite Void — Video & Lunar Crew Engine Active.');

@@ -627,7 +627,7 @@ export class VanillaInfiniteMenu {
       this.titleEl.textContent = item.title || '';
     }
     if (this.descEl) {
-      this.descEl.textContent = item.description || '';
+      this.descEl.innerHTML = item.description || '';
     }
     if (this.actionEl) {
       const label = item.title ? `Open ${item.title}` : 'Open';

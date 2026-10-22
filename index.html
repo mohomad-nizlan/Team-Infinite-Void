@@ -8,14 +8,15 @@
   <link rel="icon" type="image/png" href="public/assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261021s">
-  <link rel="stylesheet" href="InfiniteMenu.css?v=20261021s">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261021u">
+  <link rel="stylesheet" href="InfiniteMenu.css?v=20261021u">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/"
     }
   }
   </script>
@@ -132,13 +133,13 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#demo-1" aria-label="Demo 1">
-                <span class="sm-panel-itemLabel">Demo 1</span>
+              <a class="sm-panel-item" href="#scientists-section" aria-label="NASA Scientists and Cosmic Pioneers">
+                <span class="sm-panel-itemLabel">Scientists</span>
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#demo-2" aria-label="Demo 2">
-                <span class="sm-panel-itemLabel">Demo 2</span>
+              <a class="sm-panel-item" href="#cosmos-section" aria-label="Cosmos 3D Orbit Gallery">
+                <span class="sm-panel-itemLabel">Cosmos 3D</span>
               </a>
             </li>
             <li class="sm-panel-itemWrap">
@@ -345,6 +346,149 @@
     </div>
   </section>
 
-  <script type="module" src="main.js?v=20261021s"></script>
+  <!-- ===== NASA SCIENTISTS SECTION (White BG • 3D Image Stream Corridor) ===== -->
+  <section id="scientists-section" class="scientists-section">
+    <!-- Header -->
+    <div class="scientists-header">
+      <div class="scientists-pill">
+        <svg class="pill-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round">
+          <circle cx="12" cy="12" r="1"></circle>
+          <path d="M20.2 20.2c2.4-2.4 2.4-6.3 0-8.7L12 3.3 3.8 11.5c-2.4 2.4-2.4 6.3 0 8.7 2.4 2.4 6.3 2.4 8.7 0l7.7-7.7"></path>
+          <path d="m14 7 3 3"></path>
+        </svg>
+        <span>NASA SCIENCE MISSION DIRECTORATE</span>
+        <span class="pill-sparkle">✦</span>
+      </div>
+      <h2 class="scientists-title">
+        ARCHITECTS OF <span class="scientists-title-gradient">COSMIC DISCOVERY</span>
+      </h2>
+      <p class="scientists-subtitle">
+        The visionary scientists, mathematicians, and planetary astronomers whose calculations transformed discarded relics into historic cosmic milestones.
+      </p>
+    </div>
+
+    <!-- 3D Image Stream Corridor Container -->
+    <div class="scientists-stream-wrap" id="scientists-stream-wrap">
+      <div class="scientists-stream-hero" id="scientists-stream-hero">
+        <!-- Live Corridor injected via initScientistsHeroCorridor() in main.js -->
+        <div class="corridor-viewport" id="corridor-viewport"></div>
+
+        <!-- Corridor Overlay Content -->
+        <div class="corridor-overlay">
+          <!-- Top Tag -->
+          <div class="corridor-top-badge">
+            <span class="badge-dot"></span>
+            <span>LIVE VISUAL STREAM • 12 HISTORIC ORBITAL &amp; GROUND MISSIONS</span>
+          </div>
+
+          <!-- Scientist Spotlight Interactive Card -->
+          <div class="scientist-spotlight-card">
+            <div class="spotlight-nav" id="spotlight-nav">
+              <button class="spotlight-tab active" data-index="0">K. Johnson</button>
+              <button class="spotlight-tab" data-index="1">N. G. Roman</button>
+              <button class="spotlight-tab" data-index="2">C. Sagan</button>
+              <button class="spotlight-tab" data-index="3">E. Shoemaker</button>
+              <button class="spotlight-tab" data-index="4">K. Bouman</button>
+            </div>
+            <div class="spotlight-body" id="spotlight-content">
+              <div class="spotlight-role-tag" id="spotlight-role">ORBITAL TRAJECTORY SPECIALIST</div>
+              <h3 class="spotlight-name" id="spotlight-name">Katherine Johnson</h3>
+              <p class="spotlight-desc" id="spotlight-desc">
+                Calculated the exact flight trajectories, launch windows, and emergency return paths for Project Mercury, the Apollo 11 lunar landing, and the Space Shuttle program.
+              </p>
+              <div class="spotlight-quote" id="spotlight-quote">
+                "Like what you do, and then you will do your best."
+              </div>
+            </div>
+            <div class="spotlight-actions">
+              <a href="#missions-page" class="spotlight-btn primary">
+                Explore 20 Relic Missions
+                <span class="arrow-icon">↗</span>
+              </a>
+              <a href="#infinite-menu-page" class="spotlight-btn secondary">
+                3D Celestial Discoveries
+              </a>
+            </div>
+          </div>
+
+          <!-- Bottom Legend -->
+          <div class="corridor-bottom-legend">
+            <span>CONTINUOUS 3D PERSPECTIVE PROJECTION • RESOLUTION INDEPENDENT</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Stats Bar at bottom -->
+    <div class="scientists-stats-bar">
+      <div class="stat-item">
+        <span class="stat-number">60+</span>
+        <span class="stat-label">YEARS OF COSMIC SCIENCE</span>
+      </div>
+      <div class="stat-separator"></div>
+      <div class="stat-item">
+        <span class="stat-number">20</span>
+        <span class="stat-label">EXPLORED RELIC SITES</span>
+      </div>
+      <div class="stat-separator"></div>
+      <div class="stat-item">
+        <span class="stat-number">1.5M km</span>
+        <span class="stat-label">JWST L2 OBSERVATORY</span>
+      </div>
+      <div class="stat-separator"></div>
+      <div class="stat-item">
+        <span class="stat-number">100k+</span>
+        <span class="stat-label">TELEMETRY DATASETS</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COSMOS 3D ORBIT GALLERY SECTION ===== -->
+  <section id="cosmos-section" class="cosmos-section" aria-label="Cosmos 3D Orbit Gallery">
+    <!-- Header Overlay -->
+    <div class="cosmos-header">
+      <div class="cosmos-badge">
+        <span class="cosmos-badge-dot"></span>
+        <span>CELESTIAL RECONNAISSANCE • 3D PARTICLE SPHERE</span>
+      </div>
+      <h1 class="cosmos-title font-instrument-serif">
+        The cosmos is within us. We are made of star-stuff. We are a way for the universe to know itself.
+      </h1>
+      <p class="cosmos-quote-author">— CARL SAGAN, COSMOS</p>
+    </div>
+
+    <!-- 3D Three.js Orbit Canvas Container -->
+    <div id="cosmos-canvas-container" class="cosmos-canvas-container"></div>
+
+    <!-- Interactive HUD & Orbit Controls Hint -->
+    <div class="cosmos-hud">
+      <div class="cosmos-hud-hint">
+        <svg class="hud-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
+          <circle cx="12" cy="12" r="10"></circle>
+          <path d="M12 2a14.5 14.5 0 0 0 0 20 14.5 14.5 0 0 0 0-20"></path>
+          <path d="M2 12h20"></path>
+        </svg>
+        <span>DRAG TO ROTATE • SCROLL TO ZOOM • RIGHT CLICK TO PAN</span>
+      </div>
+      <div class="cosmos-hud-controls">
+        <button id="cosmos-reset-cam" class="cosmos-hud-btn" type="button" title="Reset Camera Perspective">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+            <path d="M3 3v5h5"></path>
+          </svg>
+          Reset View
+        </button>
+        <button id="cosmos-toggle-spin" class="cosmos-hud-btn" type="button" title="Toggle Auto-Rotation">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="14" height="14">
+            <circle cx="12" cy="12" r="3"></circle>
+            <path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 1 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 1 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 1 1-2.83-2.83l.06-.06a1.65 1.65 0 0 0 .33-1.82 1.65 1.65 0 0 0-1.51-1H3a2 2 0 1 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 1 1 2.83-2.83l.06.06a1.65 1.65 0 0 0 1.82.33H9a1.65 1.65 0 0 0 1-1.51V3a2 2 0 1 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 1 1 2.83 2.83l-.06.06a1.65 1.65 0 0 0-.33 1.82V9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 1 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"></path>
+          </svg>
+          <span id="cosmos-spin-label">Auto-Spin: ON</span>
+        </button>
+      </div>
+    </div>
+  </section>
+
+  <script type="module" src="main.js?v=20261021u"></script>
 </body>
 </html>
