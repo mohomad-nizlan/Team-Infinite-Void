@@ -11,6 +11,7 @@
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="style.css?v=20261022a">
   <link rel="stylesheet" href="InfiniteMenu.css?v=20261022a">
+  <link rel="stylesheet" href="DriftWall.css?v=20261022b">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script type="importmap">
   {
@@ -143,8 +144,8 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#demo-3" aria-label="Demo 3">
-                <span class="sm-panel-itemLabel">Demo 3</span>
+              <a class="sm-panel-item" href="#inside-nasa-section" aria-label="Inside NASA Facilities and Cleanrooms">
+                <span class="sm-panel-itemLabel">Inside NASA</span>
               </a>
             </li>
           </ul>
@@ -451,7 +452,7 @@
         <span class="cosmos-badge-dot"></span>
         <span>CELESTIAL RECONNAISSANCE • 3D PARTICLE SPHERE</span>
       </div>
-      <h1 class="cosmos-title font-instrument-serif">
+      <h1 class="cosmos-title">
         The cosmos is within us. We are made of star-stuff. We are a way for the universe to know itself.
       </h1>
       <p class="cosmos-quote-author">— CARL SAGAN, COSMOS</p>
@@ -468,6 +469,31 @@
           <path d="M3 3v5h5"></path>
         </svg>
       </button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7: INSIDE NASA FACILITIES (React Bits DriftWall Component) ===== -->
+  <section id="inside-nasa-section" class="inside-nasa-section" aria-label="Inside NASA Facilities & Cleanrooms">
+    <!-- Left Hero Typography & Brief Card -->
+    <div class="inside-nasa-left">
+      <div class="inside-nasa-badge">
+        <span class="inside-nasa-badge-dot"></span>
+        <span>NASA FACILITIES &amp; CLEANROOMS</span>
+      </div>
+      <h2 class="inside-nasa-title">
+        INSIDE <span class="inside-nasa-title-gradient">NASA</span>
+      </h2>
+      <p class="inside-nasa-brief">
+        Behind humanity's deepest cosmic milestones lie NASA's most sacred sanctums—from the high-bay spacecraft assembly floors at JPL and Goddard to the 40-foot-deep Neutral Buoyancy Laboratory and legendary Apollo &amp; Artemis flight control consoles at Johnson Space Center.
+      </p>
+    </div>
+
+    <!-- Left text vignette for contrast -->
+    <div class="inside-nasa-vignette" aria-hidden="true"></div>
+
+    <!-- 3D DriftWall Component Mount Point (Full Section) -->
+    <div class="inside-nasa-wall-wrap">
+      <div id="drift-wall-root" class="drift-wall-root"></div>
     </div>
   </section>
 

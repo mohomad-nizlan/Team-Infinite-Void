@@ -6,6 +6,7 @@ import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261021k';
 import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
+import { VanillaDriftWall, NASA_INSIDE_ITEMS } from './DriftWall.js?v=20261022a';
 
 // ─── 1. STARFIELD BACKGROUND ─────────────────────────────────
 class Starfield {
@@ -1299,7 +1300,8 @@ class FullPageSectionController {
       document.getElementById('infinite-menu-page'),
       document.getElementById('team-section'),
       document.getElementById('scientists-section'),
-      document.getElementById('cosmos-section')
+      document.getElementById('cosmos-section'),
+      document.getElementById('inside-nasa-section')
     ].filter(Boolean);
 
     if (this.sections.length === 0) return;
@@ -1893,6 +1895,36 @@ function initCosmosOrbitGallery() {
   });
 }
 
+// ─── 9. INSIDE NASA HIGH-BAY & MISSION CONTROL DRIFT WALL (React Bits DriftWall) ───
+function initInsideNasaSection() {
+  const container = document.getElementById('drift-wall-root');
+  if (!container) return;
+
+  new VanillaDriftWall(container, {
+    items: NASA_INSIDE_ITEMS,
+    columns: window.innerWidth > 1400 ? 5 : 4,
+    tileWidth: 220,
+    tileHeight: 144,
+    gap: 18,
+    radius: 14,
+    tilt: 16,
+    turn: -14,
+    roll: 0,
+    perspective: 1200,
+    depth: 120,
+    speed: 36,
+    direction: 'up',
+    variance: 0.45,
+    parallax: 0.65,
+    pauseOnHover: true,
+    lift: 66,
+    fade: 0.6,
+    dim: 0.55,
+    grayscale: false,
+    overlayColor: '#060010'
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
   initLoadingScreen();
   new Starfield();
@@ -1910,6 +1942,7 @@ document.addEventListener('DOMContentLoaded', () => {
   initUnifiedLanyardStage();
   initScientistsHeroCorridor();
   initCosmosOrbitGallery();
+  initInsideNasaSection();
   new FullPageSectionController();
 
   console.log('🚀 Infinite Void — Video & Lunar Crew Engine Active.');

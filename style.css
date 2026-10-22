@@ -15,12 +15,12 @@
   --ff-display: 'Orbitron', sans-serif;
   --ff-tech:    'Rajdhani', sans-serif;
   --ff-body:    'Space Grotesk', sans-serif;
-  --font-instrument-serif: 'Instrument Serif', serif;
+  --font-instrument-serif: 'Orbitron', sans-serif;
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
 }
 
 .font-instrument-serif {
-  font-family: var(--font-instrument-serif);
+  font-family: var(--ff-display);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -193,9 +193,9 @@ body {
 .btn-launch-exact {
   background: #ffffff;
   color: #000000;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--ff-display);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 6px;
   padding: 14px 48px;
   border: none;
@@ -947,10 +947,10 @@ body {
 
 .infinite-menu-heading {
   margin: 0;
-  font-family: 'Space Grotesk', 'Orbitron', -apple-system, sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 3.5px;
+  font-family: var(--ff-display);
+  font-size: clamp(1.15rem, 1.8vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: 3px;
   text-transform: uppercase;
   color: #ffffff;
   pointer-events: auto;
@@ -963,11 +963,12 @@ body {
 }
 
 .infinite-menu-hint {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.72rem;
+  font-family: var(--ff-tech);
+  font-size: 0.82rem;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--cyan);
 }
 
 @media (max-width: 768px) {
@@ -1187,10 +1188,10 @@ body {
 
 .sm-toggle-text {
   display: inline-block;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--ff-tech);
   font-weight: 700;
-  letter-spacing: 2.5px;
-  font-size: 1.05rem;
+  letter-spacing: 3px;
+  font-size: 1.1rem;
   color: #ffffff;
   text-transform: uppercase;
   transition: color 0.25s ease, opacity 0.25s ease;
@@ -1321,12 +1322,12 @@ body {
 .sm-panel-item {
   position: relative;
   color: #ffffff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.85rem, 3.4vw, 2.65rem);
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   cursor: pointer;
-  line-height: 1.1;
-  letter-spacing: 1px;
+  line-height: 1.15;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-block;
@@ -2024,17 +2025,18 @@ body {
 }
 
 .cosmos-title {
-  max-width: 820px;
+  max-width: 920px;
   margin: 0 auto;
   color: #ffffff;
   text-align: center;
-  font-family: var(--font-instrument-serif);
-  font-size: clamp(1.85rem, 3.8vw, 3.5rem);
-  line-height: 1.14;
-  letter-spacing: -0.015em;
-  font-weight: 400;
+  font-family: var(--ff-display);
+  font-size: clamp(1.4rem, 2.7vw, 2.4rem);
+  line-height: 1.35;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
   text-wrap: balance;
-  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.9), 0 2px 10px rgba(0, 0, 0, 0.6);
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 2px 10px rgba(0, 0, 0, 0.7);
 }
 
 .cosmos-quote-author {
@@ -2121,5 +2123,137 @@ body {
   .cosmos-hud-icon-btn {
     width: 40px;
     height: 40px;
+  }
+}
+
+/* ==============================================================
+   INSIDE NASA FACILITIES SECTION (Screen 7: Full 100vh)
+   React Bits DriftWall Component Integration
+   ============================================================== */
+.inside-nasa-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background: #040509;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Left Hero Typography & Brief Card */
+.inside-nasa-left {
+  position: absolute;
+  left: clamp(2rem, 5.5vw, 6.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: clamp(340px, 32vw, 470px);
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.inside-nasa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--ff-tech, 'Rajdhani', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #00f0ff;
+  width: fit-content;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+.inside-nasa-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff, 0 0 18px rgba(0, 240, 255, 0.7);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.inside-nasa-title {
+  font-family: var(--ff-display);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+}
+
+.inside-nasa-title-gradient {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.inside-nasa-brief {
+  font-family: var(--ff-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+}
+
+.inside-nasa-wall-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Subtle left vignette to guarantee text legibility without obscuring the 3D drift wall */
+.inside-nasa-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: clamp(380px, 46vw, 600px);
+  background: linear-gradient(to right, rgba(4, 5, 9, 0.92) 0%, rgba(4, 5, 9, 0.65) 55%, transparent 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 900px) {
+  .inside-nasa-left {
+    left: 1.5rem;
+    right: 1.5rem;
+    top: auto;
+    bottom: 2rem;
+    transform: none;
+    max-width: none;
+    background: rgba(4, 5, 9, 0.88);
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .inside-nasa-vignette {
+    display: none;
   }
 }

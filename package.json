@@ -5,7 +5,8 @@
   "scripts": {
     "dev": "python -m http.server 5173",
     "start": "python -m http.server 5173",
-    "serve": "python -m http.server 5173"
+    "serve": "python -m http.server 5173",
+    "build": "echo 'Static build ready'"
   },
   "dependencies": {
     "@react-three/drei": "^10.7.9",
