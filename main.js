@@ -7,6 +7,7 @@ import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
 import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261021k';
 import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
 import { VanillaDriftWall, NASA_INSIDE_ITEMS } from './DriftWall.js?v=20261022a';
+import { VanillaFlexCarousel, NASA_SCIENTIST_ITEMS } from './FlexCarousel.js?v=20261022f';
 
 // ─── 1. STARFIELD BACKGROUND ─────────────────────────────────
 class Starfield {
@@ -965,7 +966,7 @@ function initInfiniteMenuPage() {
       image: c.image,
       title: c.name.toUpperCase(),
       description: `<span class="celestial-mat-badge">${c.material}</span><span class="celestial-disc-text">${c.discovery}</span>`,
-      link: c.link || '#experience'
+      link: 'moon-base.html'
     };
   });
 
@@ -986,8 +987,8 @@ function initInfiniteMenuPage() {
     theme: 'dark',
     accentColor: '#ffffff',
     onItemClick: (item, idx) => {
-      const launchBtn = document.getElementById('btn-launch');
-      if (launchBtn) launchBtn.click();
+      // Navigate to dedicated NASA Moon Base topic portal
+      window.location.href = 'moon-base.html';
     }
   });
 }
@@ -1094,7 +1095,15 @@ class VanillaStaggeredMenu {
           e.preventDefault();
           this.close();
         } else if (href && href.startsWith('#')) {
+          e.preventDefault();
           this.close();
+          const targetSection = document.querySelector(href);
+          if (targetSection && window.fullPageController) {
+            const idx = window.fullPageController.sections.indexOf(targetSection);
+            if (idx !== -1) {
+              window.fullPageController.goTo(idx, true);
+            }
+          }
         }
       });
     });
@@ -1291,7 +1300,7 @@ class VanillaStaggeredMenu {
   }
 }
 
-// ─── 6. FULL-SCREEN 1-PAGE SNAP NAVIGATION (Hero -> Missions -> Relics Sphere -> Team) ──
+// ─── 6. FULL-SCREEN 1-PAGE SNAP NAVIGATION (Hero -> Missions -> Relics Sphere -> Team -> Scientists -> Cosmos -> Inside NASA) ──
 class FullPageSectionController {
   constructor() {
     this.sections = [
@@ -1306,12 +1315,33 @@ class FullPageSectionController {
 
     if (this.sections.length === 0) return;
 
+    window.fullPageController = this;
     this.currentIndex = 0;
     this.isAnimating = false;
     this.animTimeout = null;
 
+    this.initObserver();
     this.detectInitialSection();
     this.bindEvents();
+  }
+
+  initObserver() {
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+          const idx = this.sections.indexOf(entry.target);
+          if (idx !== -1 && !this.isAnimating) {
+            this.currentIndex = idx;
+            const hash = '#' + entry.target.id;
+            if (window.location.hash !== hash) {
+              history.replaceState(null, null, hash);
+            }
+          }
+        }
+      });
+    }, { threshold: 0.5 });
+
+    this.sections.forEach(s => observer.observe(s));
   }
 
   detectInitialSection() {
@@ -1361,6 +1391,10 @@ class FullPageSectionController {
   }
 
   bindEvents() {
+    window.addEventListener('hashchange', () => {
+      this.detectInitialSection();
+    });
+
     // 1 scroll down = move to next screen; 1 scroll up = move to previous screen
     window.addEventListener('wheel', (e) => {
       const frameScreen = document.getElementById('frame-screen');
@@ -1391,9 +1425,8 @@ class FullPageSectionController {
         return;
       }
 
-      // Allow option wheel and cosmos 3D orbit controls to handle wheel internally
-      if (e.target && e.target.closest('#option-wheel-root')) return;
-      if (e.target && e.target.closest('#cosmos-canvas-container')) return;
+      // If cursor is over the FlexCarousel, let it handle wheel events natively (cycling cards)
+      if (e.target && e.target.closest('.flex-carousel')) return;
 
       e.preventDefault();
 
@@ -1444,6 +1477,7 @@ class FullPageSectionController {
       if (e.target && e.target.closest('#team-lanyard-stage')) return;
       if (e.target && e.target.closest('.infinite-menu__canvas')) return;
       if (e.target && e.target.closest('#cosmos-canvas-container')) return;
+      if (e.target && e.target.closest('.flex-carousel')) return;
 
       if (e.changedTouches.length === 1) {
         const diff = touchStartY - e.changedTouches[0].clientY;
@@ -1490,198 +1524,115 @@ class FullPageSectionController {
   }
 }
 
-// ─── 7. NASA SCIENTISTS 3D IMAGE STREAM HERO CORRIDOR ─────────────────
-function initScientistsHeroCorridor() {
-  const container = document.getElementById('corridor-viewport');
+// ─── 7. NASA SCIENTISTS SECTION (React Bits FlexCarousel • Editorial Blog Synchronization) ───
+function initScientistsSection() {
+  const container = document.getElementById('scientists-flex-carousel');
   if (!container) return;
 
-  const NASA_IMAGES = [
-    {
-      src: "https://images.unsplash.com/photo-1581093577421-f561a654a353?auto=format&fit=crop&w=800&q=80",
-      alt: "NASA astrophysicist analyzing planetary spectroscopy in the laboratory",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1614727187346-ec3a009092b0?auto=format&fit=crop&w=800&q=80",
-      alt: "Astronaut scientist performing extravehicular research outside the ISS",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80",
-      alt: "NASA Earth observation telemetry and global sensor network",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=800&q=80",
-      alt: "Atmospheric research vantage from low Earth orbit",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=800&q=80",
-      alt: "Pioneering rocket launch propelled by NASA propulsion engineers",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1454789548928-9efd52dc4031?auto=format&fit=crop&w=800&q=80",
-      alt: "Deep horizon exploration captured during planetary exploration",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80",
-      alt: "Cosmic nebula mapped by the Hubble and James Webb science teams",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1464802686167-b939a6910659?auto=format&fit=crop&w=800&q=80",
-      alt: "Deep celestial stellar nursery surveyed by NASA astrophysicists",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80",
-      alt: "Earth climate and magnetic boundary research mission",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1507499739999-097706ad8914?auto=format&fit=crop&w=800&q=80",
-      alt: "High-altitude telescope observatory tracking near-Earth asteroids",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1517976487502-5f65f3f98c8c?auto=format&fit=crop&w=800&q=80",
-      alt: "Flight trajectory testing at Cape Canaveral",
-    },
-    {
-      src: "https://images.unsplash.com/photo-1447433589675-4aaa569f3e05?auto=format&fit=crop&w=800&q=80",
-      alt: "Milky Way core spectroscopy study by deep space scientists",
-    },
-  ];
+  const entryEl = document.getElementById('scientist-dynamic-entry');
+  const fieldEl = document.getElementById('scientist-dynamic-field');
+  const nameEl = document.getElementById('scientist-dynamic-name');
+  const roleEl = document.getElementById('scientist-dynamic-role');
+  const bioEl = document.getElementById('scientist-dynamic-bio');
+  const eraEl = document.getElementById('scientist-dynamic-era');
+  const missionEl = document.getElementById('scientist-dynamic-mission');
+  const quoteEl = document.getElementById('scientist-dynamic-quote');
+  const quoteAuthorEl = document.getElementById('scientist-dynamic-quote-author');
+  const impactEl = document.getElementById('scientist-dynamic-impact');
+  const progressFill = document.getElementById('scientist-progress-fill');
+  const prevBtn = document.getElementById('scientists-prev-btn');
+  const nextBtn = document.getElementById('scientists-next-btn');
 
-  const p = {
-    perspective: 30,
-    cardWidth: 18,
-    cardHeight: 25,
-    cardRadius: 0.4,
-    birthHeight: 2.6,
-    exitHeight: 46,
-    railBirth: -11,
-    railExit: 44,
-    fan: 3.3,
-    turnBirth: 6,
-    turnExit: 28,
-    stops: 24,
-  };
+  let activeIndex = -1;
+  const totalItems = NASA_SCIENTIST_ITEMS.length;
 
-  const cards = 10;
-  const speed = 16;
-  const axis = 52;
+  function updateScientistBlogUI(idx, item) {
+    if (idx === activeIndex || !item) return;
+    activeIndex = idx;
 
-  function generateKeyframes(dir, name) {
-    const steps = [];
-    for (let s = 0; s <= p.stops; s++) {
-      const u = s / p.stops;
-      const scale = (p.birthHeight / p.cardHeight) * Math.pow(p.exitHeight / p.birthHeight, u);
-      const z = p.perspective * (1 - 1 / scale);
-      const rail = p.railExit - (p.railExit - p.railBirth) * Math.pow(1 - u, p.fan);
-      const turn = p.turnBirth + (p.turnExit - p.turnBirth) * u;
-      steps.push(
-        `${(u * 100).toFixed(2)}%{transform:translate3d(${(dir * rail).toFixed(2)}cqw,0,${z.toFixed(2)}cqw) rotateY(${(-dir * turn).toFixed(2)}deg)}`
-      );
+    const progressPct = ((idx + 1) / totalItems) * 100;
+    if (progressFill) {
+      progressFill.style.width = `${progressPct.toFixed(1)}%`;
     }
-    return `@keyframes ${name}{${steps.join('')}}`;
+
+    const animatedTargets = [nameEl, roleEl, bioEl, eraEl, missionEl, quoteEl, quoteAuthorEl, impactEl, fieldEl].filter(Boolean);
+
+    if (window.gsap && animatedTargets.length) {
+      window.gsap.to(animatedTargets, {
+        opacity: 0,
+        y: -4,
+        duration: 0.16,
+        stagger: 0.012,
+        onComplete: () => {
+          if (entryEl) entryEl.textContent = `LOG ${String(idx + 1).padStart(2, '0')} // ${String(totalItems).padStart(2, '0')}`;
+          if (fieldEl) fieldEl.textContent = (item.field || 'ASTROPHYSICS').toUpperCase();
+          if (nameEl) nameEl.textContent = item.title || '';
+          if (roleEl) roleEl.textContent = item.subtitle || '';
+          if (bioEl) bioEl.textContent = item.bio || '';
+          if (eraEl) eraEl.textContent = item.era || '1960 – PRESENT';
+          if (missionEl) missionEl.textContent = item.mission || 'NASA DEEP SPACE';
+          if (quoteEl) quoteEl.textContent = item.quote || '';
+          if (quoteAuthorEl) quoteAuthorEl.textContent = item.title ? `— ${item.title}` : '';
+          if (impactEl) impactEl.textContent = item.impact || '';
+
+          window.gsap.fromTo(animatedTargets,
+            { opacity: 0, y: 5 },
+            { opacity: 1, y: 0, duration: 0.26, stagger: 0.015, ease: 'power2.out' }
+          );
+        }
+      });
+    } else {
+      if (entryEl) entryEl.textContent = `LOG ${String(idx + 1).padStart(2, '0')} // ${String(totalItems).padStart(2, '0')}`;
+      if (fieldEl) fieldEl.textContent = (item.field || 'ASTROPHYSICS').toUpperCase();
+      if (nameEl) nameEl.textContent = item.title || '';
+      if (roleEl) roleEl.textContent = item.subtitle || '';
+      if (bioEl) bioEl.textContent = item.bio || '';
+      if (eraEl) eraEl.textContent = item.era || '1960 – PRESENT';
+      if (missionEl) missionEl.textContent = item.mission || 'NASA DEEP SPACE';
+      if (quoteEl) quoteEl.textContent = item.quote || '';
+      if (quoteAuthorEl) quoteAuthorEl.textContent = item.title ? `— ${item.title}` : '';
+      if (impactEl) impactEl.textContent = item.impact || '';
+    }
   }
 
-  const rightAnim = 'ish-r-nasa';
-  const leftAnim = 'ish-l-nasa';
-  const cardClass = 'ish-c-nasa';
-
-  const styleEl = document.createElement('style');
-  styleEl.textContent = `
-    ${generateKeyframes(1, rightAnim)}
-    ${generateKeyframes(-1, leftAnim)}
-    @media(prefers-reduced-motion:reduce){.${cardClass}{animation-play-state:paused!important}}
-  `;
-  document.head.appendChild(styleEl);
-
-  const stage = document.createElement('div');
-  stage.className = 'corridor-3d-stage';
-  stage.style.perspective = `${p.perspective}cqw`;
-  stage.style.perspectiveOrigin = `50% ${axis}%`;
-
-  [rightAnim, leftAnim].forEach(animName => {
-    for (let i = 0; i < cards; i++) {
-      const imgData = NASA_IMAGES[i % NASA_IMAGES.length];
-      const card = document.createElement('div');
-      card.className = `corridor-card ${cardClass}`;
-      card.style.left = '50%';
-      card.style.top = `${axis}%`;
-      card.style.width = `${p.cardWidth}cqw`;
-      card.style.height = `${p.cardHeight}cqw`;
-      card.style.marginLeft = `${-p.cardWidth / 2}cqw`;
-      card.style.marginTop = `${-p.cardHeight / 2}cqw`;
-      card.style.borderRadius = `${p.cardRadius}cqw`;
-      card.style.animation = `${animName} ${speed}s linear infinite`;
-      card.style.animationDelay = `${-(i * speed) / cards}s`;
-      card.style.backfaceVisibility = 'hidden';
-
-      const img = document.createElement('img');
-      img.src = imgData.src;
-      img.alt = imgData.alt;
-      img.loading = 'lazy';
-      img.decoding = 'async';
-      img.draggable = false;
-
-      card.appendChild(img);
-      stage.appendChild(card);
+  // Initialize compact FlexCarousel: very small cards so maximum images are visible at once
+  const carousel = new VanillaFlexCarousel(container, {
+    items: NASA_SCIENTIST_ITEMS,
+    preset: 'liquid',
+    intro: 'rise',
+    cardHeight: window.innerWidth < 768 ? 0.35 : 0.28,
+    gap: 5,
+    radius: 8,
+    squeeze: 0.06,
+    rotation: window.innerWidth < 900 ? -10 : -18,
+    focusOnClick: true,
+    captions: false,
+    autoplay: true,
+    interval: 5.0,
+    captureWheel: true,
+    onChange: (idx, item) => {
+      updateScientistBlogUI(idx, item);
     }
   });
 
-  container.appendChild(stage);
-
-  // Scientist Spotlight interactive switcher
-  const scientistsData = [
-    {
-      name: "Katherine Johnson",
-      role: "ORBITAL TRAJECTORY SPECIALIST",
-      desc: "Calculated the exact flight trajectories, launch windows, and emergency return paths for Project Mercury, the Apollo 11 lunar landing, and the Space Shuttle program.",
-      quote: '"Like what you do, and then you will do your best."'
-    },
-    {
-      name: "Dr. Nancy Grace Roman",
-      role: "CHIEF OF ASTRONOMY • 'MOTHER OF HUBBLE'",
-      desc: "NASA's first Chief of Astronomy. Conceived and fought for space telescopes operating above Earth's atmosphere, leading directly to the Hubble Space Telescope.",
-      quote: '"I was told from the beginning that women could not be scientists. I ignored them."'
-    },
-    {
-      name: "Dr. Carl Sagan",
-      role: "PLANETARY SCIENTIST & ASTROBIOLOGIST",
-      desc: "Designed the Golden Record messages aboard Voyager 1 & 2, unraveled Venus's extreme greenhouse atmosphere, and inspired generations to explore the cosmos.",
-      quote: '"Somewhere, something incredible is waiting to be known."'
-    },
-    {
-      name: "Dr. Eugene Shoemaker",
-      role: "LUNAR GEOLOGIST & IMPACT PIONEER",
-      desc: "Trained Apollo astronauts on lunar craters, co-discovered Comet Shoemaker-Levy 9, and founded planetary geology as a formal scientific discipline.",
-      quote: '"The Moon is a cosmic tapestry of solar system history."'
-    },
-    {
-      name: "Dr. Katie Bouman",
-      role: "COMPUTATIONAL IMAGING & ASTROPHYSICS",
-      desc: "Led the breakthrough CHIRP algorithm that aligned petabytes of Event Horizon Telescope data to capture humanity's very first direct image of a supermassive black hole.",
-      quote: '"No one of us could have done it alone. Teamwork makes the impossible visible."'
-    }
-  ];
-
-  const tabs = document.querySelectorAll('.spotlight-tab');
-  const roleEl = document.getElementById('spotlight-role');
-  const nameEl = document.getElementById('spotlight-name');
-  const descEl = document.getElementById('spotlight-desc');
-  const quoteEl = document.getElementById('spotlight-quote');
-
-  tabs.forEach(tab => {
-    tab.addEventListener('click', () => {
-      const idx = parseInt(tab.getAttribute('data-index'), 10);
-      if (isNaN(idx) || !scientistsData[idx]) return;
-
-      tabs.forEach(t => t.classList.remove('active'));
-      tab.classList.add('active');
-
-      const data = scientistsData[idx];
-      if (roleEl) roleEl.textContent = data.role;
-      if (nameEl) nameEl.textContent = data.name;
-      if (descEl) descEl.textContent = data.desc;
-      if (quoteEl) quoteEl.textContent = data.quote;
+  // Interactive navigation buttons
+  if (prevBtn) {
+    prevBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      carousel.prev();
     });
-  });
+  }
+  if (nextBtn) {
+    nextBtn.addEventListener('click', (e) => {
+      e.stopPropagation();
+      carousel.next();
+    });
+  }
+
+  // Initial sync with first item
+  updateScientistBlogUI(0, NASA_SCIENTIST_ITEMS[0]);
+
+  window.scientistsCarousel = carousel;
 }
 
 // ─── 8. COSMOS 3D ORBIT GALLERY (Particle Sphere + Outward Orbiting Images) ───
@@ -1742,7 +1693,7 @@ function initCosmosOrbitGallery() {
 
   const controls = new OrbitControls(camera, renderer.domElement);
   controls.enablePan = true;
-  controls.enableZoom = true;
+  controls.enableZoom = false;
   controls.enableRotate = true;
   controls.enableDamping = true;
   controls.dampingFactor = 0.05;
@@ -1940,7 +1891,7 @@ document.addEventListener('DOMContentLoaded', () => {
     changeMenuColorOnOpen: false
   });
   initUnifiedLanyardStage();
-  initScientistsHeroCorridor();
+  initScientistsSection();
   initCosmosOrbitGallery();
   initInsideNasaSection();
   new FullPageSectionController();

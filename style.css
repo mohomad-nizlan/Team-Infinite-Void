@@ -1562,399 +1562,310 @@ body {
 }
 
 /* ============================================================
-   NASA SCIENTISTS SECTION (White Background • 3D Image Stream Corridor)
+   NASA SCIENTISTS SECTION (Newspaper-style layout — no containers)
    ============================================================ */
+:root {
+  --scientist-track-rot: -18deg;
+}
+
 .scientists-section {
   position: relative;
   width: 100vw;
   height: 100vh;
   min-height: 100vh;
   max-height: 100vh;
-  background: #ffffff;
-  color: #0f172a;
+  background: transparent;
+  color: var(--white, #f1f5f9);
   overflow: hidden;
   z-index: 2;
-  display: flex;
-  flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: clamp(20px, 3vh, 32px) clamp(20px, 4vw, 48px);
+  display: block;
   scroll-snap-align: start;
   scroll-snap-stop: always;
   box-sizing: border-box;
 }
 
-.scientists-section::before {
-  content: '';
+/* LEFT column — locked into the TOP-LEFT empty triangle (above the diagonal strip) */
+.scientists-blog-article {
   position: absolute;
-  inset: 0;
-  background-image: 
-    linear-gradient(to right, rgba(15, 23, 42, 0.05) 1px, transparent 1px),
-    linear-gradient(to bottom, rgba(15, 23, 42, 0.05) 1px, transparent 1px);
-  background-size: 36px 36px;
-  pointer-events: none;
-  z-index: 0;
-}
-
-.scientists-header {
-  position: relative;
+  top: clamp(1.2rem, 2.5vh, 2rem);
+  left: clamp(1.8rem, 3.5vw, 3.5rem);
+  /* right boundary keeps text away from right side */
+  right: 52vw;
+  /* bottom boundary: stays well above the carousel strip center */
+  bottom: 52vh;
   z-index: 10;
-  text-align: center;
-  max-width: 900px;
-  margin: 0 auto;
+  pointer-events: auto;
   display: flex;
   flex-direction: column;
-  align-items: center;
-  gap: 8px;
-  flex-shrink: 0;
+  gap: 0;
+  overflow: hidden;
 }
 
-.scientists-pill {
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 6px 16px;
-  background: rgba(2, 132, 199, 0.08);
-  border: 1px solid rgba(2, 132, 199, 0.25);
-  border-radius: 9999px;
-  font-family: var(--ff-tech);
-  font-size: 0.85rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #0369a1;
-  text-transform: uppercase;
+
+/* Hide badge */
+.scientists-category-badge { display: none !important; }
+
+.scientists-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: pulseDot 2s infinite ease-in-out;
 }
 
-.scientists-pill .pill-icon {
-  width: 14px;
-  height: 14px;
-  stroke: #0284c7;
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
 }
 
-.scientists-pill .pill-sparkle {
-  color: #f59e0b;
-}
-
-.scientists-title {
-  font-family: var(--ff-display);
-  font-size: clamp(1.8rem, 3.2vw, 2.7rem);
+.scientists-main-title {
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3.4rem);
   font-weight: 900;
-  letter-spacing: 2px;
-  color: #0f172a;
-  margin: 0;
-  line-height: 1.15;
+  line-height: 1.0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 2rem 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
 }
 
 .scientists-title-gradient {
-  background: linear-gradient(135deg, #0284c7 0%, #2563eb 50%, #4f46e5 100%);
-  -webkit-background-clip: text;
-  -webkit-text-fill-color: transparent;
+  color: #00f0ff;
+  -webkit-text-fill-color: #00f0ff;
+  background: none;
 }
 
-.scientists-subtitle {
-  font-family: var(--ff-body);
-  font-size: clamp(0.85rem, 1.1vw, 1.02rem);
-  color: #64748b;
-  max-width: 680px;
-  margin: 0 auto;
-  line-height: 1.45;
-}
-
-.scientists-stream-wrap {
-  position: relative;
-  z-index: 5;
-  width: 100%;
-  max-width: 1360px;
-  flex: 1;
-  min-height: 0;
-  margin: 10px 0;
-  border-radius: 20px;
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  background: #f8fafc;
-  box-shadow: 0 20px 45px -15px rgba(15, 23, 42, 0.08), 0 0 0 1px rgba(15, 23, 42, 0.03);
-  overflow: hidden;
-  container-type: inline-size;
-}
-
-.scientists-stream-hero {
-  position: relative;
-  width: 100%;
-  height: 100%;
-  overflow: hidden;
-}
-
-.corridor-viewport {
-  position: absolute;
-  inset: 0;
-  pointer-events: none;
-  overflow: hidden;
-}
-
-.corridor-3d-stage {
-  position: absolute;
-  inset: 0;
-  transform-style: preserve-3d;
-}
-
-.corridor-card {
-  position: absolute;
-  overflow: hidden;
-  box-shadow: 0 10px 25px rgba(15, 23, 42, 0.18), 0 0 0 1px rgba(255, 255, 255, 0.4);
-  background: #0f172a;
-  transform-origin: center center;
-}
-
-.corridor-card img {
-  width: 100%;
-  height: 100%;
-  object-fit: cover;
-  display: block;
-}
-
-.corridor-overlay {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  height: 100%;
+/* Story card — NO container, raw text only */
+.scientist-story-card {
+  background: none;
+  border: none;
+  padding: 0;
   display: flex;
   flex-direction: column;
-  justify-content: space-between;
-  align-items: center;
-  padding: clamp(14px, 2vh, 22px);
-  pointer-events: none;
+  gap: 0.35rem;
 }
 
-.corridor-top-badge {
-  pointer-events: auto;
-  display: inline-flex;
-  align-items: center;
-  gap: 8px;
-  padding: 5px 14px;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(226, 232, 240, 0.9);
-  border-radius: 9999px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.06);
-  font-family: var(--ff-tech);
-  font-size: 0.76rem;
-  font-weight: 700;
-  letter-spacing: 1.5px;
-  color: #475569;
-  backdrop-filter: blur(8px);
-}
 
-.badge-dot {
-  width: 7px;
-  height: 7px;
-  border-radius: 50%;
-  background: #10b981;
-  box-shadow: 0 0 8px #10b981;
-}
-
-.scientist-spotlight-card {
-  pointer-events: auto;
-  background: rgba(255, 255, 255, 0.92);
-  border: 1px solid rgba(255, 255, 255, 0.95);
-  box-shadow: 0 20px 40px -10px rgba(15, 23, 42, 0.12), 0 0 0 1px rgba(226, 232, 240, 0.8);
-  border-radius: 18px;
-  padding: clamp(14px, 2.2vh, 22px) clamp(16px, 2.5vw, 28px);
-  max-width: 580px;
-  width: 90%;
-  text-align: center;
-  backdrop-filter: blur(14px);
-  transition: transform 0.3s var(--ease), box-shadow 0.3s var(--ease);
-}
-
-.scientist-spotlight-card:hover {
-  transform: translateY(-2px);
-  box-shadow: 0 24px 48px -10px rgba(15, 23, 42, 0.16);
-}
-
-.spotlight-nav {
-  display: flex;
-  justify-content: center;
-  gap: 6px;
-  flex-wrap: wrap;
-  margin-bottom: 12px;
-}
-
-.spotlight-tab {
-  background: #f1f5f9;
-  border: 1px solid #e2e8f0;
-  border-radius: 9999px;
-  padding: 4px 12px;
-  font-family: var(--ff-tech);
-  font-size: 0.78rem;
-  font-weight: 600;
-  color: #475569;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.spotlight-tab:hover {
-  background: #e2e8f0;
-  color: #0f172a;
-}
-
-.spotlight-tab.active {
-  background: #0284c7;
-  border-color: #0284c7;
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.3);
-}
-
-.spotlight-role-tag {
-  font-family: var(--ff-tech);
-  font-size: 0.72rem;
-  font-weight: 700;
-  letter-spacing: 2px;
-  color: #0284c7;
-  text-transform: uppercase;
-  margin-bottom: 4px;
-}
-
-.spotlight-name {
-  font-family: var(--ff-display);
-  font-size: clamp(1.2rem, 1.8vw, 1.6rem);
-  font-weight: 800;
-  color: #0f172a;
-  margin: 0 0 6px;
-}
-
-.spotlight-desc {
-  font-family: var(--ff-body);
-  font-size: clamp(0.78rem, 0.95vw, 0.92rem);
-  color: #475569;
-  line-height: 1.45;
-  margin: 0 0 8px;
-}
-
-.spotlight-quote {
-  font-family: var(--ff-body);
-  font-style: italic;
-  font-size: 0.8rem;
-  color: #64748b;
-  margin-bottom: 12px;
-}
-
-.spotlight-actions {
-  display: flex;
-  justify-content: center;
-  gap: 10px;
-  flex-wrap: wrap;
-}
-
-.spotlight-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 7px 16px;
-  border-radius: 9999px;
-  font-family: var(--ff-tech);
-  font-size: 0.82rem;
-  font-weight: 700;
-  letter-spacing: 1px;
-  text-decoration: none;
-  cursor: pointer;
-  transition: all 0.2s ease;
-}
-
-.spotlight-btn.primary {
-  background: #0f172a;
-  color: #ffffff;
-}
-
-.spotlight-btn.primary:hover {
-  background: #0284c7;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.35);
-}
-
-.spotlight-btn.secondary {
-  background: #f8fafc;
-  color: #334155;
-  border: 1px solid #cbd5e1;
-}
-
-.spotlight-btn.secondary:hover {
-  background: #ffffff;
-  border-color: #94a3b8;
-}
-
-.corridor-bottom-legend {
-  pointer-events: auto;
-  padding: 4px 14px;
-  background: rgba(15, 23, 42, 0.85);
-  border-radius: 9999px;
-  font-family: var(--ff-tech);
-  font-size: 0.7rem;
-  letter-spacing: 1.5px;
-  color: #e2e8f0;
-  backdrop-filter: blur(6px);
-}
-
-.scientists-stats-bar {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-around;
-  width: 100%;
-  max-width: 1100px;
-  padding: 10px 24px;
-  background: #f8fafc;
-  border: 1px solid #e2e8f0;
-  border-radius: 14px;
-  box-shadow: 0 4px 12px rgba(15, 23, 42, 0.04);
-  flex-shrink: 0;
-}
-
-.stat-item {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  text-align: center;
-}
-
-.stat-number {
-  font-family: var(--ff-display);
-  font-size: clamp(1.1rem, 1.6vw, 1.5rem);
+.scientist-dynamic-name {
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
   font-weight: 900;
-  color: #0f172a;
+  color: #ffffff;
+  margin: 0.08rem 0 0 0;
+  line-height: 1.08;
   letter-spacing: 0.5px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+  transition: opacity 0.22s ease, transform 0.22s ease;
 }
 
-.stat-label {
-  font-family: var(--ff-tech);
-  font-size: clamp(0.64rem, 0.8vw, 0.74rem);
+.scientist-dynamic-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.68rem, 0.84vw, 0.8rem);
+  font-weight: 600;
+  color: #00f0ff;
+  margin: 0 0 0.28rem 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: opacity 0.22s ease;
+}
+
+.scientist-dynamic-bio {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.72rem, 0.86vw, 0.82rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  transition: opacity 0.22s ease;
+  column-count: 1;
+}
+
+
+/* Vignette — darkens BOTH the top-left AND bottom-right corners for text readability */
+.scientists-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 5% 10%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 38%, transparent 60%),
+    radial-gradient(ellipse at 95% 90%, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 38%, transparent 60%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Carousel strip — tall enough to show well-sized cards, cardHeight ratio kept small so many cards appear */
+.scientists-flex-carousel {
+  position: absolute;
+  width: 180vw;
+  height: clamp(200px, 22vh, 280px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--scientist-track-rot, -18deg));
+  transform-origin: center center;
+  z-index: 5;
+  overflow: visible;
+  outline: none;
+  pointer-events: auto;
+}
+
+/* RIGHT column — locked safely in the BOTTOM-RIGHT corner with generous bottom gap */
+.scientists-dispatch-panel {
+  position: absolute;
+  bottom: clamp(3.6rem, 7vh, 5.8rem);
+  right: clamp(2rem, 4vw, 4.2rem);
+  left: auto;
+  top: auto;
+  width: min(520px, 42vw);
+  max-width: 520px;
+  z-index: 10;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.scientist-dynamic-quote {
+  font-family: 'Instrument Serif', 'Georgia', serif;
+  font-style: italic;
+  font-size: clamp(0.98rem, 1.16vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.95);
+  transition: opacity 0.22s ease;
+}
+
+.dispatch-attribution {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.72rem, 0.82vw, 0.84rem);
+  margin-top: -0.1rem;
+}
+
+.dispatch-author {
+  color: #00f0ff;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 240, 255, 0.35);
+  transition: opacity 0.22s ease;
+}
+
+.dispatch-dot {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+}
+
+.dispatch-era {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: opacity 0.22s ease;
+}
+
+.dispatch-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem 1.1rem;
+  margin-top: 0.25rem;
+}
+
+.dispatch-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dispatch-meta-item.dispatch-meta-full {
+  grid-column: 1 / -1;
+}
+
+.dispatch-meta-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.62rem;
   font-weight: 700;
-  letter-spacing: 1.5px;
-  color: #64748b;
-  margin-top: 2px;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
 }
 
-.stat-separator {
-  width: 1px;
-  height: 28px;
-  background: #cbd5e1;
+.dispatch-meta-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.7rem, 0.8vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+  transition: opacity 0.22s ease;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
 }
 
-@media (max-width: 768px) {
+.dispatch-status { display: none; }
+.status-indicator { display: none; }
+
+@media (max-width: 900px) {
+  :root {
+    --scientist-track-rot: -10deg;
+  }
+
   .scientists-section {
-    padding: 18px 12px;
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
+    overflow-y: auto;
+    padding: 2rem 1.2rem 3rem;
+    gap: 1.5rem;
   }
-  .scientists-stats-bar {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 12px;
-    padding: 10px;
+
+  .scientists-blog-article {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-width: 100%;
   }
-  .stat-separator {
+
+  .scientists-vignette {
     display: none;
   }
-  .spotlight-quote {
-    display: none;
+
+  .scientists-flex-carousel {
+    position: relative;
+    width: 150vw;
+    height: 200px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) rotate(var(--scientist-track-rot, -10deg));
+    margin: 1rem 0;
   }
-  .corridor-top-badge, .corridor-bottom-legend {
-    display: none;
+
+  .scientist-dynamic-bio { column-count: 1; }
+
+  .scientists-dispatch-panel {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dispatch-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
   }
 }
 

@@ -876,8 +876,9 @@ export class VanillaInfiniteMenu {
       canvas.releasePointerCapture?.(event.pointerId);
       if (this.drag.moved < 6 && performance.now() - this.drag.start < 450) {
         const index = this.pick(event.clientX, event.clientY);
-        if (index >= 0 && index === this.state.front) this.activate(index);
-        else if (index >= 0) this.goTo(index);
+        if (index >= 0) {
+          this.activate(index);
+        }
       }
       this.wake();
     };
