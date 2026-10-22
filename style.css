@@ -2062,70 +2062,42 @@ body {
 
 .cosmos-hud {
   position: absolute;
-  bottom: 2rem;
-  left: 0;
-  right: 0;
+  bottom: 2.5rem;
+  right: 2.5rem;
   z-index: 10;
   display: flex;
-  justify-content: space-between;
   align-items: center;
-  padding: 0 3rem;
+  justify-content: flex-end;
   pointer-events: none;
 }
 
-.cosmos-hud-hint {
+.cosmos-hud-icon-btn {
   display: inline-flex;
   align-items: center;
-  gap: 8px;
-  padding: 7px 16px;
-  background: rgba(8, 12, 22, 0.75);
-  border: 1px solid rgba(255, 255, 255, 0.12);
-  border-radius: 9999px;
-  backdrop-filter: blur(12px);
-  font-family: var(--ff-tech);
-  font-size: 0.72rem;
-  font-weight: 600;
-  letter-spacing: 1.5px;
-  color: #cbd5e1;
-  pointer-events: auto;
-}
-
-.hud-icon {
-  width: 14px;
-  height: 14px;
-  color: var(--cyan);
-}
-
-.cosmos-hud-controls {
-  display: inline-flex;
-  align-items: center;
-  gap: 10px;
-  pointer-events: auto;
-}
-
-.cosmos-hud-btn {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  padding: 8px 16px;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
   background: rgba(255, 255, 255, 0.08);
   border: 1px solid rgba(255, 255, 255, 0.2);
-  border-radius: 8px;
+  border-radius: 50%;
   color: #ffffff;
-  font-family: var(--ff-tech);
-  font-size: 0.75rem;
-  font-weight: 700;
-  letter-spacing: 1.2px;
   cursor: pointer;
   backdrop-filter: blur(12px);
-  transition: all 0.2s cubic-bezier(0.16, 1, 0.3, 1);
+  pointer-events: auto;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
 }
 
-.cosmos-hud-btn:hover {
-  background: rgba(255, 255, 255, 0.18);
-  border-color: rgba(255, 255, 255, 0.4);
-  transform: translateY(-2px);
-  box-shadow: 0 6px 20px rgba(0, 0, 0, 0.4);
+.cosmos-hud-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: scale(1.08) rotate(-45deg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 255, 255, 0.25);
+}
+
+.cosmos-hud-icon-btn:active {
+  transform: scale(0.95);
 }
 
 @media (max-width: 768px) {
@@ -2143,17 +2115,11 @@ body {
     line-height: 1.2;
   }
   .cosmos-hud {
-    bottom: 1.2rem;
-    padding: 0 1rem;
-    flex-direction: column;
-    gap: 8px;
+    bottom: 1.5rem;
+    right: 1.5rem;
   }
-  .cosmos-hud-hint {
-    font-size: 0.62rem;
-    padding: 5px 10px;
-  }
-  .cosmos-hud-btn {
-    padding: 6px 12px;
-    font-size: 0.68rem;
+  .cosmos-hud-icon-btn {
+    width: 40px;
+    height: 40px;
   }
 }

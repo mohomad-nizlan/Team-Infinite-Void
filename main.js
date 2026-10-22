@@ -1858,20 +1858,17 @@ function initCosmosOrbitGallery() {
     group.add(mesh);
   }
 
-  // Animation loop with controllable auto-spin
-  let isSpinning = true;
+  // Continuous smooth celestial rotation animation loop
   function animate() {
     requestAnimationFrame(animate);
-    if (isSpinning) {
-      group.rotation.y += ROTATION_SPEED_Y;
-      group.rotation.x += ROTATION_SPEED_X;
-    }
+    group.rotation.y += ROTATION_SPEED_Y;
+    group.rotation.x += ROTATION_SPEED_X;
     controls.update();
     renderer.render(scene, camera);
   }
   animate();
 
-  // Reset Camera View button
+  // Reset Camera View button (Icon only)
   const resetBtn = document.getElementById('cosmos-reset-cam');
   if (resetBtn) {
     resetBtn.addEventListener('click', () => {
@@ -1883,18 +1880,6 @@ function initCosmosOrbitGallery() {
         ease: 'power2.inOut',
         onUpdate: () => controls.update()
       });
-    });
-  }
-
-  // Toggle Auto-spin button
-  const spinBtn = document.getElementById('cosmos-toggle-spin');
-  const spinLabel = document.getElementById('cosmos-spin-label');
-  if (spinBtn) {
-    spinBtn.addEventListener('click', () => {
-      isSpinning = !isSpinning;
-      if (spinLabel) {
-        spinLabel.textContent = `Auto-Spin: ${isSpinning ? 'ON' : 'OFF'}`;
-      }
     });
   }
 
