@@ -42,14 +42,14 @@ const BAND_BEND = [-0.95, -0.28, 0.28, 0.95];
 const FLIP_SPIN = 9;
 
 const METALS = {
-  silver:   { color: '#d9dce2', roughness: 0.16 },
-  gold:     { color: '#e4b965', roughness: 0.20 },
+  silver: { color: '#d9dce2', roughness: 0.16 },
+  gold: { color: '#e4b965', roughness: 0.20 },
   graphite: { color: '#4d4f55', roughness: 0.28 }
 };
 
 // ── Math & Color Helpers ─────────────────────────────────────
 const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
-const mix   = (a, b, t) => a + (b - a) * t;
+const mix = (a, b, t) => a + (b - a) * t;
 
 const parseColor = (value, fallback) => {
   try {
@@ -244,8 +244,8 @@ const buildEnvironment = renderer => {
     scene.add(mesh);
   };
   panel(2.6, [0, 4.5, 8], [9, 4]);
-  panel(6,   [-5.5, 0.5, 7], [0.9, 14]);
-  panel(4,   [5, -0.5, 8], [0.6, 14]);
+  panel(6, [-5.5, 0.5, 7], [0.9, 14]);
+  panel(4, [5, -0.5, 8], [0.6, 14]);
   panel(3.5, [0, -1, 9], [24, 0.35], Math.PI / 3);
   panel(2.5, [1, 2.5, 9], [24, 0.2], Math.PI / 3);
   panel(1.4, [0, 6, -6], [12, 4]);
@@ -546,7 +546,7 @@ function drawCardBack(canvas, member) {
   ctx.fillStyle = '#050505';
   while (curX < w - 140) {
     const barW = Math.floor(rng() * 11 + 4);
-    const gap  = Math.floor(rng() * 10 + 4);
+    const gap = Math.floor(rng() * 10 + 4);
     ctx.fillRect(curX, barY, barW, barH);
     curX += barW + gap;
   }
@@ -929,17 +929,17 @@ export function initUnifiedLanyardStage() {
       linkedin: 'https://www.linkedin.com/in/byon-void'
     },
     {
-      id: 'malik',
-      name: 'Malik',
+      id: 'Luqman',
+      name: 'Luqman',
       role: 'Speaker',
-      handle: '@malik',
+      handle: '@luqman',
       front: '/assets/reference_badge.png?v=20261021j',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: 'https://www.instagram.com/malik.speaker',
-      linkedin: 'https://www.linkedin.com/in/malik-speaker'
+      instagram: 'https://www.instagram.com/lukman.speaker',
+      linkedin: 'https://www.linkedin.com/in/lukman-speaker'
     }
   ];
 
@@ -950,10 +950,10 @@ export function initUnifiedLanyardStage() {
     const geometry = buildCardGeometry(layout);
 
     const frontCanvas = document.createElement('canvas');
-    const backCanvas  = document.createElement('canvas');
+    const backCanvas = document.createElement('canvas');
     const strapCanvas = document.createElement('canvas');
     const frontTexture = makeCanvasTexture(frontCanvas, anisotropy);
-    const backTexture  = makeCanvasTexture(backCanvas, anisotropy);
+    const backTexture = makeCanvasTexture(backCanvas, anisotropy);
     const strapTexture = makeCanvasTexture(strapCanvas, anisotropy);
     strapTexture.wrapS = THREE.ClampToEdgeWrapping;
     strapTexture.wrapT = THREE.RepeatWrapping;
@@ -969,9 +969,9 @@ export function initUnifiedLanyardStage() {
       normalScale: new THREE.Vector2(0.04, 0.04)
     });
 
-    const edgeMaterial  = new THREE.MeshPhysicalMaterial();
+    const edgeMaterial = new THREE.MeshPhysicalMaterial();
     const metalMaterial = new THREE.MeshStandardMaterial({ metalness: 1 });
-    const bandMaterial  = new THREE.MeshPhysicalMaterial({
+    const bandMaterial = new THREE.MeshPhysicalMaterial({
       map: strapTexture,
       normalMap: weave,
       normalScale: new THREE.Vector2(0.8, 0.8),
@@ -1023,13 +1023,13 @@ export function initUnifiedLanyardStage() {
       if (frontCanvas.width !== width || frontCanvas.height !== height) {
         frontCanvas.width = width;
         frontCanvas.height = height;
-        backCanvas.width  = width;
-        backCanvas.height  = height;
+        backCanvas.width = width;
+        backCanvas.height = height;
       }
       drawCardFront(frontCanvas, frontImageObj, opts);
       drawCardBack(backCanvas, opts);
       frontTexture.needsUpdate = true;
-      backTexture.needsUpdate  = true;
+      backTexture.needsUpdate = true;
     };
     paintCardFaces(null);
 
@@ -1038,12 +1038,12 @@ export function initUnifiedLanyardStage() {
     });
 
     const cardGroup = new THREE.Group();
-    const bodyMesh  = new THREE.Mesh(geometry.body, edgeMaterial);
+    const bodyMesh = new THREE.Mesh(geometry.body, edgeMaterial);
     const frontMesh = new THREE.Mesh(geometry.face, frontMaterial);
-    const backMesh  = new THREE.Mesh(geometry.backFace, backMaterial);
+    const backMesh = new THREE.Mesh(geometry.backFace, backMaterial);
     frontMesh.position.z = THICKNESS / 2 + BEVEL + 0.0006;
-    backMesh.rotation.y  = Math.PI;
-    backMesh.position.z  = -(THICKNESS / 2 + BEVEL + 0.0006);
+    backMesh.rotation.y = Math.PI;
+    backMesh.position.z = -(THICKNESS / 2 + BEVEL + 0.0006);
 
     const ring = new THREE.Mesh(new THREE.TorusGeometry(RING_RADIUS, RING_TUBE, 18, 72), metalMaterial);
     ring.rotation.y = Math.PI / 2 - 0.7;
@@ -1054,25 +1054,25 @@ export function initUnifiedLanyardStage() {
 
     const strapScale = STRAP_WIDTH * 0.65;
     const clampGroup = new THREE.Group();
-    const clampMesh  = new THREE.Mesh(buildClampGeometry(strapScale), metalMaterial);
+    const clampMesh = new THREE.Mesh(buildClampGeometry(strapScale), metalMaterial);
     clampMesh.position.y = EYELET_RADIUS + CLAMP_BODY / 2 - 0.004;
-    const eyelet     = new THREE.Mesh(new THREE.TorusGeometry(EYELET_RADIUS, 0.0105, 14, 40), metalMaterial);
+    const eyelet = new THREE.Mesh(new THREE.TorusGeometry(EYELET_RADIUS, 0.0105, 14, 40), metalMaterial);
     clampGroup.add(clampMesh, eyelet);
     scene.add(clampGroup);
 
     const bandGeometry = buildBandGeometry(SAMPLES);
-    const band         = new THREE.Mesh(bandGeometry, bandMaterial);
+    const band = new THREE.Mesh(bandGeometry, bandMaterial);
     band.frustumCulled = false;
     scene.add(band);
 
     const sim = createSimulation();
     const controls = [];
     const mouth = new THREE.Vector3();
-    const tuck  = new THREE.Vector3();
+    const tuck = new THREE.Vector3();
     const curve = new THREE.CatmullRomCurve3(controls, false, 'centripetal');
     const points = Array.from({ length: SAMPLES }, () => new THREE.Vector3());
-    const sides  = Array.from({ length: SAMPLES }, () => new THREE.Vector3());
-    const bends  = BAND_BEND.map(angle => [Math.cos(angle), Math.sin(angle)]);
+    const sides = Array.from({ length: SAMPLES }, () => new THREE.Vector3());
+    const bends = BAND_BEND.map(angle => [Math.cos(angle), Math.sin(angle)]);
     const work = {
       tangent: new THREE.Vector3(),
       toCamera: new THREE.Vector3(),
@@ -1440,7 +1440,7 @@ export function initUnifiedLanyardStage() {
 
   canvas.addEventListener('pointerdown', onPointerDown);
   canvas.addEventListener('pointermove', onPointerMove);
-  canvas.addEventListener('pointerup',   onPointerUp);
+  canvas.addEventListener('pointerup', onPointerUp);
   canvas.addEventListener('pointercancel', onPointerUp);
   canvas.addEventListener('lostpointercapture', onPointerUp);
   canvas.addEventListener('touchstart', onTouchStart, { passive: false });

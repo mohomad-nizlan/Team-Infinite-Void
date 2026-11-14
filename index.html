@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -8,14 +8,19 @@
   <link rel="icon" type="image/png" href="public/assets/logo.png">
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261021s">
-  <link rel="stylesheet" href="InfiniteMenu.css?v=20261021s">
+  <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="style.css?v=20261023c">
+  <link rel="stylesheet" href="InfiniteMenu.css?v=20261022a">
+  <link rel="stylesheet" href="DriftWall.css?v=20261022b">
+  <link rel="stylesheet" href="FlexCarousel.css?v=20261022f">
+  <link rel="stylesheet" href="Folder.css?v=20261023c">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script type="importmap">
   {
     "imports": {
-      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js"
+      "three": "https://cdn.jsdelivr.net/npm/three@0.169.0/build/three.module.js",
+      "three/addons/": "https://cdn.jsdelivr.net/npm/three@0.169.0/examples/jsm/",
+      "ogl": "https://esm.sh/ogl@1.0.11"
     }
   }
   </script>
@@ -99,7 +104,7 @@
           type="button"
         >
           <span class="sm-toggle-text">MENU</span>
-          <span class="sm-close-mark" aria-hidden="true" title="Close menu">✕</span>
+          <span class="sm-close-mark" aria-hidden="true" title="Close menu">âœ•</span>
         </button>
       </header>
 
@@ -112,7 +117,7 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#missions-page" aria-label="Explore 20 discarded relics missions">
+              <a class="sm-panel-item" href="#missions-page" aria-label="Explore 26 historic missions with discarded equipment with discarded equipment">
                 <span class="sm-panel-itemLabel">Missions</span>
               </a>
             </li>
@@ -132,18 +137,23 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#demo-1" aria-label="Demo 1">
-                <span class="sm-panel-itemLabel">Demo 1</span>
+              <a class="sm-panel-item" href="#scientists-section" aria-label="NASA Scientists and Cosmic Pioneers">
+                <span class="sm-panel-itemLabel">Scientists</span>
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#demo-2" aria-label="Demo 2">
-                <span class="sm-panel-itemLabel">Demo 2</span>
+              <a class="sm-panel-item" href="#cosmos-section" aria-label="Cosmos 3D Orbit Gallery">
+                <span class="sm-panel-itemLabel">Cosmos 3D</span>
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#demo-3" aria-label="Demo 3">
-                <span class="sm-panel-itemLabel">Demo 3</span>
+              <a class="sm-panel-item" href="#inside-nasa-section" aria-label="Inside NASA Facilities and Cleanrooms">
+                <span class="sm-panel-itemLabel">Inside NASA</span>
+              </a>
+            </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#research-section" aria-label="Our Research Documents and Archival Dossiers">
+                <span class="sm-panel-itemLabel">Research</span>
               </a>
             </li>
           </ul>
@@ -161,10 +171,11 @@
         playsinline
         preload="auto"
       >
-        <source src="public/frames/scene-1/scene_1.mp4" type="video/mp4">
-        <source src="./public/frames/scene-1/scene_1.mp4" type="video/mp4">
+        <source src="public/assets/BACKGROUND.mp4" type="video/mp4">
+        <source src="./public/assets/BACKGROUND.mp4" type="video/mp4">
+        <source src="assets/BACKGROUND.mp4" type="video/mp4">
+        <source src="/assets/BACKGROUND.mp4" type="video/mp4">
         <source src="public/videos/scene_1.mp4" type="video/mp4">
-        <source src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4" type="video/mp4">
       </video>
       <div class="hero-video-shade"></div>
     </div>
@@ -205,10 +216,11 @@
                 playsinline
                 preload="auto"
               >
-                <source src="public/frames/scene-1/scene_1.mp4" type="video/mp4">
-                <source src="./public/frames/scene-1/scene_1.mp4" type="video/mp4">
+                <source src="public/assets/BACKGROUND.mp4" type="video/mp4">
+                <source src="./public/assets/BACKGROUND.mp4" type="video/mp4">
+                <source src="assets/BACKGROUND.mp4" type="video/mp4">
+                <source src="/assets/BACKGROUND.mp4" type="video/mp4">
                 <source src="public/videos/scene_1.mp4" type="video/mp4">
-                <source src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4" type="video/mp4">
               </video>
             </foreignObject>
           </svg>
@@ -217,12 +229,12 @@
       </div>
 
       <div class="hero-cta-wrap">
-        <button class="btn-launch-exact" id="btn-launch">LAUNCH</button>
+        <button class="btn-launch-exact" id="btn-launch">EXPLORE</button>
       </div>
     </div>
   </div>
 
-  <!-- ===== 2ND PAGE: 20 NASA MISSIONS WITH DISCARDED EQUIPMENT ===== -->
+  <!-- ===== 2ND PAGE: 26 NASA & DEEP SPACE MISSIONS WITH DISCARDED EQUIPMENT ===== -->
   <section id="missions-page" class="missions-page">
     <div class="missions-bg-image" id="missions-bg-image"></div>
     <div class="missions-overlay-gradient"></div>
@@ -236,10 +248,19 @@
       <!-- RIGHT: JUST HEADING AND PARAGRAPH DIRECTLY OVER THE IMAGE -->
       <div class="missions-text-pane">
         <h2 class="mission-heading" id="mission-heading">APOLLO 11</h2>
-        <p class="mission-subheading" id="mission-subheading">Moon • Sea of Tranquility (1969)</p>
+        <p class="mission-subheading" id="mission-subheading">Moon • Sea of Tranquility (0.674° N, 23.473° E) (1969)</p>
         <p class="mission-paragraph" id="mission-paragraph">
-          Humanity's first footsteps. When the Eagle's ascent stage launched back to orbit, it left behind the gold-foil descent stage, seismic experiments, the laser retroreflector, the television camera, and the astronauts' jettisoned life-support backpacks at Tranquility Base.
+          The first mission to land humans on the Moon. Neil Armstrong and Buzz Aldrin explored the Sea of Tranquility, leaving behind the Eagle lunar module's descent stage and scientific instruments.
         </p>
+        <div class="mission-cta-wrap">
+          <!-- From Uiverse.io by cssbuttons-io --> 
+          <button class="learn-more" id="mission-enter-btn" aria-label="Learn more about mission" title="Learn More">
+            <span class="circle" aria-hidden="true">
+              <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Learn More</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -260,7 +281,7 @@
       <button class="icon-btn audio-btn" id="audio-toggle-btn" title="Toggle Sound (M)">
         <span id="audio-icon">🔊</span>
       </button>
-      <button class="icon-btn exit-btn" id="frame-exit-btn" title="Exit (Esc)">✕</button>
+      <button class="icon-btn exit-btn" id="frame-exit-btn" title="Exit (Esc)">âœ•</button>
     </div>
 
     <!-- Screen 1: Full-Screen Video 1 -->
@@ -342,7 +363,7 @@
         <span class="tie-origin-label" data-index="2">Atheeqa</span>
         <span class="tie-origin-label" data-index="3">Nizlan</span>
         <span class="tie-origin-label" data-index="4">Byon</span>
-        <span class="tie-origin-label" data-index="5">Malik</span>
+        <span class="tie-origin-label" data-index="5">Luqman</span>
       </div>
 
       <!-- Single unified 3D lanyard stage: Full width, zero left/right margin clipping -->
@@ -350,6 +371,136 @@
     </div>
   </section>
 
-  <script type="module" src="main.js?v=20261021s"></script>
+  <!-- ===== NASA SCIENTISTS SECTION (React Bits FlexCarousel • Editorial Blog Experience) ===== -->
+  <section id="scientists-section" class="scientists-section" aria-label="NASA Scientists and Cosmic Pioneers">
+    <!-- Left Editorial Blog Article Box (No overlap with diagonal ribbon) -->
+    <div class="scientists-blog-article">
+      <div class="scientists-category-badge">
+        <span class="scientists-pulse-dot"></span>
+        <span>NASA ARCHIVAL CHRONICLES // VOL. 09</span>
+      </div>
+
+      <h2 class="scientists-main-title">
+        ARCHITECTS OF <span class="scientists-title-gradient">COSMIC DISCOVERY</span>
+      </h2>
+
+      <!-- Dynamic Interactive Blog Story Card (Updates in real-time as images change) -->
+      <div class="scientist-story-card" id="scientist-story-card">
+        <h3 id="scientist-dynamic-name" class="scientist-dynamic-name">Katherine Johnson</h3>
+        <p id="scientist-dynamic-role" class="scientist-dynamic-role">Orbital Mechanics &amp; Apollo Trajectory Specialist</p>
+
+        <p id="scientist-dynamic-bio" class="scientist-dynamic-bio">
+          Katherine Johnson's historic mathematical calculations formed the celestial backbone of America's first crewed spaceflights. Her hand-derived equations for synodic periods and orbital rendezvous verified John Glenn's Friendship 7 orbit and mapped Apollo 11's translunar injection corridor to the lunar surface.
+        </p>
+      </div>
+    </div>
+
+    <!-- Background Vignette for encyclopedia contrast -->
+    <div class="scientists-vignette" aria-hidden="true"></div>
+
+    <!-- Compact 3D FlexCarousel Ribbon (Same Top-Right to Bottom-Left Diagonal Position) -->
+    <div id="scientists-flex-carousel" class="scientists-flex-carousel"></div>
+
+    <!-- Bottom-Right Space Filler: Field Dispatch & Archival Quote Panel (Moved down, zero overlap) -->
+    <div class="scientists-dispatch-panel">
+      <blockquote id="scientist-dynamic-quote" class="scientist-dynamic-quote">
+        â€œLike what you do, and then you will do your best. We mapped celestial trajectories before silicon computers could think.â€
+      </blockquote>
+
+      <div class="dispatch-attribution">
+        <span id="scientist-dynamic-quote-author" class="dispatch-author">— Katherine Johnson</span>
+        <span class="dispatch-dot" aria-hidden="true">•</span>
+        <span id="scientist-dynamic-era" class="dispatch-era">1953 – 1986</span>
+      </div>
+
+      <div class="dispatch-meta-grid">
+        <div class="dispatch-meta-item">
+          <span class="dispatch-meta-label">KEY MISSION</span>
+          <span id="scientist-dynamic-mission" class="dispatch-meta-val">Project Mercury • Apollo 11 • Space Shuttle</span>
+        </div>
+        <div class="dispatch-meta-item">
+          <span class="dispatch-meta-label">DISCIPLINE</span>
+          <span id="scientist-dynamic-field" class="dispatch-meta-val">ORBITAL TRAJECTORIES &amp; CELESTIAL NAVIGATION</span>
+        </div>
+        <div class="dispatch-meta-item dispatch-meta-full">
+          <span class="dispatch-meta-label">HISTORIC IMPACT</span>
+          <span id="scientist-dynamic-impact" class="dispatch-meta-val">Authored landmark 1960 research establishing pinpoint lunar return coordinates.</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== COSMOS 3D ORBIT GALLERY SECTION ===== -->
+  <section id="cosmos-section" class="cosmos-section" aria-label="Cosmos 3D Orbit Gallery">
+    <!-- Header Overlay -->
+    <div class="cosmos-header">
+      <div class="cosmos-badge">
+        <span class="cosmos-badge-dot"></span>
+        <span>CELESTIAL RECONNAISSANCE • 3D PARTICLE SPHERE</span>
+      </div>
+      <h1 class="cosmos-title">
+        The cosmos is within us. We are made of star-stuff. We are a way for the universe to know itself.
+      </h1>
+      <p class="cosmos-quote-author">— CARL SAGAN, COSMOS</p>
+    </div>
+
+    <!-- 3D Three.js Orbit Canvas Container -->
+    <div id="cosmos-canvas-container" class="cosmos-canvas-container"></div>
+
+    <!-- Interactive Reset Control (Icon only) -->
+    <div class="cosmos-hud">
+      <button id="cosmos-reset-cam" class="cosmos-hud-btn cosmos-hud-icon-btn" type="button" aria-label="Reset Camera Perspective" title="Reset Camera Perspective">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" width="18" height="18">
+          <path d="M3 12a9 9 0 1 0 9-9 9.75 9.75 0 0 0-6.74 2.74L3 8"></path>
+          <path d="M3 3v5h5"></path>
+        </svg>
+      </button>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 7: INSIDE NASA FACILITIES (React Bits DriftWall Component) ===== -->
+  <section id="inside-nasa-section" class="inside-nasa-section" aria-label="Inside NASA Facilities & Cleanrooms">
+    <!-- Left Hero Typography & Brief Card -->
+    <div class="inside-nasa-left">
+      <div class="inside-nasa-badge">
+        <span class="inside-nasa-badge-dot"></span>
+        <span>NASA FACILITIES &amp; CLEANROOMS</span>
+      </div>
+      <h2 class="inside-nasa-title">
+        INSIDE <span class="inside-nasa-title-gradient">NASA</span>
+      </h2>
+      <p class="inside-nasa-brief">
+        Behind humanity's deepest cosmic milestones lie NASA's most sacred sanctums—from the high-bay spacecraft assembly floors at JPL and Goddard to the 40-foot-deep Neutral Buoyancy Laboratory and legendary Apollo &amp; Artemis flight control consoles at Johnson Space Center.
+      </p>
+    </div>
+
+    <!-- Left text vignette for contrast -->
+    <div class="inside-nasa-vignette" aria-hidden="true"></div>
+
+    <!-- 3D DriftWall Component Mount Point (Full Section) -->
+    <div class="inside-nasa-wall-wrap">
+      <div id="drift-wall-root" class="drift-wall-root"></div>
+    </div>
+  </section>
+
+  <!-- ===== SECTION 8: OUR RESEARCH DOCUMENTS (React Bits Folder Integration) ===== -->
+  <section id="research-section" class="research-section" aria-label="Our Research Documents and Archival Dossiers">
+    <div class="research-container">
+      <!-- Header: Clean Heading + 2-line Description -->
+      <div class="research-header">
+        <h2 class="research-title">
+          OUR RESEARCH <span class="research-title-accent">DOCUMENTS</span>
+        </h2>
+        <p class="research-subtitle">
+          Archival telemetry, material degradation analyses, and field dossiers documenting relics of lunar and Martian exploration.
+        </p>
+      </div>
+
+      <!-- 8 Folder Components Mount Grid (4 Per Row) -->
+      <div id="research-grid-root" class="research-grid"></div>
+    </div>
+  </section>
+
+  <script type="module" src="main.js?v=20261023d"></script>
 </body>
 </html>

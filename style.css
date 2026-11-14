@@ -15,7 +15,12 @@
   --ff-display: 'Orbitron', sans-serif;
   --ff-tech:    'Rajdhani', sans-serif;
   --ff-body:    'Space Grotesk', sans-serif;
+  --font-instrument-serif: 'Orbitron', sans-serif;
   --ease:       cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.font-instrument-serif {
+  font-family: var(--ff-display);
 }
 
 *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
@@ -188,9 +193,9 @@ body {
 .btn-launch-exact {
   background: #ffffff;
   color: #000000;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--ff-display);
   font-size: 15px;
-  font-weight: 600;
+  font-weight: 800;
   letter-spacing: 6px;
   padding: 14px 48px;
   border: none;
@@ -838,7 +843,7 @@ body {
   border-bottom: 10px solid #b0cfe4;
 }
 
-/* ============ 2ND PAGE: 20 NASA MISSIONS (Screen 2: Full 100vh History) ============ */
+/* ============ 2ND PAGE: 21 NASA MISSIONS (Screen 2: Full 100vh History) ============ */
 .missions-page {
   position: relative;
   width: 100vw;
@@ -942,10 +947,10 @@ body {
 
 .infinite-menu-heading {
   margin: 0;
-  font-family: 'Space Grotesk', 'Orbitron', -apple-system, sans-serif;
-  font-size: 1.15rem;
-  font-weight: 700;
-  letter-spacing: 3.5px;
+  font-family: var(--ff-display);
+  font-size: clamp(1.15rem, 1.8vw, 1.65rem);
+  font-weight: 800;
+  letter-spacing: 3px;
   text-transform: uppercase;
   color: #ffffff;
   pointer-events: auto;
@@ -958,11 +963,12 @@ body {
 }
 
 .infinite-menu-hint {
-  font-family: 'Space Grotesk', sans-serif;
-  font-size: 0.72rem;
+  font-family: var(--ff-tech);
+  font-size: 0.82rem;
+  font-weight: 700;
   letter-spacing: 2px;
   text-transform: uppercase;
-  color: rgba(255, 255, 255, 0.5);
+  color: var(--cyan);
 }
 
 @media (max-width: 768px) {
@@ -986,7 +992,7 @@ body {
 .option-wheel {
   --ow-text-color: #6b7888;
   --ow-active-color: #ffffff;
-  --ow-font-size: 2.6rem;
+  --ow-font-size: 2.15rem;
   --ow-inset: 5px;
 
   position: relative;
@@ -1182,10 +1188,10 @@ body {
 
 .sm-toggle-text {
   display: inline-block;
-  font-family: 'Space Grotesk', sans-serif;
+  font-family: var(--ff-tech);
   font-weight: 700;
-  letter-spacing: 2.5px;
-  font-size: 1.05rem;
+  letter-spacing: 3px;
+  font-size: 1.1rem;
   color: #ffffff;
   text-transform: uppercase;
   transition: color 0.25s ease, opacity 0.25s ease;
@@ -1316,12 +1322,12 @@ body {
 .sm-panel-item {
   position: relative;
   color: #ffffff;
-  font-family: 'Space Grotesk', sans-serif;
-  font-weight: 700;
-  font-size: clamp(1.85rem, 3.4vw, 2.65rem);
+  font-family: var(--ff-display);
+  font-weight: 800;
+  font-size: clamp(1.7rem, 3.2vw, 2.5rem);
   cursor: pointer;
-  line-height: 1.1;
-  letter-spacing: 1px;
+  line-height: 1.15;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   transition: all 0.3s cubic-bezier(0.16, 1, 0.3, 1);
   display: inline-block;
@@ -1553,4 +1559,885 @@ body {
   .team-desc-gap {
     height: 2.6rem;
   }
+}
+
+/* ============================================================
+   NASA SCIENTISTS SECTION (Newspaper-style layout — no containers)
+   ============================================================ */
+:root {
+  --scientist-track-rot: -18deg;
+}
+
+.scientists-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  background: transparent;
+  color: var(--white, #f1f5f9);
+  overflow: hidden;
+  z-index: 2;
+  display: block;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  box-sizing: border-box;
+}
+
+/* LEFT column — locked into the TOP-LEFT empty triangle (above the diagonal strip) */
+.scientists-blog-article {
+  position: absolute;
+  top: clamp(1.2rem, 2.5vh, 2rem);
+  left: clamp(1.8rem, 3.5vw, 3.5rem);
+  /* right boundary keeps text away from right side */
+  right: 52vw;
+  /* bottom boundary: stays well above the carousel strip center */
+  bottom: 52vh;
+  z-index: 10;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0;
+  overflow: hidden;
+}
+
+
+/* Hide badge */
+.scientists-category-badge { display: none !important; }
+
+.scientists-pulse-dot {
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 8px #00f0ff;
+  animation: pulseDot 2s infinite ease-in-out;
+}
+
+@keyframes pulseDot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.4); opacity: 0.5; }
+}
+
+.scientists-main-title {
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: clamp(2rem, 3.2vw, 3.4rem);
+  font-weight: 900;
+  line-height: 1.0;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0 0 2rem 0;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+}
+
+.scientists-title-gradient {
+  color: #00f0ff;
+  -webkit-text-fill-color: #00f0ff;
+  background: none;
+}
+
+/* Story card — NO container, raw text only */
+.scientist-story-card {
+  background: none;
+  border: none;
+  padding: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.35rem;
+}
+
+
+.scientist-dynamic-name {
+  font-family: 'Anton', 'Impact', sans-serif;
+  font-size: clamp(1.5rem, 2.2vw, 2.1rem);
+  font-weight: 900;
+  color: #ffffff;
+  margin: 0.08rem 0 0 0;
+  line-height: 1.08;
+  letter-spacing: 0.5px;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.9);
+  transition: opacity 0.22s ease, transform 0.22s ease;
+}
+
+.scientist-dynamic-role {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.68rem, 0.84vw, 0.8rem);
+  font-weight: 600;
+  color: #00f0ff;
+  margin: 0 0 0.28rem 0;
+  letter-spacing: 0.5px;
+  text-transform: uppercase;
+  transition: opacity 0.22s ease;
+}
+
+.scientist-dynamic-bio {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.72rem, 0.86vw, 0.82rem);
+  font-weight: 400;
+  line-height: 1.55;
+  color: rgba(255, 255, 255, 0.78);
+  margin: 0;
+  transition: opacity 0.22s ease;
+  column-count: 1;
+}
+
+
+/* Vignette — darkens BOTH the top-left AND bottom-right corners for text readability */
+.scientists-vignette {
+  position: absolute;
+  inset: 0;
+  background:
+    radial-gradient(ellipse at 5% 10%, rgba(0,0,0,0.92) 0%, rgba(0,0,0,0.55) 38%, transparent 60%),
+    radial-gradient(ellipse at 95% 90%, rgba(0,0,0,0.88) 0%, rgba(0,0,0,0.5) 38%, transparent 60%);
+  z-index: 3;
+  pointer-events: none;
+}
+
+/* Carousel strip — tall enough to show well-sized cards, cardHeight ratio kept small so many cards appear */
+.scientists-flex-carousel {
+  position: absolute;
+  width: 180vw;
+  height: clamp(200px, 22vh, 280px);
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%) rotate(var(--scientist-track-rot, -18deg));
+  transform-origin: center center;
+  z-index: 5;
+  overflow: visible;
+  outline: none;
+  pointer-events: auto;
+}
+
+/* RIGHT column — locked safely in the BOTTOM-RIGHT corner with generous bottom gap */
+.scientists-dispatch-panel {
+  position: absolute;
+  bottom: clamp(3.6rem, 7vh, 5.8rem);
+  right: clamp(2rem, 4vw, 4.2rem);
+  left: auto;
+  top: auto;
+  width: min(520px, 42vw);
+  max-width: 520px;
+  z-index: 10;
+  pointer-events: auto;
+  display: flex;
+  flex-direction: column;
+  gap: 0.55rem;
+  background: none;
+  backdrop-filter: none;
+  border: none;
+  border-radius: 0;
+  padding: 0;
+  box-shadow: none;
+  overflow: visible;
+}
+
+.scientist-dynamic-quote {
+  font-family: 'Instrument Serif', 'Georgia', serif;
+  font-style: italic;
+  font-size: clamp(0.98rem, 1.16vw, 1.25rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: #ffffff;
+  margin: 0;
+  padding: 0;
+  border: none;
+  text-shadow: 0 2px 12px rgba(0,0,0,0.95);
+  transition: opacity 0.22s ease;
+}
+
+.dispatch-attribution {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.72rem, 0.82vw, 0.84rem);
+  margin-top: -0.1rem;
+}
+
+.dispatch-author {
+  color: #00f0ff;
+  font-weight: 600;
+  letter-spacing: 0.6px;
+  text-transform: uppercase;
+  text-shadow: 0 1px 8px rgba(0, 240, 255, 0.35);
+  transition: opacity 0.22s ease;
+}
+
+.dispatch-dot {
+  color: rgba(255, 255, 255, 0.35);
+  font-size: 0.8rem;
+}
+
+.dispatch-era {
+  color: rgba(255, 255, 255, 0.65);
+  font-weight: 400;
+  letter-spacing: 0.5px;
+  transition: opacity 0.22s ease;
+}
+
+.dispatch-meta-grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 0.55rem 1.1rem;
+  margin-top: 0.25rem;
+}
+
+.dispatch-meta-item {
+  display: flex;
+  flex-direction: column;
+  gap: 0.15rem;
+}
+
+.dispatch-meta-item.dispatch-meta-full {
+  grid-column: 1 / -1;
+}
+
+.dispatch-meta-label {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: 0.62rem;
+  font-weight: 700;
+  letter-spacing: 1.2px;
+  text-transform: uppercase;
+  color: rgba(255, 255, 255, 0.45);
+}
+
+.dispatch-meta-val {
+  font-family: 'Space Grotesk', sans-serif;
+  font-size: clamp(0.7rem, 0.8vw, 0.8rem);
+  font-weight: 400;
+  line-height: 1.45;
+  color: rgba(255, 255, 255, 0.82);
+  transition: opacity 0.22s ease;
+  text-shadow: 0 1px 6px rgba(0,0,0,0.8);
+}
+
+.dispatch-status { display: none; }
+.status-indicator { display: none; }
+
+@media (max-width: 900px) {
+  :root {
+    --scientist-track-rot: -10deg;
+  }
+
+  .scientists-section {
+    display: flex;
+    flex-direction: column;
+    height: auto;
+    min-height: 100vh;
+    max-height: none;
+    overflow-y: auto;
+    padding: 2rem 1.2rem 3rem;
+    gap: 1.5rem;
+  }
+
+  .scientists-blog-article {
+    position: relative;
+    top: auto;
+    left: auto;
+    max-width: 100%;
+  }
+
+  .scientists-vignette {
+    display: none;
+  }
+
+  .scientists-flex-carousel {
+    position: relative;
+    width: 150vw;
+    height: 200px;
+    top: auto;
+    left: 50%;
+    transform: translateX(-50%) rotate(var(--scientist-track-rot, -10deg));
+    margin: 1rem 0;
+  }
+
+  .scientist-dynamic-bio { column-count: 1; }
+
+  .scientists-dispatch-panel {
+    position: relative;
+    bottom: auto;
+    right: auto;
+    left: auto;
+    width: 100%;
+    max-width: 100%;
+  }
+
+  .dispatch-meta-grid {
+    grid-template-columns: 1fr;
+    gap: 0.5rem;
+  }
+}
+
+/* ==============================================================
+   COSMOS 3D ORBIT GALLERY SECTION (Screen 6: Full 100vh)
+   Three.js Particle Sphere + Orbiting Missions Gallery Ring
+   ============================================================== */
+.cosmos-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background: #000000;
+  display: flex;
+  flex-direction: column;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.cosmos-header {
+  position: absolute;
+  top: 4.5rem;
+  left: 0;
+  right: 0;
+  z-index: 10;
+  padding: 0 1.5rem;
+  text-align: center;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.cosmos-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.06);
+  border: 1px solid rgba(255, 255, 255, 0.16);
+  border-radius: 9999px;
+  backdrop-filter: blur(12px);
+  font-family: var(--ff-tech);
+  font-size: 0.72rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #e2e8f0;
+  margin-bottom: 1rem;
+  pointer-events: auto;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.5);
+}
+
+.cosmos-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #fbbf24;
+  box-shadow: 0 0 12px #fbbf24, 0 0 20px #f59e0b;
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+@keyframes pulse-dot {
+  0%, 100% { transform: scale(1); opacity: 1; }
+  50% { transform: scale(1.3); opacity: 0.7; }
+}
+
+.cosmos-title {
+  max-width: 920px;
+  margin: 0 auto;
+  color: #ffffff;
+  text-align: center;
+  font-family: var(--ff-display);
+  font-size: clamp(1.4rem, 2.7vw, 2.4rem);
+  line-height: 1.35;
+  letter-spacing: 2px;
+  font-weight: 700;
+  text-transform: uppercase;
+  text-wrap: balance;
+  text-shadow: 0 4px 30px rgba(0, 0, 0, 0.95), 0 2px 10px rgba(0, 0, 0, 0.7);
+}
+
+.cosmos-quote-author {
+  font-family: var(--ff-tech);
+  font-size: 0.75rem;
+  font-weight: 700;
+  letter-spacing: 3px;
+  color: rgba(255, 255, 255, 0.45);
+  margin-top: 0.75rem;
+  text-transform: uppercase;
+}
+
+.cosmos-canvas-container {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+  cursor: grab;
+}
+
+.cosmos-canvas-container:active {
+  cursor: grabbing;
+}
+
+.cosmos-hud {
+  position: absolute;
+  bottom: 2.5rem;
+  right: 2.5rem;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: flex-end;
+  pointer-events: none;
+}
+
+.cosmos-hud-icon-btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  width: 44px;
+  height: 44px;
+  padding: 0;
+  background: rgba(255, 255, 255, 0.08);
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 50%;
+  color: #ffffff;
+  cursor: pointer;
+  backdrop-filter: blur(12px);
+  pointer-events: auto;
+  transition: all 0.25s cubic-bezier(0.16, 1, 0.3, 1);
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.5);
+}
+
+.cosmos-hud-icon-btn:hover {
+  background: rgba(255, 255, 255, 0.22);
+  border-color: rgba(255, 255, 255, 0.45);
+  transform: scale(1.08) rotate(-45deg);
+  box-shadow: 0 6px 24px rgba(0, 0, 0, 0.6), 0 0 16px rgba(255, 255, 255, 0.25);
+}
+
+.cosmos-hud-icon-btn:active {
+  transform: scale(0.95);
+}
+
+@media (max-width: 768px) {
+  .cosmos-header {
+    top: 3.5rem;
+    padding: 0 1rem;
+  }
+  .cosmos-badge {
+    font-size: 0.65rem;
+    padding: 4px 10px;
+    margin-bottom: 0.5rem;
+  }
+  .cosmos-title {
+    font-size: 1.6rem;
+    line-height: 1.2;
+  }
+  .cosmos-hud {
+    bottom: 1.5rem;
+    right: 1.5rem;
+  }
+  .cosmos-hud-icon-btn {
+    width: 40px;
+    height: 40px;
+  }
+}
+
+/* ==============================================================
+   INSIDE NASA FACILITIES SECTION (Screen 7: Full 100vh)
+   React Bits DriftWall Component Integration
+   ============================================================== */
+.inside-nasa-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background: #040509;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Left Hero Typography & Brief Card */
+.inside-nasa-left {
+  position: absolute;
+  left: clamp(2rem, 5.5vw, 6.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: clamp(340px, 32vw, 470px);
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.inside-nasa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--ff-tech, 'Rajdhani', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #00f0ff;
+  width: fit-content;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+.inside-nasa-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff, 0 0 18px rgba(0, 240, 255, 0.7);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.inside-nasa-title {
+  font-family: var(--ff-display);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+}
+
+.inside-nasa-title-gradient {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.inside-nasa-brief {
+  font-family: var(--ff-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+}
+
+.inside-nasa-wall-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Subtle left vignette to guarantee text legibility without obscuring the 3D drift wall */
+.inside-nasa-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: clamp(380px, 46vw, 600px);
+  background: linear-gradient(to right, rgba(4, 5, 9, 0.92) 0%, rgba(4, 5, 9, 0.65) 55%, transparent 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 900px) {
+  .inside-nasa-left {
+    left: 1.5rem;
+    right: 1.5rem;
+    top: auto;
+    bottom: 2rem;
+    transform: none;
+    max-width: none;
+    background: rgba(4, 5, 9, 0.88);
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .inside-nasa-vignette {
+    display: none;
+  }
+}
+
+/* ==============================================================
+   SECTION 8: OUR RESEARCH DOCUMENTS (React Bits Folder Integration)
+   Top-Aligned Heading, Spacious 4-per-Row Grid, No Card Boxes
+   Clean Free-Floating 3D Folders with Project Title & Year Below
+   ============================================================== */
+.research-section {
+  position: relative;
+  width: 100vw;
+  min-height: 100vh;
+  height: auto;
+  box-sizing: border-box;
+  padding: clamp(3.5rem, 6vh, 5.5rem) clamp(2rem, 5vw, 5.5rem);
+  background: 
+    radial-gradient(circle at 50% 10%, rgba(0, 240, 255, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #020408 0%, #050812 50%, #010206 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+  overflow-y: auto;
+  overflow-x: hidden;
+}
+
+.research-container {
+  width: 100%;
+  max-width: 1540px;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  z-index: 2;
+}
+
+/* Heading at the Top */
+.research-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.75rem;
+  max-width: 840px;
+  margin: 0 auto clamp(2.5rem, 4.5vh, 4rem);
+}
+
+.research-title {
+  font-family: var(--ff-display, 'Orbitron', sans-serif);
+  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.research-title-accent {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 55%, #7aa7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.research-subtitle {
+  font-family: var(--ff-body, 'Space Grotesk', sans-serif);
+  font-size: clamp(0.95rem, 1.1vw, 1.12rem);
+  font-weight: 300;
+  line-height: 1.6;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  max-width: 780px;
+}
+
+/* 4 PER ROW SPACIOUS GRID — WITH PROPER BREATHING ROOM */
+.research-grid {
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  gap: clamp(3rem, 5vh, 4.5rem) clamp(2.2rem, 3.5vw, 4rem);
+  width: 100%;
+  margin: 0 auto;
+}
+
+/* No Container Box: Pure Floating 3D Folder Item */
+.research-item {
+  position: relative;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  backdrop-filter: none !important;
+  -webkit-backdrop-filter: none !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  overflow: visible;
+  transition: transform 0.3s ease;
+}
+
+.research-item:hover {
+  transform: translateY(-6px);
+}
+
+/* Folder Stage Mount with Generous Height */
+.research-folder-stage {
+  width: 100%;
+  height: clamp(165px, 19vh, 190px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+}
+
+/* Metadata directly below folder: Project Title & Year */
+.research-dossier-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 5px;
+  margin-top: 1.4rem;
+  border: none !important;
+  padding: 0 !important;
+  width: 100%;
+}
+
+.research-dossier-title {
+  font-family: var(--ff-tech, 'Rajdhani', sans-serif);
+  font-size: clamp(1rem, 1.15vw, 1.25rem);
+  font-weight: 700;
+  letter-spacing: 1.4px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.3;
+  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+}
+
+.research-dossier-year {
+  font-family: var(--ff-tech, 'Rajdhani', monospace);
+  font-size: clamp(0.85rem, 0.95vw, 1rem);
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #38bdf8;
+  opacity: 0.95;
+}
+
+/* Responsive Grid Breakpoints */
+@media (max-width: 1200px) {
+  .research-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 3.5rem 2.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .research-section {
+    padding: 3rem 1.5rem;
+  }
+  .research-grid {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+}
+
+
+/* From Uiverse.io by cssbuttons-io */ 
+.mission-cta-wrap {
+  margin-top: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+button.learn-more {
+ position: relative;
+ display: inline-block;
+ cursor: pointer;
+ outline: none;
+ border: 0;
+ vertical-align: middle;
+ text-decoration: none;
+ background: transparent;
+ padding: 0;
+ font-size: inherit;
+ font-family: inherit;
+ width: 12rem;
+ height: auto;
+}
+
+button.learn-more .circle {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: relative;
+ display: block;
+ margin: 0;
+ width: 3rem;
+ height: 3rem;
+ background: #282936;
+ border-radius: 1.625rem;
+}
+
+button.learn-more .circle .icon {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: absolute;
+ top: 0;
+ bottom: 0;
+ margin: auto;
+ background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ left: 0.625rem;
+ width: 1.125rem;
+ height: 0.125rem;
+ background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+ position: absolute;
+ content: "";
+ top: -0.29rem;
+ right: 0.0625rem;
+ width: 0.625rem;
+ height: 0.625rem;
+ border-top: 0.125rem solid #fff;
+ border-right: 0.125rem solid #fff;
+ transform: rotate(45deg);
+}
+
+button.learn-more .button-text {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ padding: 0.75rem 0;
+ margin: 0 0 0 1.85rem;
+ color: #282936;
+ font-weight: 700;
+ line-height: 1.6;
+ text-align: center;
+ text-transform: uppercase;
+}
+
+button.learn-more:hover .circle {
+ width: 100%;
+}
+
+button.learn-more:hover .circle .icon.arrow {
+ background: #fff;
+ transform: translate(1rem, 0);
+}
+
+button.learn-more:hover .button-text {
+ color: #fff;
+}
+
+.mission-heading {
+  cursor: pointer;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.mission-heading:hover {
+  color: #fc3d21;
+  text-shadow: 0 0 20px rgba(252, 61, 33, 0.8);
 }

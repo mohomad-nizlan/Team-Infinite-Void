@@ -147,7 +147,7 @@
 .infinite-menu__info[data-layout='stacked'] .infinite-menu__title {
   top: auto;
   right: 88px;
-  bottom: 60px;
+  bottom: 84px;
   left: 24px;
   max-width: none;
   font-size: clamp(1.4rem, 6cqw, 2rem);
@@ -158,10 +158,10 @@
 .infinite-menu__info[data-layout='stacked'] .infinite-menu__description {
   top: auto;
   right: 88px;
-  bottom: 24px;
+  bottom: 16px;
   left: 24px;
-  max-width: 40ch;
-  white-space: nowrap;
+  max-width: 48ch;
+  white-space: normal;
   overflow: hidden;
   text-overflow: ellipsis;
   transform: none;
