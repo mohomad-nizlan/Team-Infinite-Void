@@ -1108,13 +1108,24 @@
 /* Pure white circular spotlight layer (sits at z-0 behind children) */
 /* Single mask-image URL only - JS RAF loop drives position & size (NO CSS transition) */
 .why-us-spotlight-layer {
-  display: none;
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  -webkit-mask-image: url('/public/mask.svg');
+  mask-image: url('/public/mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 10px 10px;
+  mask-size: 10px 10px;
+  -webkit-mask-position: -9999px -9999px;
+  mask-position: -9999px -9999px;
 }
 
 .why-us-spotlight-white-fill {
   width: 100%;
   height: 100%;
-  background: transparent;
+  background-color: #ffffff;
 }
 
 /* Content sits on top of spotlight */
@@ -1129,7 +1140,7 @@
 .why-us-invert-text {
   position: relative;
   z-index: 1;
-  mix-blend-mode: normal;
+  mix-blend-mode: difference;
 }
 
 .why-us-invert-text,
@@ -1142,8 +1153,8 @@
 .why-us-orange-text,
 .why-us-invert-text .why-us-orange-text,
 .why-us-invert-text .text-accent {
-  color: #00f0ff !important;
-  text-shadow: 0 0 10px rgba(0, 240, 255, 0.5) !important;
+  color: var(--whyus-accent-fallback, #29ABE2) !important;
+  color: var(--whyus-accent, #29ABE2) !important;
   font-weight: 800;
   display: inline;
 }
