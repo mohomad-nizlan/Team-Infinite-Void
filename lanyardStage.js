@@ -907,7 +907,7 @@ export function initUnifiedLanyardStage() {
       name: 'Nizlan',
       role: 'Researcher',
       handle: '@nizlan',
-      front: '/assets/reference_badge.png?v=20261021j',
+      front: '/assets/badge_nizlan_color.png?v=20261115_color',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
