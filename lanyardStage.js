@@ -868,7 +868,7 @@ export function initUnifiedLanyardStage() {
       name: 'Rifa',
       role: 'Team Lead',
       handle: '@rifa',
-      front: '/assets/badge_rifa_color.png?v=20261114_color', 
+      front: '/assets/badge_rifa_color.png?v=20261115_full_bottom', 
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
