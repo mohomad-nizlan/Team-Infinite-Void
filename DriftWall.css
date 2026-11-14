@@ -53,20 +53,31 @@
   transform-style: preserve-3d;
 }
 
-.drift-wall__tile {
+.drift-wall__tile,
+.drift-wall__tile:focus,
+.drift-wall__tile:focus-visible,
+.drift-wall__tile:active,
+.drift-wall__tile:hover {
   position: relative;
   display: block;
   width: 100%;
   height: calc(var(--dw-tile-h) + var(--dw-gap));
   flex: 0 0 auto;
-  outline: none;
+  outline: none !important;
+  outline-color: transparent !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
   transform-style: preserve-3d;
   text-decoration: none;
   cursor: pointer;
-  -webkit-tap-highlight-color: transparent;
+  -webkit-tap-highlight-color: transparent !important;
 }
 
-.drift-wall__inner {
+.drift-wall__inner,
+.drift-wall__inner:focus,
+.drift-wall__inner:focus-visible,
+.drift-wall__inner:active,
+.drift-wall__inner:hover {
   position: absolute;
   inset: calc(var(--dw-gap) / 2);
   display: block;
@@ -77,6 +88,10 @@
   transform: translateZ(0);
   pointer-events: auto;
   border: 1px solid rgba(255, 255, 255, 0.08);
+  outline: none !important;
+  outline-color: transparent !important;
+  outline-width: 0 !important;
+  outline-style: none !important;
   transition:
     transform 0.45s cubic-bezier(0.16, 1, 0.3, 1),
     opacity 0.45s cubic-bezier(0.16, 1, 0.3, 1),
@@ -131,35 +146,42 @@
   text-overflow: ellipsis;
 }
 
-/* Active and Hover state with stable Z elevation */
+/* Active and Hover state with stable Z elevation - NO BLUE OUTLINE */
 .drift-wall__tile.is-active .drift-wall__inner,
+.drift-wall__tile:hover .drift-wall__inner,
 .drift-wall__tile:focus-visible .drift-wall__inner {
   opacity: 1;
   transform: translateZ(var(--dw-lift));
-  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.9), 0 0 24px rgba(0, 240, 255, 0.3);
-  border-color: rgba(0, 240, 255, 0.65);
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.95);
+  border-color: rgba(255, 255, 255, 0.22);
+  outline: none !important;
 }
 
 .drift-wall__tile.is-active img,
+.drift-wall__tile:hover img,
 .drift-wall__tile:focus-visible img {
   filter: grayscale(0) saturate(1.1);
+  outline: none !important;
 }
 
 .drift-wall__tile.is-active .drift-wall__overlay,
+.drift-wall__tile:hover .drift-wall__overlay,
 .drift-wall__tile:focus-visible .drift-wall__overlay {
   opacity: 0;
 }
 
 .drift-wall__tile.is-active .drift-wall__caption,
+.drift-wall__tile:hover .drift-wall__caption,
 .drift-wall__tile:focus-visible .drift-wall__caption {
   opacity: 1;
   transform: translateY(0);
 }
 
-.drift-wall__tile:focus-visible .drift-wall__inner {
-  box-shadow:
-    0 24px 60px -18px rgba(0, 0, 0, 0.8),
-    0 0 0 2px rgba(0, 240, 255, 0.9);
+.drift-wall__tile:focus-visible .drift-wall__inner,
+.drift-wall__tile:focus .drift-wall__inner {
+  box-shadow: 0 24px 60px -18px rgba(0, 0, 0, 0.95);
+  border-color: rgba(255, 255, 255, 0.25);
+  outline: none !important;
 }
 
 @media (prefers-reduced-motion: reduce) {
