@@ -1,6 +1,10 @@
 /**
  * Why Trust Our Company Section Interactivity
  * Exact MaskContainer implementation from D:\gulf-talents\src\components\ui\svg-mask-effect.tsx
+ * The pure-white circular spotlight sits at z-0 behind children.
+ * Text with mix-blend-mode: difference automatically inverts over the pure-white spotlight:
+ * - White text (#ffffff) XOR White (#ffffff) = Pure Black (#000000)
+ * - Cyan/Blue text (#29ABE2) XOR White (#ffffff) = Vivid Orange (#d6541d)
  */
 
 class WhyUsController {
@@ -45,8 +49,18 @@ class WhyUsController {
       updatePosition(e.clientX, e.clientY);
     });
 
-    el.addEventListener('mouseenter', () => {
+    el.addEventListener('mouseenter', (e) => {
       this.isHovered = true;
+      const rect = el.getBoundingClientRect();
+      const x = e.clientX - rect.left;
+      const y = e.clientY - rect.top;
+      this.mousePosition.x = x;
+      this.mousePosition.y = y;
+      // Snap position immediately on enter so it doesn't fly in from offscreen
+      if (this.currentPos.x < -9000 || !this.currentPos.x) {
+        this.currentPos.x = x;
+        this.currentPos.y = y;
+      }
     });
 
     el.addEventListener('mouseleave', () => {
@@ -56,7 +70,13 @@ class WhyUsController {
     el.addEventListener('touchstart', (e) => {
       this.isHovered = true;
       if (e.touches.length > 0) {
-        updatePosition(e.touches[0].clientX, e.touches[0].clientY);
+        const rect = el.getBoundingClientRect();
+        const x = e.touches[0].clientX - rect.left;
+        const y = e.touches[0].clientY - rect.top;
+        this.mousePosition.x = x;
+        this.mousePosition.y = y;
+        this.currentPos.x = x;
+        this.currentPos.y = y;
       }
     }, { passive: true });
 
@@ -75,12 +95,12 @@ class WhyUsController {
     });
 
     // Smooth animation loop matching Framer Motion transitions:
-    // - maskSize: 0.3s easeInOut  => lerp factor ~0.18
-    // - maskPosition: 0.15s linear => lerp factor ~0.4 (much faster, near-instant tracking)
+    // - maskSize:     0.3s easeInOut  => lerp factor ~0.18
+    // - maskPosition: 0.15s linear   => lerp factor ~0.4 (fast, near-instant tracking)
     const tick = () => {
       const actualRevealSize = this.isMobile ? this.revealSize * 0.55 : this.revealSize;
-      const actualIdleSize = this.isMobile ? 0 : this.size;
-      const targetSize = this.isHovered ? actualRevealSize : actualIdleSize;
+      const actualIdleSize   = this.isMobile ? 0 : this.size;
+      const targetSize       = this.isHovered ? actualRevealSize : actualIdleSize;
 
       // Size: slow easeInOut (0.3s feel)
       this.currentSize += (targetSize - this.currentSize) * 0.18;
@@ -91,17 +111,17 @@ class WhyUsController {
         this.currentPos.y += (this.mousePosition.y - this.currentPos.y) * 0.4;
       }
 
-      const posX = Math.round(this.currentPos.x - this.currentSize / 2);
-      const posY = Math.round(this.currentPos.y - this.currentSize / 2);
+      const posX    = Math.round(this.currentPos.x - this.currentSize / 2);
+      const posY    = Math.round(this.currentPos.y - this.currentSize / 2);
       const sizeVal = Math.round(this.currentSize);
 
-      const posStr = `${posX}px ${posY}px`;
+      const posStr  = `${posX}px ${posY}px`;
       const sizeStr = `${sizeVal}px ${sizeVal}px`;
 
       this.spotlightLayer.style.webkitMaskPosition = posStr;
-      this.spotlightLayer.style.maskPosition = posStr;
-      this.spotlightLayer.style.webkitMaskSize = sizeStr;
-      this.spotlightLayer.style.maskSize = sizeStr;
+      this.spotlightLayer.style.maskPosition       = posStr;
+      this.spotlightLayer.style.webkitMaskSize     = sizeStr;
+      this.spotlightLayer.style.maskSize           = sizeStr;
 
       requestAnimationFrame(tick);
     };
