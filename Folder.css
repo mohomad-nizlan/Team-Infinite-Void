@@ -10,7 +10,6 @@
   user-select: none;
   -webkit-user-select: none;
   -webkit-tap-highlight-color: transparent;
-  filter: drop-shadow(0 6px 16px rgba(var(--folder-rgb), 0.35));
 }
 
 .folder-root[data-theme='light'] {
@@ -118,13 +117,11 @@
   color: var(--folder-tab-ink);
   opacity: var(--folder-label, 1);
   font-size: calc(10.5px * var(--folder-scale));
-  font-weight: 700;
-  letter-spacing: 0.05em;
-  font-family: 'Rajdhani', 'Space Grotesk', sans-serif;
+  font-weight: 600;
+  letter-spacing: -0.005em;
   line-height: 1;
   text-overflow: ellipsis;
   white-space: nowrap;
-  text-transform: uppercase;
 }
 
 .folder-measure {
@@ -143,13 +140,12 @@
   border-radius: calc(7px * var(--folder-scale));
   background: var(--folder-paper);
   box-shadow:
-    0 0 0 0.5px rgba(0, 0, 0, 0.08),
-    0 calc(1px * var(--folder-scale)) calc(2px * var(--folder-scale)) rgba(0, 0, 0, 0.15),
+    0 0 0 0.5px rgba(0, 0, 0, 0.06),
+    0 calc(1px * var(--folder-scale)) calc(2px * var(--folder-scale)) rgba(0, 0, 0, 0.12),
     0 calc((2px + var(--folder-lift, 0) * 16px) * var(--folder-scale))
       calc((5px + var(--folder-lift, 0) * 26px) * var(--folder-scale))
-      rgba(0, 0, 0, calc(0.14 + var(--folder-lift, 0) * 0.16));
+      rgba(0, 0, 0, calc(0.1 + var(--folder-lift, 0) * 0.14));
   outline: none;
-  transition: box-shadow 0.2s ease;
 }
 
 .folder-root[data-open] .folder-item {
@@ -242,12 +238,11 @@
   );
   box-shadow:
     inset 0 1px 0 rgba(255, 255, 255, 0.28),
-    inset 0 0 0 1px rgba(255, 255, 255, 0.08);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.05);
 }
 
 .folder-root[data-variant='glass'] .folder-back-fill {
-  background: linear-gradient(180deg, rgba(var(--folder-rgb), 0.92), var(--folder-inside-bottom));
-  box-shadow: 0 0 16px rgba(var(--folder-rgb), 0.25);
+  background: linear-gradient(180deg, var(--folder-inside-top), var(--folder-inside-bottom));
 }
 
 .folder-root[data-variant='glass'] .folder-face-outer,
@@ -255,17 +250,16 @@
   background:
     linear-gradient(
       160deg,
-      rgba(255, 255, 255, 0.35) 0%,
-      rgba(255, 255, 255, 0.08) 42%,
-      rgba(255, 255, 255, 0.18) 100%
+      rgba(255, 255, 255, 0.34) 0%,
+      rgba(255, 255, 255, 0.08) 46%,
+      rgba(255, 255, 255, 0.16) 100%
     ),
-    rgba(var(--folder-rgb), 0.62);
+    rgba(var(--folder-rgb), 0.24);
   box-shadow:
-    inset 0 0 0 1px rgba(255, 255, 255, 0.45),
-    inset 0 1px 0 rgba(255, 255, 255, 0.75),
-    0 4px 18px rgba(var(--folder-rgb), 0.3);
-  -webkit-backdrop-filter: blur(var(--folder-frost)) saturate(2);
-  backdrop-filter: blur(var(--folder-frost)) saturate(2);
+    inset 0 0 0 1px rgba(255, 255, 255, 0.34),
+    inset 0 1px 0 rgba(255, 255, 255, 0.6);
+  -webkit-backdrop-filter: blur(var(--folder-frost)) saturate(1.8);
+  backdrop-filter: blur(var(--folder-frost)) saturate(1.8);
 }
 
 .folder-root[data-gl] .folder-face {
@@ -287,53 +281,34 @@
   background: var(--folder-base);
 }
 
-/* ==============================================================
-   REACT BITS <Folder /> DOCUMENT CARD STYLING
-   Authentic Document Lines, Heading, Description & Citation Pill
-   ============================================================== */
 .folder-doc {
   display: flex;
   height: 100%;
-  width: 100%;
   box-sizing: border-box;
   flex-direction: column;
-  gap: calc(5px * var(--folder-scale));
-  padding: calc(12px * var(--folder-scale)) calc(11px * var(--folder-scale));
-  background: var(--folder-paper, #ffffff);
-  border-radius: calc(6px * var(--folder-scale));
-  overflow: hidden;
+  gap: calc(6px * var(--folder-scale));
+  padding: calc(14px * var(--folder-scale)) calc(13px * var(--folder-scale));
   position: relative;
-  user-select: none;
-  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.35);
 }
 
 .folder-doc-title {
   overflow: hidden;
-  margin-bottom: calc(2px * var(--folder-scale));
-  color: var(--folder-paper-text, #0f172a);
-  font-size: calc(9.5px * var(--folder-scale));
-  font-weight: 700;
+  margin-bottom: calc(4px * var(--folder-scale));
+  color: var(--folder-paper-text);
+  font-size: calc(11px * var(--folder-scale));
+  font-weight: 600;
   letter-spacing: -0.01em;
   line-height: 1.2;
   text-overflow: ellipsis;
   white-space: nowrap;
-  font-family: 'Rajdhani', sans-serif;
-  text-transform: uppercase;
-  flex-shrink: 0;
 }
 
 .folder-doc-text {
-  margin-top: calc(-2px * var(--folder-scale));
-  margin-bottom: calc(2px * var(--folder-scale));
-  color: var(--folder-paper-ink-strong, #334155);
-  font-size: calc(8px * var(--folder-scale));
-  line-height: 1.25;
-  font-family: 'Space Grotesk', sans-serif;
-  display: -webkit-box;
-  -webkit-line-clamp: 2;
-  -webkit-box-orient: vertical;
-  overflow: hidden;
-  flex-shrink: 0;
+  margin-top: calc(-6px * var(--folder-scale));
+  margin-bottom: calc(4px * var(--folder-scale));
+  color: var(--folder-paper-ink-strong);
+  font-size: calc(9px * var(--folder-scale));
+  line-height: 1.3;
 }
 
 .folder-doc-heading {
@@ -342,111 +317,23 @@
   flex: none;
   margin-bottom: calc(4px * var(--folder-scale));
   border-radius: 999px;
-  background: var(--folder-paper-ink-strong, #94a3b8);
+  background: var(--folder-paper-ink-strong);
 }
 
 .folder-doc-line {
-  height: calc(3.5px * var(--folder-scale));
+  height: calc(4px * var(--folder-scale));
   flex: none;
   border-radius: 999px;
-  background: var(--folder-paper-ink, #cbd5e1);
+  background: var(--folder-paper-ink);
 }
 
 .folder-doc-block {
-  height: calc(26px * var(--folder-scale));
+  height: calc(40px * var(--folder-scale));
   flex: none;
-  margin: calc(2px * var(--folder-scale)) 0;
-  border-radius: calc(4px * var(--folder-scale));
-  background: var(--folder-paper-ink, #e2e8f0);
-  opacity: 0.85;
-}
-
-.folder-doc-action {
-  margin-top: auto;
-  padding-top: calc(2px * var(--folder-scale));
-  flex-shrink: 0;
-}
-
-.folder-doc-link-pill {
-  display: inline-flex;
-  align-items: center;
-  justify-content: space-between;
-  width: 100%;
-  box-sizing: border-box;
-  background: #0f172a;
-  color: #38bdf8;
-  padding: calc(3px * var(--folder-scale)) calc(6px * var(--folder-scale));
-  border-radius: calc(4px * var(--folder-scale));
-  text-decoration: none;
-  font-family: 'Rajdhani', sans-serif;
-  font-size: calc(7.2px * var(--folder-scale));
-  font-weight: 700;
-  letter-spacing: 0.6px;
-  transition: all 0.2s ease;
-  cursor: pointer;
-  z-index: 10;
-}
-
-.folder-doc-link-pill:hover {
-  background: #0284c7;
-  color: #ffffff;
-  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
-}
-
-.folder-doc-link-pill .pill-dot {
-  width: calc(4px * var(--folder-scale));
-  height: calc(4px * var(--folder-scale));
-  border-radius: 50%;
-  background: #38bdf8;
-  display: inline-block;
-  flex-shrink: 0;
-}
-
-.folder-doc-link-pill:hover .pill-dot {
-  background: #ffffff;
-}
-
-.folder-doc-link-pill .pill-text {
-  text-transform: uppercase;
-}
-
-/* Focused / Zoomed Document Card Pop-up Enhancements */
-.folder-item.is-focused {
-  z-index: 150 !important;
-}
-
-.folder-item.is-focused .folder-doc {
-  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.85), 0 0 25px rgba(0, 240, 255, 0.45) !important;
-}
-
-.folder-item.is-focused .folder-doc-title {
-  white-space: normal !important;
-  font-size: calc(10.5px * var(--folder-scale)) !important;
-  color: #0284c7 !important;
-  margin-bottom: calc(4px * var(--folder-scale)) !important;
-}
-
-.folder-item.is-focused .folder-doc-text {
-  -webkit-line-clamp: 4 !important;
-  font-size: calc(8.5px * var(--folder-scale)) !important;
-  line-height: 1.35 !important;
-  margin-bottom: calc(4px * var(--folder-scale)) !important;
-}
-
-.folder-item.is-focused .folder-doc-line {
-  height: calc(4.5px * var(--folder-scale)) !important;
-}
-
-.folder-item.is-focused .folder-doc-block {
-  height: calc(34px * var(--folder-scale)) !important;
-}
-
-.folder-item.is-focused .folder-doc-link-pill {
-  background: #0284c7 !important;
-  color: #ffffff !important;
-  box-shadow: 0 4px 14px rgba(2, 132, 199, 0.6) !important;
-  padding: calc(4.5px * var(--folder-scale)) calc(9px * var(--folder-scale)) !important;
-  font-size: calc(8.5px * var(--folder-scale)) !important;
+  margin: calc(3px * var(--folder-scale)) 0;
+  border-radius: calc(5px * var(--folder-scale));
+  background: var(--folder-paper-ink);
+  opacity: 0.75;
 }
 
 .folder-photo {

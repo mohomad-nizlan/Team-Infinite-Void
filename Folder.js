@@ -413,22 +413,12 @@ export class VanillaFolder {
             <span class="folder-doc-block"></span>
             <span class="folder-doc-line" style="width: 80%;"></span>
             <span class="folder-doc-line" style="width: 62%;"></span>
-            ${url ? `
-              <div class="folder-doc-action">
-                <a href="${url}" target="_blank" rel="noopener noreferrer" class="folder-doc-link-pill" onclick="event.stopPropagation(); window.open('${url}', '_blank');" title="Open official NASA citation">
-                  <span class="pill-dot"></span>
-                  <span class="pill-text">OPEN CITATION</span>
-                  <svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.6">
-                    <path d="M2 8L8 2M8 2H3.5M8 2V6.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-              </div>
-            ` : ''}
           </div>
         `;
 
         if (url) {
           itemEl.style.cursor = 'pointer';
+          itemEl.setAttribute('title', `Click to open citation: ${title}`);
         }
       }
 
@@ -887,21 +877,23 @@ export class VanillaFolder {
         return;
       }
 
-      // 2. If clicking on a document card when folder is open: zoom/popup the document
+      // 2. If clicking on a document card when folder is open: navigate directly to reference!
       const itemEl = e.target.closest('[data-folder-item]');
       if (itemEl && (s.open || state.items[Number(itemEl.getAttribute('data-folder-item'))]?.place === 'out')) {
         const idx = Number(itemEl.getAttribute('data-folder-item'));
         e.stopPropagation();
         const clickedItem = this.items[idx];
 
-        if (s.zoomOnClick) {
-          // Toggle focus/zoom so user can read card details and click the link
-          state.focus = state.focus === idx ? -1 : idx;
-        }
         if (typeof this.options.onItemClick === 'function') {
           this.options.onItemClick(clickedItem, idx);
         }
-        wake();
+
+        if (clickedItem && clickedItem.url) {
+          window.open(clickedItem.url, '_blank', 'noopener,noreferrer');
+        } else if (s.zoomOnClick) {
+          state.focus = state.focus === idx ? -1 : idx;
+          wake();
+        }
         return;
       }
 
@@ -943,226 +935,202 @@ export class VanillaFolder {
  */
 export const RESEARCH_DOSSIERS = [
   {
-    id: 'nasa-01',
-    tab: 'NSSDCA-01',
-    title: 'NASA Definitive Archives',
-    year: 'NASA GSFC',
+    id: 'nasa-archives',
+    tab: 'Archives',
+    title: 'NASA Archives',
+    year: 'NSSDCA • Open Data',
     color: '#00f0ff', // Neon Cyan
     variant: 'glass',
     docs: [
       {
-        title: 'NASA Space Science Data Archive (NSSDCA)',
-        description: "The NSSDCA is NASA's definitive, publicly available catalog. Use it to search for any spacecraft or instrument, retrieve mission parameters, and learn its resting place.",
-        url: 'https://nssdc.gsfc.nasa.gov/',
-        tag: 'MASTER CATALOG'
+        title: 'NSSDCA Master Catalog',
+        description: 'NASA definitive spacecraft & telemetry repository.',
+        url: 'https://nssdc.gsfc.nasa.gov/'
       },
       {
-        title: 'NASA Planetary Protection Guidelines',
-        description: "NASA standards and international COSPAR protocols safeguarding celestial bodies and Earth's biosphere from forward and backward biological contamination.",
-        url: 'https://science.nasa.gov/solar-system/planetary-protection/',
-        tag: 'OFFICIAL POLICY'
+        title: 'Planetary Protection',
+        description: 'COSPAR international planetary stewardship protocols.',
+        url: 'https://science.nasa.gov/solar-system/planetary-protection/'
       },
       {
-        title: 'NASA Open Data & Telemetry Catalog',
-        description: "Public repositories of raw telemetry, planetary surface imagery, and flight trajectories accessible for open-source scientific verification.",
-        url: 'https://data.nasa.gov/',
-        tag: 'OPEN TELEMETRY'
+        title: 'NASA Open Data Portal',
+        description: 'Public orbital mechanics & surface mission data.',
+        url: 'https://data.nasa.gov/'
       }
     ]
   },
   {
-    id: 'lunar-01',
-    tab: 'LUNAR-01',
-    title: 'Apollo Lunar Modules & Sites',
-    year: '1969-1972',
+    id: 'apollo-missions',
+    tab: 'Apollo',
+    title: 'Apollo Missions',
+    year: '1969 – 1972',
     color: '#38bdf8', // Neon Sky Blue
     variant: 'glass',
     docs: [
       {
-        title: 'Apollo Lunar Modules (Descent Stages)',
-        description: "Descent stages of Apollo 11 (Eagle) through Apollo 17 left permanently on lunar mare, serving as humanity's first extraterrestrial launch pads.",
-        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C',
-        tag: 'THE MOON'
+        title: 'Apollo Lunar Modules',
+        description: 'Descent stages preserved at Apollo landing sites.',
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C'
       },
       {
-        title: 'Apollo 11 Tranquility Base Heritage',
-        description: "The historic first crewed landing site, preserving the lunar descent stage, EASEP science package, solar wind sheet, and commemorative plaque.",
-        url: 'https://science.nasa.gov/mission/apollo-11/',
-        tag: 'LUNAR HERITAGE'
+        title: 'Tranquility Base Heritage',
+        description: 'Apollo 11 first crewed landing telemetry record.',
+        url: 'https://science.nasa.gov/mission/apollo-11/'
       },
       {
-        title: 'Apollo Ascent Stages Impact Sites',
-        description: "Deliberate seismic calibration impacts of jettisoned ascent stages used to measure the Moon's interior mantle and crust structure.",
-        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-031C',
-        tag: 'LUNAR SEISMOLOGY'
+        title: 'Lunar Ascent Impacts',
+        description: 'Seismic calibration impacts on lunar crust.',
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1972-031C'
       }
     ]
   },
   {
-    id: 'lunar-02',
-    tab: 'LUNAR-02',
-    title: 'Lunar Roving Vehicles & ALSEP',
-    year: '1969-1977',
+    id: 'lunar-surface',
+    tab: 'Moon Rovers',
+    title: 'Lunar Surface',
+    year: '1971 – 1977',
     color: '#7aa7ff', // Space Blue
     variant: 'glass',
     docs: [
       {
-        title: 'Lunar Roving Vehicles (LRVs)',
-        description: 'Three electric "moon buggies" driven by Apollo 15, 16, and 17 astronauts, permanently parked at Hadley Rille, Descartes, and Taurus-Littrow.',
-        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C',
-        tag: 'ROVER FLEET'
+        title: 'Lunar Roving Vehicles',
+        description: 'Apollo 15, 16 & 17 electric LRVs on lunar plains.',
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C'
       },
       {
-        title: 'ALSEP Scientific Surface Packages',
-        description: 'Apollo Lunar Surface Experiments Packages (seismometers, solar wind spectrometers, magnetometers) transmitting telemetry through 1977.',
-        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C',
-        tag: 'SURFACE SCIENCE'
+        title: 'ALSEP Scientific Stations',
+        description: 'Surface geophysical instruments active through 1977.',
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C'
       },
       {
-        title: 'Lunar Laser Retroreflector Arrays',
-        description: 'Passive corner-cube prism arrays left by Apollo 11, 14, and 15 that still bounce laser pulses today to measure lunar orbit to millimeter accuracy.',
-        url: 'https://science.nasa.gov/mission/apollo-14/',
-        tag: 'LASER RANGING'
+        title: 'Laser Retroreflectors',
+        description: 'Corner-cube prism arrays measuring Moon orbit.',
+        url: 'https://science.nasa.gov/mission/apollo-14/'
       }
     ]
   },
   {
-    id: 'lunar-03',
-    tab: 'LUNAR-03',
-    title: 'Surveyors & Lunar Orbiters',
-    year: '1966-2013',
+    id: 'surveyor-fleet',
+    tab: 'Surveyors',
+    title: 'Surveyor Fleet',
+    year: '1966 – 2013',
     color: '#2dd4bf', // Cyan Mint
     variant: 'glass',
     docs: [
       {
-        title: 'Surveyor Robotic Landers (1-7)',
-        description: 'Robotic probes proving soft landings in the 1960s. Apollo 12 visited Surveyor 3, bringing parts back to Earth to study long-term cosmic exposure.',
-        url: 'https://science.nasa.gov/mission/surveyor-3/',
-        tag: 'SURVEYOR FLEET'
+        title: 'Surveyor Soft Landers',
+        description: 'Robotic probes proving soft lunar surface landings.',
+        url: 'https://science.nasa.gov/mission/surveyor-3/'
       },
       {
-        title: 'LADEE Lunar Atmosphere Explorer',
-        description: 'Investigated pristine lunar exosphere composition and high-altitude levitating dust before a planned impact on the lunar far side.',
-        url: 'https://science.nasa.gov/mission/ladee/',
-        tag: 'LUNAR DUST'
+        title: 'LADEE Atmosphere Orbiter',
+        description: 'Pristine lunar exosphere and dust investigation.',
+        url: 'https://science.nasa.gov/mission/ladee/'
       },
       {
-        title: 'GRAIL Gravity Recovery Probes',
-        description: 'Twin orbiters Ebb and Flow mapped lunar sub-surface density and gravitational anomalies before impacting a crater rim near Goldschmidt.',
-        url: 'https://science.nasa.gov/mission/grail/',
-        tag: 'GRAVITY MAPPER'
+        title: 'GRAIL Gravity Probes',
+        description: 'Twin orbiters mapping lunar sub-surface density.',
+        url: 'https://science.nasa.gov/mission/grail/'
       }
     ]
   },
   {
-    id: 'mars-01',
-    tab: 'MARS-01',
-    title: 'First Mars Landers & Sojourner',
-    year: '1976-1997',
+    id: 'mars-pioneers',
+    tab: 'Pathfinder',
+    title: 'Mars Pioneers',
+    year: '1976 – 1997',
     color: '#ff5722', // Martian Orange-Red
     variant: 'glass',
     docs: [
       {
         title: 'Sojourner Microrover',
-        description: 'The first rover on Mars (1997), delivered by Pathfinder. It operated for 83 Martian sols and remains permanently parked in Ares Vallis.',
-        url: 'https://science.nasa.gov/mission/mars-pathfinder/',
-        tag: 'FIRST MARS ROVER'
+        description: 'First rover on Mars resting in Ares Vallis.',
+        url: 'https://science.nasa.gov/mission/mars-pathfinder/'
       },
       {
-        title: 'Mars Pathfinder Lander Base',
-        description: 'Airbag-assisted landing platform and meteorological station renamed the Carl Sagan Memorial Station on the Martian flood plain.',
-        url: 'https://science.nasa.gov/mission/mars-pathfinder/',
-        tag: 'PATHFINDER BASE'
+        title: 'Carl Sagan Station',
+        description: 'Pathfinder landing base and atmospheric sensors.',
+        url: 'https://science.nasa.gov/mission/mars-pathfinder/'
       },
       {
         title: 'Viking 1 & 2 Landers',
-        description: 'The first U.S. landers to successfully operate on Mars (1976), remaining silent historical monuments in Chryse Planitia and Utopia Planitia.',
-        url: 'https://science.nasa.gov/mission/viking-1/',
-        tag: 'FIRST LANDERS'
+        description: 'First operational scientific stations on Mars.',
+        url: 'https://science.nasa.gov/mission/viking-1/'
       }
     ]
   },
   {
-    id: 'mars-02',
-    tab: 'MARS-02',
-    title: 'Spirit, Opportunity & Aerial',
-    year: '2004-2024',
+    id: 'mars-rovers',
+    tab: 'Mars Rovers',
+    title: 'Mars Exploration',
+    year: '2004 – 2024',
     color: '#fb923c', // Solar Amber
     variant: 'glass',
     docs: [
       {
-        title: 'Spirit & Opportunity Twin Rovers',
-        description: 'Twin robotic geologists operating for years on opposite hemispheres of Mars, finding definitive mineral proof of past liquid water.',
-        url: 'https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/',
-        tag: 'TWIN ROVERS'
+        title: 'Spirit & Opportunity',
+        description: 'Twin geologists discovering ancient water clues.',
+        url: 'https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/'
       },
       {
-        title: 'Opportunity Rover Endurance Record',
-        description: 'Traveled over 28 miles (45 km) across Meridiani Planum, operating for nearly 15 years until silenced by the 2018 global dust storm.',
-        url: 'https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/',
-        tag: 'MARS MARATHON'
+        title: 'Opportunity Marathon',
+        description: 'Historic 28-mile traverse across Meridiani Planum.',
+        url: 'https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/'
       },
       {
-        title: 'Ingenuity Mars Helicopter',
-        description: 'The first aircraft on another planet. Completed 72 historic flights across Jezero Crater before retiring as an eternal navigation station.',
-        url: 'https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/',
-        tag: 'FIRST ROTORCRAFT'
+        title: 'Ingenuity Helicopter',
+        description: 'First aerial flight on another world (72 sorties).',
+        url: 'https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/'
       }
     ]
   },
   {
-    id: 'mars-03',
-    tab: 'MARS-03',
-    title: 'Phoenix, InSight & Entry Hardware',
-    year: '2008-2022',
+    id: 'mars-science',
+    tab: 'Mars Science',
+    title: 'Phoenix & InSight',
+    year: '2008 – 2022',
     color: '#e11d48', // Crimson Rose
     variant: 'glass',
     docs: [
       {
-        title: 'Phoenix Mars Polar Lander',
-        description: 'Landed in the Martian arctic plains in 2008, digging into the permafrost to uncover and photograph genuine subsurface water ice.',
-        url: 'https://science.nasa.gov/mission/phoenix/',
-        tag: 'POLAR ICE'
+        title: 'Phoenix Polar Lander',
+        description: 'Direct sampling of water ice in Martian arctic.',
+        url: 'https://science.nasa.gov/mission/phoenix/'
       },
       {
-        title: 'InSight Mars Seismic Station',
-        description: 'Monitored seismic waves and meteorite impacts in Elysium Planitia, creating the first internal structural map of Mars.',
-        url: 'https://science.nasa.gov/mission/insight/',
-        tag: 'SEISMIC CORE'
+        title: 'InSight Seismic Station',
+        description: 'Marsquake detector mapping planetary interior.',
+        url: 'https://science.nasa.gov/mission/insight/'
       },
       {
-        title: 'Mars Entry Parachute & Backshell',
-        description: 'Supersonic parachutes, heatshields, and sky cranes discarded during entry descent and landing, cataloged across Jezero and Gale craters.',
-        url: 'https://science.nasa.gov/mission/mars-2020-perseverance/',
-        tag: 'DESCENT RELICS'
+        title: 'EDL Descent Hardware',
+        description: 'Supersonic parachutes & backshells cataloged.',
+        url: 'https://science.nasa.gov/mission/mars-2020-perseverance/'
       }
     ]
   },
   {
-    id: 'deep-01',
-    tab: 'DEEP-01',
-    title: 'Asteroids, Pioneers & Kepler',
-    year: '1972-2018',
+    id: 'deep-space',
+    tab: 'Deep Space',
+    title: 'Deep Space Relics',
+    year: '1972 – 2018',
     color: '#a855f7', // Cosmic Violet
     variant: 'glass',
     docs: [
       {
-        title: 'Dawn Ion-Drive Spacecraft',
-        description: 'Mapped asteroid Vesta and dwarf planet Ceres. Ran out of fuel and remains in an eternal, unpowered quarantine orbit around Ceres.',
-        url: 'https://science.nasa.gov/mission/dawn/',
-        tag: 'CERES & VESTA'
+        title: 'Dawn Spacecraft',
+        description: 'Permanent orbit around dwarf planet Ceres.',
+        url: 'https://science.nasa.gov/mission/dawn/'
       },
       {
-        title: 'NEAR Shoemaker (Asteroid 433 Eros)',
-        description: 'First spacecraft to orbit and softly land on an asteroid surface, resting permanently on the regolith of near-Earth asteroid 433 Eros.',
-        url: 'https://science.nasa.gov/mission/near-shoemaker/',
-        tag: 'ASTEROID LANDER'
+        title: 'NEAR Shoemaker',
+        description: 'First probe to orbit and softly land on asteroid Eros.',
+        url: 'https://science.nasa.gov/mission/near-shoemaker/'
       },
       {
-        title: 'Pioneer 10, 11 & Kepler Telescope',
-        description: 'Pioneer probes drifting into interstellar space carrying the Pioneer Plaque, alongside Kepler drifting in an Earth-trailing solar orbit.',
-        url: 'https://science.nasa.gov/mission/pioneer-10/',
-        tag: 'INTERSTELLAR'
+        title: 'Pioneers & Kepler',
+        description: 'Interstellar probes and trailing exoplanet observatory.',
+        url: 'https://science.nasa.gov/mission/pioneer-10/'
       }
     ]
   }

@@ -8,7 +8,7 @@ import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261114_color';
 import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
 import { VanillaDriftWall, NASA_INSIDE_ITEMS } from './DriftWall.js?v=20261022a';
 import { VanillaFlexCarousel, NASA_SCIENTIST_ITEMS } from './FlexCarousel.js?v=20261022f';
-import { VanillaFolder, RESEARCH_DOSSIERS } from './Folder.js?v=20261023b';
+import { VanillaFolder, RESEARCH_DOSSIERS } from './Folder.js?v=20261115_topics_and_click';
 import { VanillaSplashCursor } from './SplashCursor.js?v=20261023a';
 
 // ─── 1. STARFIELD BACKGROUND ─────────────────────────────────
@@ -2203,7 +2203,6 @@ function initResearchSection() {
   gridRoot.innerHTML = '';
 
   RESEARCH_DOSSIERS.forEach((dossier, idx) => {
-    // Pure item without card container
     const item = document.createElement('div');
     item.className = 'research-item';
 
@@ -2213,7 +2212,7 @@ function initResearchSection() {
     folderStage.id = `folder-stage-${idx}`;
     item.appendChild(folderStage);
 
-    // Metadata directly below folder: Project Name and Year
+    // Metadata directly below folder: Project Title & Scope/Year
     const meta = document.createElement('div');
     meta.className = 'research-dossier-meta';
     meta.innerHTML = `
@@ -2230,16 +2229,22 @@ function initResearchSection() {
       label: dossier.tab,
       mode: 'flap',
       variant: dossier.variant || 'glass',
+      layout: 'spread',
       color: dossier.color,
-      size: 0.58,
-      speed: 1.15,
-      tilt: 0.3,
-      bounce: 0.18,
-      intro: false,
-      zoomOnClick: true,
+      paperColor: '#ffffff',
+      tabPosition: 'right',
+      openOn: 'click',
+      size: 0.65,
+      frost: 0.25,
+      tilt: 0.45,
+      bounce: 0.35,
+      speed: 1.0,
+      peek: true,
       draggable: true,
+      zoomOnClick: false,
+      theme: 'dark',
       onItemClick: (item, index) => {
-        // Document zoomed into view; navigation occurs strictly when clicking the link button
+        // Document clicked - navigation handled directly by VanillaFolder
       },
       onOpenChange: (open) => {
         try {
@@ -2251,7 +2256,3 @@ function initResearchSection() {
     });
   });
 }
-
-
-
-
