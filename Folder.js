@@ -41,15 +41,16 @@ const clamp = (value, min, max) => Math.min(max, Math.max(min, value));
 const parseColor = (() => {
   let context = null;
   const cache = new Map();
-  return value => {
+  return (value, fallback = [255, 255, 255]) => {
+    if (!value) return fallback;
     const key = String(value);
     if (cache.has(key)) return cache.get(key);
-    let rgb = [61, 139, 255];
+    let rgb = fallback;
     if (typeof document !== 'undefined') {
       context ??= document.createElement('canvas').getContext('2d', { willReadFrequently: true });
       if (context) {
         context.clearRect(0, 0, 1, 1);
-        context.fillStyle = '#3d8bff';
+        context.fillStyle = '#ffffff';
         context.fillStyle = key;
         context.fillRect(0, 0, 1, 1);
         rgb = Array.from(context.getImageData(0, 0, 1, 1).data.slice(0, 3));
@@ -241,6 +242,8 @@ export class VanillaFolder {
       {
         items: [],
         label: 'RESEARCH',
+        color: '#3d8bff',
+        paperColor: '#ffffff',
         mode: 'flap',
         variant: 'glass',
         layout: 'spread',
@@ -274,8 +277,8 @@ export class VanillaFolder {
 
   initDOM() {
     const { label, color, paperColor, tabPosition, variant, theme, draggable, className } = this.options;
-    const rgb = parseColor(color);
-    const paper = parseColor(paperColor);
+    const rgb = parseColor(color, [61, 139, 255]);
+    const paper = parseColor(paperColor, [255, 255, 255]);
     const backTone = mixRgb(rgb, [0, 0, 0], 0.16);
     const insideTop = rgbString(mixRgb(rgb, [0, 0, 0], 0.08));
     const insideBottom = rgbString(backTone);
@@ -401,25 +404,20 @@ export class VanillaFolder {
         const tag = typeof item === 'object' ? item.tag || 'NASA ARCHIVE' : 'NASA ARCHIVE';
 
         itemEl.innerHTML = `
-          <div class="folder-doc" style="--folder-accent: ${this.color};">
-            <div class="folder-doc-header">
-              <span class="folder-doc-tag">${tag}</span>
-              ${url ? `
-                <a href="${url}" target="_blank" rel="noopener noreferrer" class="folder-doc-link-btn" title="Open official NASA resource" onclick="event.stopPropagation(); window.open('${url}', '_blank');">
-                  <span>NASA.GOV</span>
-                  <svg viewBox="0 0 12 12" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.8">
-                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke-linecap="round" stroke-linejoin="round"/>
-                  </svg>
-                </a>
-              ` : ''}
-            </div>
-            ${title ? `<span class="folder-doc-title">${title}</span>` : ''}
+          <div class="folder-doc">
+            ${title ? `<span class="folder-doc-title">${title}</span>` : `<span class="folder-doc-heading"></span>`}
             ${desc ? `<span class="folder-doc-text">${desc}</span>` : ''}
+            <span class="folder-doc-line" style="width: 92%;"></span>
+            <span class="folder-doc-line" style="width: 84%;"></span>
+            <span class="folder-doc-line" style="width: 88%;"></span>
+            <span class="folder-doc-block"></span>
+            <span class="folder-doc-line" style="width: 80%;"></span>
+            <span class="folder-doc-line" style="width: 62%;"></span>
             ${url ? `
-              <div class="folder-doc-footer">
-                <a href="${url}" target="_blank" rel="noopener noreferrer" class="folder-doc-url-pill" onclick="event.stopPropagation(); window.open('${url}', '_blank');">
+              <div class="folder-doc-action">
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="folder-doc-link-pill" onclick="event.stopPropagation(); window.open('${url}', '_blank');" title="Open official NASA citation">
                   <span class="pill-dot"></span>
-                  <span class="pill-text">VISIT NASA RESOURCE</span>
+                  <span class="pill-text">OPEN CITATION</span>
                   <svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.6">
                     <path d="M2 8L8 2M8 2H3.5M8 2V6.5" stroke-linecap="round" stroke-linejoin="round"/>
                   </svg>
@@ -879,7 +877,7 @@ export class VanillaFolder {
 
     stage.addEventListener('click', e => {
       // 1. If direct link or button clicked: ONLY then navigate to external URL!
-      const linkEl = e.target.closest('a, .folder-doc-link-btn, .folder-doc-url-pill');
+      const linkEl = e.target.closest('a, .folder-doc-link-btn, .folder-doc-url-pill, .folder-doc-link-pill');
       if (linkEl) {
         e.stopPropagation();
         const href = linkEl.getAttribute('href') || linkEl.dataset.url;
