@@ -1,1650 +1,1639 @@
-@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
-
-/* ==========================================================================
-   WHY TRUST OUR COMPANY SECTION
-   EXACT 1:1 REPLICA FROM D:\gulf-talents (Colors, Circle, Spotlight & Bento)
-   ========================================================================== */
-
-:root {
-  /* Exact Gulf Talents Brand Colors from D:\gulf-talents\src\styles.css */
-  --whyus-primary: oklch(0.27 0.18 265);
-  --whyus-primary-fallback: #1D2472;
-  --whyus-accent: oklch(0.68 0.13 220);
-  --whyus-accent-fallback: #29ABE2;
-  --whyus-offwhite: #f8f5f0;
-  --whyus-card-blue: #d2edf3;
-  --whyus-slate-900: #0f172a;
-  --whyus-slate-700: #334155;
-  --whyus-slate-600: #475569;
-}
-
-.why-us-section {
-  position: relative;
-  width: 100%;
-  overflow: hidden;
-  background-color: var(--whyus-primary-fallback);
-  background-color: var(--whyus-primary);
-  color: #ffffff;
-  padding-top: 2.5rem;
-  padding-bottom: 0;
-  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
-  box-sizing: border-box;
-  scroll-snap-align: start;
-  scroll-snap-stop: normal;
-}
-
-@media (min-width: 640px) {
-  .why-us-section {
-    padding-top: 7rem;
-    padding-bottom: 0;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-section {
-    padding-top: 9rem;
-    padding-bottom: 0;
-  }
-}
-
-.why-us-section *,
-.why-us-section *::before,
-.why-us-section *::after {
-  box-sizing: border-box;
-}
-
-/* Background accent rings (from Gulf Talents lines 585-586) */
-.why-us-bg-ring-1 {
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  left: -20%;
-  display: none;
-  width: 120%;
-  height: 120%;
-  transform: translateY(-50%);
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  opacity: 0.3;
-}
-
-.why-us-bg-ring-2 {
-  pointer-events: none;
-  position: absolute;
-  top: 50%;
-  left: -30%;
-  display: none;
-  width: 140%;
-  height: 140%;
-  transform: translateY(-50%);
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.05);
-  opacity: 0.1;
-}
-
-@media (min-width: 1024px) {
-  .why-us-bg-ring-1,
-  .why-us-bg-ring-2 {
-    display: block;
-  }
-}
-
-/* Floating glow blobs (from Gulf Talents lines 588-601) */
-.why-us-glow-blob-1 {
-  pointer-events: none;
-  position: absolute;
-  top: -6rem;
-  right: 0;
-  width: 500px;
-  height: 500px;
-  border-radius: 9999px;
-  background-color: rgba(41, 171, 226, 0.2);
-  background-color: color-mix(in oklab, var(--whyus-accent) 20%, transparent);
-  filter: blur(120px);
-  opacity: 1;
-  transition: opacity 1.2s ease;
-}
-
-.why-us-glow-blob-2 {
-  pointer-events: none;
-  position: absolute;
-  bottom: 0;
-  left: 33.333%;
-  width: 300px;
-  height: 300px;
-  border-radius: 9999px;
-  background-color: rgba(41, 171, 226, 0.1);
-  background-color: color-mix(in oklab, var(--whyus-accent) 10%, transparent);
-  filter: blur(100px);
-  animation: whyUsBlobFloat 8s ease-in-out infinite;
-}
-
-@keyframes whyUsBlobFloat {
-  0%, 100% {
-    transform: none !important;
-  }
-  50% {
-    transform: translateY(-20px);
-  }
-}
-
-/* Container (from Gulf Talents line 603: relative z-10 mx-auto flex max-w-7xl flex-row items-center px-2 sm:px-6 lg:px-8) */
-/* Container: Screen-edge anchored on desktop so exact half rotating circle is visible */
-/* ==========================================================================
-   CONTAINER & ROTARY DIAL SECTION (EXACT 1:1 FROM D:\gulf-talents)
-   ========================================================================== */
-
-/* Container: relative z-10 mx-auto flex max-w-7xl flex-row items-center px-2 sm:px-6 lg:px-8 */
-.why-us-container {
-  position: relative;
-  z-index: 10;
-  margin-left: auto;
-  margin-right: auto;
-  display: flex;
-  max-width: 80rem; /* max-w-7xl = 1280px */
-  flex-direction: row;
-  align-items: center;
-  padding-left: 0.5rem; /* px-2 */
-  padding-right: 0.5rem;
-  box-sizing: border-box;
-}
-
-@media (min-width: 640px) {
-  .why-us-container {
-    padding-left: 1.5rem; /* sm:px-6 */
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-container {
-    padding-left: 2rem; /* lg:px-8 */
-    padding-right: 2rem;
-  }
-}
-
-/* ==========================================================================
-   LARGE LEFT CIRCLE WITH ROTARY DIAL
-   exact classes: absolute top-1/2 -translate-y-1/2 -left-[120px] flex shrink-0
-   h-[260px] w-[260px] items-center justify-center sm:static sm:h-[480px]
-   sm:w-[50%] sm:translate-y-0 sm:-ml-[10%] lg:mb-0 lg:-ml-[15%] lg:h-[700px]
-   lg:w-[45%] lg:origin-left lg:scale-[0.85] lg:items-start lg:justify-start xl:scale-100
-   ========================================================================== */
-
-.why-us-dial-wrapper {
-  position: absolute;
-  top: 50%;
-  left: -120px;
-  transform: translateY(-50%);
-  display: flex;
-  flex-shrink: 0;
-  width: 260px;
-  height: 260px;
-  align-items: center;
-  justify-content: center;
-}
-
-@media (min-width: 640px) {
-  .why-us-dial-wrapper {
-    position: static;
-    top: auto;
-    left: auto;
-    width: 50%;
-    height: 480px;
-    transform: translateY(0);
-    margin-left: -10%;
-    align-items: center;
-    justify-content: center;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-dial-wrapper {
-    position: static;
-    top: auto;
-    left: auto;
-    margin-bottom: 0;
-    margin-left: -15%;
-    width: 45%;
-    height: 700px;
-    transform-origin: left center;
-    transform: scale(0.85);
-    display: flex;
-    align-items: flex-start;
-    justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1280px) {
-  .why-us-dial-wrapper {
-    transform: scale(1);
-  }
-}
-
-/* Rotary Dial Stage: pointer-events-none absolute inset-0 z-10 block */
-.why-us-dial-stage {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 10;
-  display: block;
-}
-
-/* Orbit box: absolute top-1/2 left-1/2 h-[880px] w-[880px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.33] lg:-left-[40px] lg:-translate-x-0 lg:scale-100 */
-.why-us-dial-orbit-box {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 880px;
-  height: 880px;
-  transform-origin: center;
-  transform: translate(-50%, -50%) scale(0.33);
-}
-
-@media (min-width: 1024px) {
-  .why-us-dial-orbit-box {
-    left: -40px;
-    transform: translate(0, -50%) scale(1);
-  }
-}
-
-/* Rotating outer ring with gaps (from Gulf Talents lines 617-631) */
-.why-us-outer-conic-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  background: conic-gradient(
-    from 0deg,
-    transparent 0deg 2deg,
-    rgba(255, 255, 255, 0.12) 2deg 20deg,
-    transparent 20deg 32deg,
-    rgba(255, 255, 255, 0.12) 32deg 50deg,
-    transparent 50deg 62deg,
-    rgba(255, 255, 255, 0.12) 62deg 80deg,
-    transparent 80deg 92deg,
-    rgba(255, 255, 255, 0.12) 92deg 110deg,
-    transparent 110deg 122deg,
-    rgba(255, 255, 255, 0.12) 122deg 140deg,
-    transparent 140deg 152deg,
-    rgba(255, 255, 255, 0.12) 152deg 170deg,
-    transparent 170deg 182deg,
-    rgba(255, 255, 255, 0.12) 182deg 200deg,
-    transparent 200deg 212deg,
-    rgba(255, 255, 255, 0.12) 212deg 230deg,
-    transparent 230deg 242deg,
-    rgba(255, 255, 255, 0.12) 242deg 260deg,
-    transparent 260deg 272deg,
-    rgba(255, 255, 255, 0.12) 272deg 290deg,
-    transparent 290deg 302deg,
-    rgba(255, 255, 255, 0.12) 302deg 320deg,
-    transparent 320deg 332deg,
-    rgba(255, 255, 255, 0.12) 332deg 350deg,
-    transparent 350deg 360deg
-  );
-  animation: whyUsRotaryDialRotate 12s ease-in-out infinite;
-}
-
-/* Dial Holes orbiting ring */
-.why-us-dial-holes-ring {
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  animation: whyUsRotaryDialRotate 12s ease-in-out infinite;
-}
-
-@keyframes whyUsRotaryDialRotate {
-  0%   { transform: rotate(0deg); }
-  8%   { transform: rotate(85deg); }
-  15%  { transform: rotate(85deg); }
-  25%  { transform: rotate(0deg); }
-  30%  { transform: rotate(0deg); }
-  38%  { transform: rotate(170deg); }
-  45%  { transform: rotate(170deg); }
-  55%  { transform: rotate(0deg); }
-  60%  { transform: rotate(0deg); }
-  68%  { transform: rotate(255deg); }
-  75%  { transform: rotate(255deg); }
-  85%  { transform: rotate(0deg); }
-  90%  { transform: rotate(0deg); }
-  98%  { transform: rotate(340deg); }
-  99%  { transform: rotate(340deg); }
-  100% { transform: rotate(0deg); }
-}
-
-.why-us-dial-hole {
-  position: absolute;
-  width: 2rem;
-  height: 2rem;
-  display: flex;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  background-color: rgba(255, 255, 255, 0.05);
-}
-
-.why-us-dial-hole-inner {
-  width: 0.875rem;
-  height: 0.875rem;
-  border-radius: 9999px;
-  background-color: rgba(255, 255, 255, 0.15);
-}
-
-/* Counter-rotating inner dashed ring */
-.why-us-dashed-ring {
-  position: absolute;
-  inset: 80px;
-  border-radius: 9999px;
-  border: 3px dashed rgba(255, 255, 255, 0.15);
-  animation: whyUsDashedCounterRotate 8s ease-in-out infinite;
-}
-
-@keyframes whyUsDashedCounterRotate {
-  0%   { transform: rotate(0deg); }
-  15%  { transform: rotate(-120deg); }
-  25%  { transform: rotate(-120deg); }
-  100% { transform: rotate(0deg); }
-}
-
-/* Finger stop indicator */
-.why-us-finger-stop {
-  position: absolute;
-  top: 50%;
-  left: 50%;
-  width: 1.25rem;
-  height: 1.25rem;
-  transform: translate(-50%, -50%);
-  border-radius: 9999px;
-  background-color: rgba(41, 171, 226, 0.6);
-  background-color: color-mix(in oklab, var(--whyus-accent) 60%, transparent);
-  filter: blur(4px);
-  animation: whyUsFingerStopPulse 3s ease-in-out infinite;
-}
-
-@keyframes whyUsFingerStopPulse {
-  0%, 100% { opacity: 0.4; }
-  50%      { opacity: 0.8; }
-}
-
-/* ==========================================================================
-   LARGE OFF-WHITE CIRCLE
-   exact classes: relative z-20 flex shrink-0 flex-col items-center justify-center
-   overflow-hidden rounded-full bg-[#f8f5f0] p-4 shadow-2xl h-[260px] w-[260px]
-   sm:h-[450px] sm:w-[450px] sm:p-10 lg:absolute lg:top-1/2 lg:left-0 lg:h-[800px]
-   lg:w-[800px] lg:-translate-y-1/2 lg:items-center lg:justify-center lg:p-0
-   ========================================================================== */
-
-.why-us-big-circle {
-  position: relative;
-  z-index: 20;
-  display: flex;
-  flex-shrink: 0;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  overflow: hidden;
-  border-radius: 9999px;
-  background-color: var(--whyus-offwhite, #f8f5f0);
-  padding: 1rem;
-  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
-  width: 260px;
-  height: 260px;
-}
-
-@media (min-width: 640px) {
-  .why-us-big-circle {
-    width: 450px;
-    height: 450px;
-    padding: 2.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-big-circle {
-    position: absolute;
-    top: 50%;
-    left: 0;
-    width: 800px;
-    height: 800px;
-    transform: translateY(-50%);
-    align-items: center;
-    justify-content: center;
-    padding: 0;
-  }
-}
-
-/* Subtle inner pulse (from Gulf Talents lines 692-704) */
-.why-us-circle-pulse {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  border-radius: 9999px;
-  opacity: 0.3;
-  animation: whyUsCircleInnerPulse 4s ease-in-out infinite;
-}
-
-@keyframes whyUsCircleInnerPulse {
-  0%, 100% {
-    box-shadow: inset 0 0 0 0px rgba(0, 0, 0, 0);
-  }
-  50% {
-    box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.03);
-  }
-}
-
-/* Circle Content Box: exact classes:
-   relative z-30 w-full pl-12 pr-2 sm:px-12 flex flex-col items-end sm:items-center lg:items-center lg:justify-center lg:p-0 text-right sm:text-center lg:text-center */
-.why-us-circle-content {
-  position: relative;
-  z-index: 30;
-  width: 100%;
-  padding-left: 3rem;
-  padding-right: 0.5rem;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  text-align: right;
-}
-
-@media (min-width: 640px) {
-  .why-us-circle-content {
-    padding-left: 3rem;
-    padding-right: 3rem;
-    align-items: center;
-    text-align: center;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-circle-content {
-    padding: 0;
-    align-items: center;
-    justify-content: center;
-    text-align: center;
-  }
-}
-
-/* Inner box: flex flex-col items-end sm:items-center lg:items-center w-full max-w-[100%] lg:max-w-[650px] xl:max-w-[700px] */
-.why-us-circle-inner-box {
-  display: flex;
-  flex-direction: column;
-  align-items: flex-end;
-  width: 100%;
-  max-width: 100%;
-}
-
-@media (min-width: 640px) {
-  .why-us-circle-inner-box {
-    align-items: center;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-circle-inner-box {
-    align-items: center;
-    max-width: 650px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .why-us-circle-inner-box {
-    max-width: 700px;
-  }
-}
-
-/* Mobile Title (exact classes from Gulf Talents lines 710-722) */
-.why-us-mobile-title {
-  font-family: 'Urbanist', system-ui, sans-serif;
-  margin-bottom: 0;
-  display: flex;
-  flex-direction: row;
-  align-items: center;
-  justify-content: flex-end;
-  padding-left: 1.5rem;
-  padding-right: 1rem;
-  font-size: 26px;
-  font-weight: 800;
-  line-height: 1.1;
-  color: var(--whyus-slate-900);
-}
-
-@media (min-width: 640px) {
-  .why-us-mobile-title {
-    display: none;
-    padding-left: 0;
-    padding-right: 0;
-  }
-}
-
-.why-us-mobile-title-col {
-  display: flex;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  padding-right: 0.75rem;
-  text-align: center;
-}
-
-.why-us-mobile-title-rotated {
-  transform: rotate(180deg);
-  writing-mode: vertical-rl;
-}
-
-/* Desktop Title Box (exact classes: hidden sm:flex flex-col items-center justify-center w-full relative mb-6) */
-.why-us-desktop-title-box {
-  display: none;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  width: 100%;
-  position: relative;
-  margin-bottom: 1.5rem;
-}
-
-@media (min-width: 640px) {
-  .why-us-desktop-title-box {
-    display: flex;
-  }
-}
-
-.why-us-title-inner {
-  width: fit-content;
-  display: flex;
-  flex-direction: column;
-  align-items: flex-start;
-  text-align: left;
-}
-
-.why-us-eyebrow {
-  margin-bottom: 0.375rem;
-  display: none;
-  font-size: 7px;
-  font-weight: 700;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: var(--whyus-slate-900);
-  background: rgba(41, 171, 226, 0.22);
-  padding: 2px 4px;
-  border-radius: 2px;
-}
-
-@media (min-width: 640px) {
-  .why-us-eyebrow {
-    margin-bottom: 1.25rem;
-    display: inline-block;
-    font-size: 11px;
-  }
-}
-
-.why-us-title {
-  font-family: 'Urbanist', system-ui, sans-serif;
-  letter-spacing: -0.025em;
-  width: fit-content;
-  font-size: 3.75rem;
-  font-weight: 700;
-  line-height: 1.1;
-  color: var(--whyus-slate-900);
-  text-align: left;
-  margin: 0;
-}
-
-@media (min-width: 1024px) {
-  .why-us-title {
-    font-size: 52px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .why-us-title {
-    font-size: 60px;
-  }
-}
-
-.why-us-title-accent {
-  font-weight: 800;
-  letter-spacing: -0.025em;
-  color: var(--whyus-accent-fallback, #29ABE2);
-  color: var(--whyus-accent, #29ABE2);
-  font-size: 4.5rem;
-  display: block;
-}
-
-@media (min-width: 1024px) {
-  .why-us-title-accent {
-    font-size: 64px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .why-us-title-accent {
-    font-size: 72px;
-  }
-}
-
-/* Description paragraph: mb-4 sm:mb-8 hidden sm:block max-w-[120px] sm:max-w-[400px] lg:max-w-[550px] text-[8px] sm:text-base leading-snug sm:leading-relaxed font-medium text-slate-600 text-center lg:text-center */
-.why-us-desc {
-  margin-bottom: 1rem;
-  display: none;
-  max-width: 120px;
-  font-size: 8px;
-  line-height: 1.375;
-  font-weight: 500;
-  color: var(--whyus-slate-600);
-  text-align: center;
-}
-
-@media (min-width: 640px) {
-  .why-us-desc {
-    display: block;
-    max-width: 400px;
-    margin-bottom: 2rem;
-    font-size: 1rem;
-    line-height: 1.625;
-    text-align: center;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-desc {
-    max-width: 550px;
-    text-align: center;
-  }
-}
-
-/* Subtle right edge gradient on circle (exact from Gulf Talents line 753) */
-.why-us-circle-edge-gradient {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  right: 0;
-  bottom: 0;
-  display: none;
-  width: 33.333%;
-  border-top-right-radius: 9999px;
-  border-bottom-right-radius: 9999px;
-  background: linear-gradient(to left, rgba(0, 0, 0, 0.05), transparent);
-}
-
-@media (min-width: 1024px) {
-  .why-us-circle-edge-gradient {
-    display: block;
-  }
-}
-
-/* ==========================================================================
-   BUTTON 12 (from Gulf Talents lines 1039-1135)
-   ========================================================================== */
-
-.btn-12,
-.btn-12 *,
-.btn-12 :after,
-.btn-12 :before,
-.btn-12:after,
-.btn-12:before {
-  border: 0 solid;
-  box-sizing: border-box;
-}
-
-.btn-12 {
-  -webkit-tap-highlight-color: transparent;
-  -webkit-appearance: button;
-  appearance: button;
-  background-color: #000;
-  background-image: none;
-  color: #fff;
-  cursor: pointer;
-  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
-    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
-  font-size: 100%;
-  font-weight: 900;
-  line-height: 1.5;
-  margin: 0;
-  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
-  padding: 0.8rem 3rem;
-  text-transform: uppercase;
-  border-radius: 99rem;
-  border-width: 2px;
-  overflow: hidden;
-  position: relative;
-  text-decoration: none;
-  display: none;
-  align-items: center;
-  justify-content: center;
-  margin: 1rem auto 0 auto;
-}
-
-@media (min-width: 640px) {
-  .btn-12 {
-    display: inline-flex;
-  }
-}
-
-.btn-12 span {
-  mix-blend-mode: difference;
-  position: relative;
-  z-index: 2;
-}
-
-.btn-12:after,
-.btn-12:before {
-  background: linear-gradient(
-    90deg,
-    #fff 25%,
-    transparent 0,
-    transparent 50%,
-    #fff 0,
-    #fff 75%,
-    transparent 0
-  );
-  content: "";
-  inset: 0;
-  position: absolute;
-  transform: translateY(var(--progress, 100%));
-  transition: transform 0.2s ease;
-}
-
-.btn-12:after {
-  --progress: -100%;
-  background: linear-gradient(
-    90deg,
-    transparent 0,
-    transparent 25%,
-    #fff 0,
-    #fff 50%,
-    transparent 0,
-    transparent 75%,
-    #fff 0
-  );
-  z-index: 1;
-}
-
-.btn-12:hover:after,
-.btn-12:hover:before {
-  --progress: 0;
-}
-
-/* ==========================================================================
-   STAGGERED PILLS (from Gulf Talents lines 757-791)
-   Offsets: ml-0, ml-1 (72px), ml-2 (110px), ml-3 (122px), ml-4 (110px), ml-5 (72px), ml-6 (0)
-   ========================================================================== */
-
-/* Staggered Pills: relative z-30 flex w-full flex-col items-start gap-2 pl-[96px] sm:pl-8 sm:mt-8 sm:w-[60%] sm:gap-7 lg:mt-0 lg:w-[55%] lg:gap-8 lg:pl-[140px] xl:pl-[240px] */
-.why-us-pills-list {
-  position: relative;
-  z-index: 30;
-  display: flex;
-  width: 100%;
-  flex-direction: column;
-  align-items: flex-start;
-  gap: 0.5rem;
-  padding-left: 96px;
-}
-
-@media (min-width: 640px) {
-  .why-us-pills-list {
-    margin-top: 2rem;
-    width: 60%;
-    gap: 1.75rem;
-    padding-left: 2rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-pills-list {
-    margin-top: 0;
-    width: 55%;
-    gap: 2rem;
-    padding-left: 140px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .why-us-pills-list {
-    padding-left: 240px;
-  }
-}
-
-/* Exact offsets */
-.ml-0 { margin-left: 0; }
-.ml-1 { margin-left: 40px; }
-.ml-2 { margin-left: 60px; }
-.ml-3 { margin-left: 66px; }
-.ml-4 { margin-left: 60px; }
-.ml-5 { margin-left: 40px; }
-.ml-6 { margin-left: 0; }
-
-@media (min-width: 1024px) {
-  .ml-0 { margin-left: 0; }
-  .ml-1 { margin-left: 72px; }
-  .ml-2 { margin-left: 110px; }
-  .ml-3 { margin-left: 122px; }
-  .ml-4 { margin-left: 110px; }
-  .ml-5 { margin-left: 72px; }
-  .ml-6 { margin-left: 0; }
-}
-
-.why-us-pill-card {
-  position: relative;
-  display: flex;
-  width: 180px;
-  max-width: calc(100vw - 100px);
-  cursor: pointer;
-  align-items: center;
-  transition: transform 0.5s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-card {
-    width: 380px;
-    max-width: 100%;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-pill-card {
-    width: 420px;
-  }
-}
-
-@media (min-width: 1280px) {
-  .why-us-pill-card {
-    width: 480px;
-  }
-}
-
-.why-us-pill-card:hover {
-  transform: translateX(0.5rem);
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-card:hover {
-    transform: translateX(0.75rem);
-  }
-}
-
-/* Dark circle marker */
-.why-us-pill-marker {
-  position: relative;
-  z-index: 20;
-  display: flex;
-  width: 2.25rem;
-  height: 2.25rem;
-  flex-shrink: 0;
-  align-items: center;
-  justify-content: center;
-  border-radius: 9999px;
-  border-width: 2px;
-  border-color: var(--whyus-primary-fallback);
-  border-color: var(--whyus-primary);
-  background-color: var(--whyus-slate-900);
-  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
-  transition: all 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-marker {
-    width: 72px;
-    height: 72px;
-    border-width: 6px;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-pill-marker {
-    border-color: transparent;
-  }
-}
-
-.why-us-pill-card:hover .why-us-pill-marker {
-  transform: scale(1.1);
-  background-color: var(--whyus-accent-fallback);
-  background-color: var(--whyus-accent);
-}
-
-.why-us-pill-icon {
-  width: 0.875rem;
-  height: 0.875rem;
-  color: #ffffff;
-  opacity: 0.9;
-  transition: transform 0.3s ease, opacity 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-icon {
-    width: 1.75rem;
-    height: 1.75rem;
-  }
-}
-
-.why-us-pill-card:hover .why-us-pill-icon {
-  transform: rotate(6deg);
-  opacity: 1;
-}
-
-/* White pill body */
-.why-us-pill-body {
-  position: relative;
-  z-index: 10;
-  flex: 1;
-  margin-left: -1rem;
-  overflow: hidden;
-  border-top-right-radius: 9999px;
-  border-bottom-right-radius: 9999px;
-  background-color: var(--whyus-offwhite);
-  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
-  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-body {
-    margin-left: -2rem;
-    padding: 1.25rem 2rem 1.25rem 3rem;
-  }
-}
-
-.why-us-pill-overlay {
-  position: absolute;
-  inset: 0;
-  background-color: #ffffff;
-  opacity: 0.6;
-  transition: opacity 0.3s ease;
-}
-
-.why-us-pill-card:hover .why-us-pill-overlay {
-  opacity: 1;
-}
-
-.why-us-pill-sheen {
-  pointer-events: none;
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  right: -8rem;
-  width: 8rem;
-  transform: skewX(-20deg);
-  background: linear-gradient(to right, transparent, rgba(41, 171, 226, 0.2), transparent);
-  transition: transform 0.7s ease;
-}
-
-.why-us-pill-card:hover .why-us-pill-sheen {
-  transform: skewX(-20deg) translateX(-400px);
-}
-
-.why-us-pill-inner {
-  position: relative;
-  z-index: 10;
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  gap: 0.25rem;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-inner {
-    gap: 1rem;
-  }
-}
-
-.why-us-pill-text {
-  padding-right: 0.25rem;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-text {
-    padding-right: 0;
-  }
-}
-
-.why-us-pill-title {
-  margin: 0;
-  font-size: 0.75rem;
-  letter-spacing: -0.025em;
-  line-height: 1.25;
-  font-weight: 700;
-  color: var(--whyus-slate-900);
-  transition: color 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-title {
-    font-size: 1.25rem;
-    letter-spacing: normal;
-  }
-}
-
-.why-us-pill-card:hover .why-us-pill-title {
-  color: var(--whyus-accent-fallback);
-  color: var(--whyus-accent);
-}
-
-.why-us-pill-subtitle {
-  display: none;
-  margin: 0;
-  font-size: 6px;
-  font-weight: 600;
-  text-transform: uppercase;
-  letter-spacing: 0.05em;
-  color: var(--whyus-slate-600);
-  white-space: nowrap;
-  overflow: hidden;
-  text-overflow: ellipsis;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-subtitle {
-    display: block;
-    font-size: 0.75rem;
-  }
-}
-
-.why-us-pill-check {
-  width: 0.625rem;
-  height: 0.625rem;
-  flex-shrink: 0;
-  color: var(--whyus-accent-fallback);
-  color: var(--whyus-accent);
-  opacity: 0;
-  transition: all 0.3s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-pill-check {
-    width: 1.25rem;
-    height: 1.25rem;
-  }
-}
-
-.why-us-pill-card:hover .why-us-pill-check {
-  opacity: 1;
-}
-
-/* ==========================================================================
-   MASK CONTAINER & SPOTLIGHT (EXACT MaskContainer from svg-mask-effect.tsx)
-   ========================================================================== */
-
-.why-us-mask-container {
-  position: relative;
-  z-index: 10;
-  width: 100%;
-  margin-top: 5rem;
-  padding-bottom: 0;
-  overflow: hidden;
-  -webkit-touch-callout: none;
-}
-
-@media (min-width: 640px) {
-  .why-us-mask-container {
-    margin-top: 7rem;
-    padding-bottom: 0;
-    user-select: auto;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-mask-container {
-    padding-bottom: 0;
-  }
-}
-
-/* Pure white circular spotlight layer (sits at z-0 behind children) */
-/* Single mask-image URL only - JS RAF loop drives position & size (NO CSS transition) */
-.why-us-spotlight-layer {
-  pointer-events: none;
-  position: absolute;
-  inset: 0;
-  z-index: 0;
-  -webkit-mask-image: url('/public/mask.svg');
-  mask-image: url('/public/mask.svg');
-  -webkit-mask-repeat: no-repeat;
-  mask-repeat: no-repeat;
-  -webkit-mask-size: 10px 10px;
-  mask-size: 10px 10px;
-  -webkit-mask-position: -9999px -9999px;
-  mask-position: -9999px -9999px;
-  /* NO CSS transition here - JS RAF lerp handles smooth animation */
-}
-
-.why-us-spotlight-white-fill {
-  width: 100%;
-  height: 100%;
-  background-color: #ffffff;
-}
-
-/* Content sits on top of spotlight */
-/* Content sits on top of spotlight */
-.why-us-mask-content {
-  pointer-events: none;
-}
-
-.why-us-mask-content > * {
-  pointer-events: auto;
-}
-
-.why-us-invert-text {
-  position: relative;
-  z-index: 1;
-}
-
-/* ---- Spotlight Difference Inversion (Exact Gulf Talents mechanism) ---- */
-/* White text on pure-white spotlight inverts to pure black (#000000) */
-/* Cyan/blue text inverts to vivid orange (#d6541d) */
-.why-us-invert-text {
-  mix-blend-mode: difference;
-}
-
-.why-us-invert-text,
-.why-us-invert-text p,
-.why-us-invert-text h3,
-.why-us-invert-text span {
-  color: #ffffff;
-}
-
-/* Accent text ("Delivered with precision."):
-   - On dark bg: Cyan / Blue (#29ABE2)
-   - Under pure-white spotlight: Inverts to Vivid Orange (#d6541d) */
-.why-us-orange-text,
-.why-us-invert-text .why-us-orange-text,
-.why-us-invert-text .text-accent {
-  color: var(--whyus-accent-fallback, #29ABE2) !important;
-  color: var(--whyus-accent, #29ABE2) !important;
-  font-weight: 800;
-  display: inline;
-}
-
-/* ==========================================================================
-   STATISTICS 4-COLUMN ROW (from Gulf Talents lines 797-835)
-   ========================================================================== */
-
-.why-us-stats-wrapper {
-  max-width: 72rem;
-  margin-left: auto;
-  margin-right: auto;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-}
-
-@media (min-width: 640px) {
-  .why-us-stats-wrapper {
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-stats-wrapper {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-.why-us-stats-grid {
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 640px) {
-  .why-us-stats-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-stats-grid {
-    grid-template-columns: repeat(4, 1fr);
-  }
-}
-
-.why-us-stat-p {
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.65;
-  color: #ffffff;
-  margin: 0;
-  text-align: left;
-  text-justify: none;
-}
-
-.why-us-stat-p span {
-  font-weight: 900;
-}
-
-@media (min-width: 640px) {
-  .why-us-stat-p {
-    font-size: 1.05rem;
-  }
-}
-
-/* ==========================================================================
-   OUR PROMISE & BENTO FEATURE CARDS (from Gulf Talents lines 837-933)
-   ========================================================================== */
-
-.why-us-bento-section {
-  max-width: 72rem;
-  margin-left: auto;
-  margin-right: auto;
-  margin-top: 5rem;
-  padding-left: 1.25rem;
-  padding-right: 1.25rem;
-  padding-bottom: 5rem;
-}
-
-@media (min-width: 640px) {
-  .why-us-bento-section {
-    margin-top: 7rem;
-    padding-left: 1.5rem;
-    padding-right: 1.5rem;
-    padding-bottom: 7rem;
-  }
-}
-
-@media (min-width: 1024px) {
-  .why-us-bento-section {
-    padding-left: 2rem;
-    padding-right: 2rem;
-  }
-}
-
-.why-us-bento-layout {
-  display: grid;
-  gap: 2.5rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 1024px) {
-  .why-us-bento-layout {
-    grid-template-columns: repeat(12, 1fr);
-    gap: 3.5rem;
-  }
-}
-
-/* Left: Our Promise Column */
-.why-us-promise-col {
-  display: flex;
-  flex-direction: column;
-}
-
-@media (min-width: 1024px) {
-  .why-us-promise-col {
-    grid-column: span 5 / span 5;
-  }
-}
-
-.why-us-promise-badge {
-  font-family: 'Urbanist', system-ui, sans-serif;
-  display: inline-block;
-  width: fit-content;
-  font-size: 11px;
-  font-weight: 800;
-  text-transform: uppercase;
-  letter-spacing: 0.2em;
-  color: #ffffff;
-  background: rgba(41, 171, 226, 0.35);
-  padding: 2px 6px;
-  border-radius: 2px;
-}
-
-.why-us-promise-h3 {
-  font-family: 'Urbanist', system-ui, sans-serif;
-  letter-spacing: -0.025em;
-  margin-top: 1.25rem;
-  margin-bottom: 0;
-  font-size: 1.875rem;
-  font-weight: 800;
-  line-height: 1.25;
-  color: #ffffff;
-}
-
-@media (min-width: 640px) {
-  .why-us-promise-h3 {
-    font-size: 2.25rem;
-  }
-}
-
-.why-us-promise-h3 .text-accent {
-  color: var(--whyus-accent-fallback);
-  color: var(--whyus-accent);
-}
-
-/* "Delivered with precision." — stays vivid orange regardless of spotlight blend */
-/* Uses position relative + z-index to sit above the mix-blend layer */
-/* .why-us-orange-text styled above */
-
-.why-us-promise-p {
-  margin-top: 1.25rem;
-  margin-bottom: 0;
-  font-size: 1.05rem;
-  font-weight: 600;
-  line-height: 1.7;
-  color: #ffffff;
-  text-align: left;
-  text-justify: none;
-}
-
-/* Right: Bento Feature Cards Column */
-.why-us-bento-col {
-  display: flex;
-  flex-direction: column;
-  gap: 2rem;
-}
-
-@media (min-width: 1024px) {
-  .why-us-bento-col {
-    grid-column: span 7 / span 7;
-  }
-}
-
-.why-us-bento-grid {
-  position: relative;
-  z-index: 10;
-  display: grid;
-  grid-template-columns: repeat(3, 1fr);
-  gap: 0.5rem;
-  grid-auto-rows: 1fr;
-}
-
-@media (min-width: 640px) {
-  .why-us-bento-grid {
-    gap: 1rem;
-    grid-auto-rows: 150px;
-  }
-}
-
-/* Individual Bento Cards */
-.why-us-card-blue-tall {
-  display: flex;
-  height: 100%;
-  flex-direction: column;
-  align-items: center;
-  justify-content: center;
-  border-radius: 1.25rem;
-  background-color: var(--whyus-card-blue);
-  padding: 0.625rem;
-  text-align: center;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-}
-
-@media (min-width: 640px) {
-  .why-us-card-blue-tall {
-    border-radius: 2rem;
-    padding: 1.5rem;
-  }
-}
-
-.why-us-card-white-wide {
-  display: flex;
-  height: 100%;
-  align-items: center;
-  gap: 0.75rem;
-  border-radius: 1.25rem;
-  background-color: #ffffff;
-  padding: 0.75rem;
-  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
-  transition: transform 0.5s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-card-white-wide {
-    gap: 1.5rem;
-    border-radius: 2rem;
-    padding: 1.5rem 2.5rem;
-  }
-}
-
-.why-us-card-white-wide:hover {
-  transform: translateY(-0.25rem);
-}
-
-.why-us-card-title-dark {
-  font-size: 11px;
-  line-height: 1.1;
-  font-weight: 800;
-  color: var(--whyus-slate-900);
-  margin: 0;
-}
-
-@media (min-width: 640px) {
-  .why-us-card-title-dark {
-    font-size: 1.25rem;
-    line-height: 1.25;
-  }
-}
-
-.why-us-card-p-slate {
-  margin: 0.375rem 0 0 0;
-  font-size: 7px;
-  line-height: 1.3;
-  color: var(--whyus-slate-700);
-}
-
-@media (min-width: 640px) {
-  .why-us-card-p-slate {
-    margin-top: 0.75rem;
-    font-size: 0.875rem;
-  }
-}
-
-.why-us-bento-star {
-  width: 0.875rem;
-  height: 0.875rem;
-  margin-bottom: 0.375rem;
-  color: var(--whyus-slate-900);
-}
-
-@media (min-width: 640px) {
-  .why-us-bento-star {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom: 1rem;
-  }
-}
-
-.why-us-bento-users {
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
-  color: var(--whyus-slate-900);
-  transition: transform 0.5s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-bento-users {
-    width: 3rem;
-    height: 3rem;
-  }
-}
-
-.why-us-card-white-wide:hover .why-us-bento-users {
-  transform: scale(1.1);
-}
-
-.why-us-bento-truck {
-  width: 1.25rem;
-  height: 1.25rem;
-  margin-bottom: 0.375rem;
-  color: var(--whyus-slate-900);
-}
-
-@media (min-width: 640px) {
-  .why-us-bento-truck {
-    width: 2.5rem;
-    height: 2.5rem;
-    margin-bottom: 0.75rem;
-  }
-}
-
-.why-us-bento-lightbulb {
-  width: 1.5rem;
-  height: 1.5rem;
-  flex-shrink: 0;
-  color: var(--whyus-slate-900);
-  transition: transform 0.5s ease;
-}
-
-@media (min-width: 640px) {
-  .why-us-bento-lightbulb {
-    width: 3rem;
-    height: 3rem;
-  }
-}
-
-.why-us-card-white-wide:hover .why-us-bento-lightbulb {
-  transform: scale(1.1);
-}
-
-/* Bottom Narrative Paragraphs (from Gulf Talents lines 923-930) */
-.why-us-bottom-text-grid {
-  margin-top: 1rem;
-  display: grid;
-  gap: 1.5rem;
-  grid-template-columns: 1fr;
-}
-
-@media (min-width: 640px) {
-  .why-us-bottom-text-grid {
-    grid-template-columns: repeat(2, 1fr);
-  }
-}
-
-.why-us-bottom-p {
-  font-size: 0.95rem;
-  font-weight: 600;
-  line-height: 1.7;
-  color: #ffffff;
-  margin: 0;
-  text-align: left;
-  text-justify: none;
-}
-
-@media (min-width: 640px) {
-  .why-us-bottom-p {
-    font-size: 1.05rem;
-  }
-}
-
-/* ==========================================================================
-   SCROLL REVEAL ENTRANCE
-   ========================================================================== */
-
-.why-us-reveal {
-  opacity: 0;
-  transform: translateY(20px);
-  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
-}
-
-.why-us-reveal.is-visible {
-  opacity: 1;
-  transform: none !important;
-}
-
-
-/* ==========================================================================
-   WHY-US SCROLLABLE STEPS (1, 2, 3...) REPLACING BOTTOM PARAGRAPHS
-   ========================================================================== */
-
-.why-us-scrollable-steps-wrap {
-  margin-top: 1.25rem;
-  width: 100%;
-}
-
-.why-us-scroll-header-bar {
-  display: flex;
-  align-items: center;
-  justify-content: space-between;
-  margin-bottom: 0.65rem;
-  padding-bottom: 0.4rem;
-  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
-}
-
-.why-us-scroll-pill {
-  font-family: 'Urbanist', system-ui, sans-serif;
-  font-size: 11px;
-  font-weight: 800;
-  letter-spacing: 0.1em;
-  text-transform: uppercase;
-  color: #ffffff;
-}
-
-.why-us-scroll-hint {
-  font-size: 11px;
-  font-weight: 600;
-  color: rgba(255, 255, 255, 0.7);
-  letter-spacing: 0.04em;
-}
-
-.why-us-scrollable-steps {
-  max-height: 195px;
-  overflow-y: auto;
-  overflow-x: hidden;
-  overscroll-behavior: contain;
-  padding-right: 0.75rem;
-  display: flex;
-  flex-direction: column;
-  gap: 0.75rem;
-  scroll-behavior: smooth;
-}
-
-@media (min-width: 640px) {
-  .why-us-scrollable-steps {
-    max-height: 220px;
-  }
-}
-
-.why-us-scrollable-steps::-webkit-scrollbar {
-  width: 5px;
-}
-
-.why-us-scrollable-steps::-webkit-scrollbar-track {
-  background: rgba(255, 255, 255, 0.1);
-  border-radius: 9999px;
-}
-
-.why-us-scrollable-steps::-webkit-scrollbar-thumb {
-  background: var(--whyus-accent-fallback, #29ABE2);
-  border-radius: 9999px;
-}
-
-.why-us-step-item {
-  display: flex;
-  align-items: flex-start;
-  gap: 0.85rem;
-  padding: 0.6rem 0.85rem;
-  background: rgba(255, 255, 255, 0.05);
-  border-radius: 0.75rem;
-  border: 1px solid rgba(255, 255, 255, 0.1);
-  transition: background 0.25s ease, border-color 0.25s ease;
-}
-
-.why-us-step-item:hover {
-  background: rgba(255, 255, 255, 0.1);
-  border-color: rgba(41, 171, 226, 0.4);
-}
-
-.why-us-step-num {
-  font-family: 'Urbanist', system-ui, sans-serif;
-  font-size: 1.15rem;
-  font-weight: 900;
-  line-height: 1.2;
-  flex-shrink: 0;
-}
-
-.why-us-step-content {
-  flex: 1;
-}
-
-.why-us-step-title {
-  display: inline;
-  font-size: 0.95rem;
-  font-weight: 800;
-  color: #ffffff;
-  margin-right: 0.35rem;
-}
-
-.why-us-step-text {
-  display: inline;
-  font-size: 0.9rem;
-  font-weight: 600;
-  line-height: 1.55;
-  color: #ffffff;
-  margin: 0;
-}
+@import url('https://fonts.googleapis.com/css2?family=Urbanist:wght@400;500;600;700;800;900&family=Inter:wght@400;500;600;700;800;900&display=swap');
+
+/* ==========================================================================
+   WHY TRUST OUR COMPANY SECTION
+   EXACT 1:1 REPLICA FROM D:\gulf-talents (Colors, Circle, Spotlight & Bento)
+   ========================================================================== */
+
+:root {
+  /* Exact Gulf Talents Brand Colors from D:\gulf-talents\src\styles.css */
+  --whyus-primary: oklch(0.27 0.18 265);
+  --whyus-primary-fallback: #1D2472;
+  --whyus-accent: oklch(0.68 0.13 220);
+  --whyus-accent-fallback: #29ABE2;
+  --whyus-offwhite: #f8f5f0;
+  --whyus-card-blue: #d2edf3;
+  --whyus-slate-900: #0f172a;
+  --whyus-slate-700: #334155;
+  --whyus-slate-600: #475569;
+}
+
+.why-us-section {
+  position: relative;
+  width: 100%;
+  overflow: hidden;
+  background-color: var(--whyus-primary-fallback);
+  background-color: var(--whyus-primary);
+  color: #ffffff;
+  padding-top: 2.5rem;
+  padding-bottom: 0;
+  font-family: 'Inter', ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
+  box-sizing: border-box;
+  scroll-snap-align: start;
+  scroll-snap-stop: normal;
+}
+
+@media (min-width: 640px) {
+  .why-us-section {
+    padding-top: 7rem;
+    padding-bottom: 0;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-section {
+    padding-top: 9rem;
+    padding-bottom: 0;
+  }
+}
+
+.why-us-section *,
+.why-us-section *::before,
+.why-us-section *::after {
+  box-sizing: border-box;
+}
+
+/* Background accent rings (from Gulf Talents lines 585-586) */
+.why-us-bg-ring-1 {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: -20%;
+  display: none;
+  width: 120%;
+  height: 120%;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  opacity: 0.3;
+}
+
+.why-us-bg-ring-2 {
+  pointer-events: none;
+  position: absolute;
+  top: 50%;
+  left: -30%;
+  display: none;
+  width: 140%;
+  height: 140%;
+  transform: translateY(-50%);
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.05);
+  opacity: 0.1;
+}
+
+@media (min-width: 1024px) {
+  .why-us-bg-ring-1,
+  .why-us-bg-ring-2 {
+    display: block;
+  }
+}
+
+/* Floating glow blobs (from Gulf Talents lines 588-601) */
+.why-us-glow-blob-1 {
+  pointer-events: none;
+  position: absolute;
+  top: -6rem;
+  right: 0;
+  width: 500px;
+  height: 500px;
+  border-radius: 9999px;
+  background-color: rgba(41, 171, 226, 0.2);
+  background-color: color-mix(in oklab, var(--whyus-accent) 20%, transparent);
+  filter: blur(120px);
+  opacity: 1;
+  transition: opacity 1.2s ease;
+}
+
+.why-us-glow-blob-2 {
+  pointer-events: none;
+  position: absolute;
+  bottom: 0;
+  left: 33.333%;
+  width: 300px;
+  height: 300px;
+  border-radius: 9999px;
+  background-color: rgba(41, 171, 226, 0.1);
+  background-color: color-mix(in oklab, var(--whyus-accent) 10%, transparent);
+  filter: blur(100px);
+  animation: whyUsBlobFloat 8s ease-in-out infinite;
+}
+
+@keyframes whyUsBlobFloat {
+  0%, 100% {
+    transform: none !important;
+  }
+  50% {
+    transform: translateY(-20px);
+  }
+}
+
+/* Container (from Gulf Talents line 603: relative z-10 mx-auto flex max-w-7xl flex-row items-center px-2 sm:px-6 lg:px-8) */
+/* Container: Screen-edge anchored on desktop so exact half rotating circle is visible */
+/* ==========================================================================
+   CONTAINER & ROTARY DIAL SECTION (EXACT 1:1 FROM D:\gulf-talents)
+   ========================================================================== */
+
+/* Container: relative z-10 mx-auto flex max-w-7xl flex-row items-center px-2 sm:px-6 lg:px-8 */
+.why-us-container {
+  position: relative;
+  z-index: 10;
+  margin-left: auto;
+  margin-right: auto;
+  display: flex;
+  max-width: 80rem; /* max-w-7xl = 1280px */
+  flex-direction: row;
+  align-items: center;
+  padding-left: 0.5rem; /* px-2 */
+  padding-right: 0.5rem;
+  box-sizing: border-box;
+}
+
+@media (min-width: 640px) {
+  .why-us-container {
+    padding-left: 1.5rem; /* sm:px-6 */
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-container {
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem;
+  }
+}
+
+/* ==========================================================================
+   LARGE LEFT CIRCLE WITH ROTARY DIAL
+   exact classes: absolute top-1/2 -translate-y-1/2 -left-[120px] flex shrink-0
+   h-[260px] w-[260px] items-center justify-center sm:static sm:h-[480px]
+   sm:w-[50%] sm:translate-y-0 sm:-ml-[10%] lg:mb-0 lg:-ml-[15%] lg:h-[700px]
+   lg:w-[45%] lg:origin-left lg:scale-[0.85] lg:items-start lg:justify-start xl:scale-100
+   ========================================================================== */
+
+.why-us-dial-wrapper {
+  position: absolute;
+  top: 50%;
+  left: -120px;
+  transform: translateY(-50%);
+  display: flex;
+  flex-shrink: 0;
+  width: 260px;
+  height: 260px;
+  align-items: center;
+  justify-content: center;
+}
+
+@media (min-width: 640px) {
+  .why-us-dial-wrapper {
+    position: static;
+    top: auto;
+    left: auto;
+    width: 50%;
+    height: 480px;
+    transform: translateY(0);
+    margin-left: -10%;
+    align-items: center;
+    justify-content: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-dial-wrapper {
+    position: static;
+    top: auto;
+    left: auto;
+    margin-bottom: 0;
+    margin-left: -15%;
+    width: 45%;
+    height: 700px;
+    transform-origin: left center;
+    transform: scale(0.85);
+    display: flex;
+    align-items: flex-start;
+    justify-content: flex-start;
+  }
+}
+
+@media (min-width: 1280px) {
+  .why-us-dial-wrapper {
+    transform: scale(1);
+  }
+}
+
+/* Rotary Dial Stage: pointer-events-none absolute inset-0 z-10 block */
+.why-us-dial-stage {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 10;
+  display: block;
+}
+
+/* Orbit box: absolute top-1/2 left-1/2 h-[880px] w-[880px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.33] lg:-left-[40px] lg:-translate-x-0 lg:scale-100 */
+.why-us-dial-orbit-box {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 880px;
+  height: 880px;
+  transform-origin: center;
+  transform: translate(-50%, -50%) scale(0.33);
+}
+
+@media (min-width: 1024px) {
+  .why-us-dial-orbit-box {
+    left: -40px;
+    transform: translate(0, -50%) scale(1);
+  }
+}
+
+/* Rotating outer ring with gaps (from Gulf Talents lines 617-631) */
+.why-us-outer-conic-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  background: conic-gradient(
+    from 0deg,
+    transparent 0deg 2deg,
+    rgba(255, 255, 255, 0.12) 2deg 20deg,
+    transparent 20deg 32deg,
+    rgba(255, 255, 255, 0.12) 32deg 50deg,
+    transparent 50deg 62deg,
+    rgba(255, 255, 255, 0.12) 62deg 80deg,
+    transparent 80deg 92deg,
+    rgba(255, 255, 255, 0.12) 92deg 110deg,
+    transparent 110deg 122deg,
+    rgba(255, 255, 255, 0.12) 122deg 140deg,
+    transparent 140deg 152deg,
+    rgba(255, 255, 255, 0.12) 152deg 170deg,
+    transparent 170deg 182deg,
+    rgba(255, 255, 255, 0.12) 182deg 200deg,
+    transparent 200deg 212deg,
+    rgba(255, 255, 255, 0.12) 212deg 230deg,
+    transparent 230deg 242deg,
+    rgba(255, 255, 255, 0.12) 242deg 260deg,
+    transparent 260deg 272deg,
+    rgba(255, 255, 255, 0.12) 272deg 290deg,
+    transparent 290deg 302deg,
+    rgba(255, 255, 255, 0.12) 302deg 320deg,
+    transparent 320deg 332deg,
+    rgba(255, 255, 255, 0.12) 332deg 350deg,
+    transparent 350deg 360deg
+  );
+  animation: whyUsRotaryDialRotate 12s ease-in-out infinite;
+}
+
+/* Dial Holes orbiting ring */
+.why-us-dial-holes-ring {
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  animation: whyUsRotaryDialRotate 12s ease-in-out infinite;
+}
+
+@keyframes whyUsRotaryDialRotate {
+  0%   { transform: rotate(0deg); }
+  8%   { transform: rotate(85deg); }
+  15%  { transform: rotate(85deg); }
+  25%  { transform: rotate(0deg); }
+  30%  { transform: rotate(0deg); }
+  38%  { transform: rotate(170deg); }
+  45%  { transform: rotate(170deg); }
+  55%  { transform: rotate(0deg); }
+  60%  { transform: rotate(0deg); }
+  68%  { transform: rotate(255deg); }
+  75%  { transform: rotate(255deg); }
+  85%  { transform: rotate(0deg); }
+  90%  { transform: rotate(0deg); }
+  98%  { transform: rotate(340deg); }
+  99%  { transform: rotate(340deg); }
+  100% { transform: rotate(0deg); }
+}
+
+.why-us-dial-hole {
+  position: absolute;
+  width: 2rem;
+  height: 2rem;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  background-color: rgba(255, 255, 255, 0.05);
+}
+
+.why-us-dial-hole-inner {
+  width: 0.875rem;
+  height: 0.875rem;
+  border-radius: 9999px;
+  background-color: rgba(255, 255, 255, 0.15);
+}
+
+/* Counter-rotating inner dashed ring */
+.why-us-dashed-ring {
+  position: absolute;
+  inset: 80px;
+  border-radius: 9999px;
+  border: 3px dashed rgba(255, 255, 255, 0.15);
+  animation: whyUsDashedCounterRotate 8s ease-in-out infinite;
+}
+
+@keyframes whyUsDashedCounterRotate {
+  0%   { transform: rotate(0deg); }
+  15%  { transform: rotate(-120deg); }
+  25%  { transform: rotate(-120deg); }
+  100% { transform: rotate(0deg); }
+}
+
+/* Finger stop indicator */
+.why-us-finger-stop {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  width: 1.25rem;
+  height: 1.25rem;
+  transform: translate(-50%, -50%);
+  border-radius: 9999px;
+  background-color: rgba(41, 171, 226, 0.6);
+  background-color: color-mix(in oklab, var(--whyus-accent) 60%, transparent);
+  filter: blur(4px);
+  animation: whyUsFingerStopPulse 3s ease-in-out infinite;
+}
+
+@keyframes whyUsFingerStopPulse {
+  0%, 100% { opacity: 0.4; }
+  50%      { opacity: 0.8; }
+}
+
+/* ==========================================================================
+   LARGE OFF-WHITE CIRCLE
+   exact classes: relative z-20 flex shrink-0 flex-col items-center justify-center
+   overflow-hidden rounded-full bg-[#f8f5f0] p-4 shadow-2xl h-[260px] w-[260px]
+   sm:h-[450px] sm:w-[450px] sm:p-10 lg:absolute lg:top-1/2 lg:left-0 lg:h-[800px]
+   lg:w-[800px] lg:-translate-y-1/2 lg:items-center lg:justify-center lg:p-0
+   ========================================================================== */
+
+.why-us-big-circle {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  flex-shrink: 0;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  overflow: hidden;
+  border-radius: 9999px;
+  background-color: var(--whyus-offwhite, #f8f5f0);
+  padding: 1rem;
+  box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
+  width: 260px;
+  height: 260px;
+}
+
+@media (min-width: 640px) {
+  .why-us-big-circle {
+    width: 450px;
+    height: 450px;
+    padding: 2.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-big-circle {
+    position: absolute;
+    top: 50%;
+    left: 0;
+    width: 800px;
+    height: 800px;
+    transform: translateY(-50%);
+    align-items: center;
+    justify-content: center;
+    padding: 0;
+  }
+}
+
+/* Subtle inner pulse (from Gulf Talents lines 692-704) */
+.why-us-circle-pulse {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  border-radius: 9999px;
+  opacity: 0.3;
+  animation: whyUsCircleInnerPulse 4s ease-in-out infinite;
+}
+
+@keyframes whyUsCircleInnerPulse {
+  0%, 100% {
+    box-shadow: inset 0 0 0 0px rgba(0, 0, 0, 0);
+  }
+  50% {
+    box-shadow: inset 0 0 0 20px rgba(0, 0, 0, 0.03);
+  }
+}
+
+/* Circle Content Box: exact classes:
+   relative z-30 w-full pl-12 pr-2 sm:px-12 flex flex-col items-end sm:items-center lg:items-center lg:justify-center lg:p-0 text-right sm:text-center lg:text-center */
+.why-us-circle-content {
+  position: relative;
+  z-index: 30;
+  width: 100%;
+  padding-left: 3rem;
+  padding-right: 0.5rem;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  text-align: right;
+}
+
+@media (min-width: 640px) {
+  .why-us-circle-content {
+    padding-left: 3rem;
+    padding-right: 3rem;
+    align-items: center;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-circle-content {
+    padding: 0;
+    align-items: center;
+    justify-content: center;
+    text-align: center;
+  }
+}
+
+/* Inner box: flex flex-col items-end sm:items-center lg:items-center w-full max-w-[100%] lg:max-w-[650px] xl:max-w-[700px] */
+.why-us-circle-inner-box {
+  display: flex;
+  flex-direction: column;
+  align-items: flex-end;
+  width: 100%;
+  max-width: 100%;
+}
+
+@media (min-width: 640px) {
+  .why-us-circle-inner-box {
+    align-items: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-circle-inner-box {
+    align-items: center;
+    max-width: 650px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .why-us-circle-inner-box {
+    max-width: 700px;
+  }
+}
+
+/* Mobile Title (exact classes from Gulf Talents lines 710-722) */
+.why-us-mobile-title {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  margin-bottom: 0;
+  display: flex;
+  flex-direction: row;
+  align-items: center;
+  justify-content: flex-end;
+  padding-left: 1.5rem;
+  padding-right: 1rem;
+  font-size: 26px;
+  font-weight: 800;
+  line-height: 1.1;
+  color: var(--whyus-slate-900);
+}
+
+@media (min-width: 640px) {
+  .why-us-mobile-title {
+    display: none;
+    padding-left: 0;
+    padding-right: 0;
+  }
+}
+
+.why-us-mobile-title-col {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding-right: 0.75rem;
+  text-align: center;
+}
+
+.why-us-mobile-title-rotated {
+  transform: rotate(180deg);
+  writing-mode: vertical-rl;
+}
+
+/* Desktop Title Box (exact classes: hidden sm:flex flex-col items-center justify-center w-full relative mb-6) */
+.why-us-desktop-title-box {
+  display: none;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  width: 100%;
+  position: relative;
+  margin-bottom: 1.5rem;
+}
+
+@media (min-width: 640px) {
+  .why-us-desktop-title-box {
+    display: flex;
+  }
+}
+
+.why-us-title-inner {
+  width: fit-content;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+  text-align: left;
+}
+
+.why-us-eyebrow {
+  margin-bottom: 0.375rem;
+  display: none;
+  font-size: 7px;
+  font-weight: 700;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: var(--whyus-slate-900);
+  background: rgba(41, 171, 226, 0.22);
+  padding: 2px 4px;
+  border-radius: 2px;
+}
+
+@media (min-width: 640px) {
+  .why-us-eyebrow {
+    margin-bottom: 1.25rem;
+    display: inline-block;
+    font-size: 11px;
+  }
+}
+
+.why-us-title {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+  width: fit-content;
+  font-size: 3.75rem;
+  font-weight: 700;
+  line-height: 1.1;
+  color: var(--whyus-slate-900);
+  text-align: left;
+  margin: 0;
+}
+
+@media (min-width: 1024px) {
+  .why-us-title {
+    font-size: 52px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .why-us-title {
+    font-size: 60px;
+  }
+}
+
+.why-us-title-accent {
+  font-weight: 800;
+  letter-spacing: -0.025em;
+  color: var(--whyus-accent-fallback, #29ABE2);
+  color: var(--whyus-accent, #29ABE2);
+  font-size: 4.5rem;
+  display: block;
+}
+
+@media (min-width: 1024px) {
+  .why-us-title-accent {
+    font-size: 64px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .why-us-title-accent {
+    font-size: 72px;
+  }
+}
+
+/* Description paragraph: mb-4 sm:mb-8 hidden sm:block max-w-[120px] sm:max-w-[400px] lg:max-w-[550px] text-[8px] sm:text-base leading-snug sm:leading-relaxed font-medium text-slate-600 text-center lg:text-center */
+.why-us-desc {
+  margin-bottom: 1rem;
+  display: none;
+  max-width: 120px;
+  font-size: 8px;
+  line-height: 1.375;
+  font-weight: 500;
+  color: var(--whyus-slate-600);
+  text-align: center;
+}
+
+@media (min-width: 640px) {
+  .why-us-desc {
+    display: block;
+    max-width: 400px;
+    margin-bottom: 2rem;
+    font-size: 1rem;
+    line-height: 1.625;
+    text-align: center;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-desc {
+    max-width: 550px;
+    text-align: center;
+  }
+}
+
+/* Subtle right edge gradient on circle (exact from Gulf Talents line 753) */
+.why-us-circle-edge-gradient {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  right: 0;
+  bottom: 0;
+  display: none;
+  width: 33.333%;
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  background: linear-gradient(to left, rgba(0, 0, 0, 0.05), transparent);
+}
+
+@media (min-width: 1024px) {
+  .why-us-circle-edge-gradient {
+    display: block;
+  }
+}
+
+/* ==========================================================================
+   BUTTON 12 (from Gulf Talents lines 1039-1135)
+   ========================================================================== */
+
+.btn-12,
+.btn-12 *,
+.btn-12 :after,
+.btn-12 :before,
+.btn-12:after,
+.btn-12:before {
+  border: 0 solid;
+  box-sizing: border-box;
+}
+
+.btn-12 {
+  -webkit-tap-highlight-color: transparent;
+  -webkit-appearance: button;
+  appearance: button;
+  background-color: #000;
+  background-image: none;
+  color: #fff;
+  cursor: pointer;
+  font-family: ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont,
+    Segoe UI, Roboto, Helvetica Neue, Arial, Noto Sans, sans-serif;
+  font-size: 100%;
+  font-weight: 900;
+  line-height: 1.5;
+  margin: 0;
+  -webkit-mask-image: -webkit-radial-gradient(#000, #fff);
+  padding: 0.8rem 3rem;
+  text-transform: uppercase;
+  border-radius: 99rem;
+  border-width: 2px;
+  overflow: hidden;
+  position: relative;
+  text-decoration: none;
+  display: none;
+  align-items: center;
+  justify-content: center;
+  margin: 1rem auto 0 auto;
+}
+
+@media (min-width: 640px) {
+  .btn-12 {
+    display: inline-flex;
+  }
+}
+
+.btn-12 span {
+  mix-blend-mode: difference;
+  position: relative;
+  z-index: 2;
+}
+
+.btn-12:after,
+.btn-12:before {
+  background: linear-gradient(
+    90deg,
+    #fff 25%,
+    transparent 0,
+    transparent 50%,
+    #fff 0,
+    #fff 75%,
+    transparent 0
+  );
+  content: "";
+  inset: 0;
+  position: absolute;
+  transform: translateY(var(--progress, 100%));
+  transition: transform 0.2s ease;
+}
+
+.btn-12:after {
+  --progress: -100%;
+  background: linear-gradient(
+    90deg,
+    transparent 0,
+    transparent 25%,
+    #fff 0,
+    #fff 50%,
+    transparent 0,
+    transparent 75%,
+    #fff 0
+  );
+  z-index: 1;
+}
+
+.btn-12:hover:after,
+.btn-12:hover:before {
+  --progress: 0;
+}
+
+/* ==========================================================================
+   STAGGERED PILLS (from Gulf Talents lines 757-791)
+   Offsets: ml-0, ml-1 (72px), ml-2 (110px), ml-3 (122px), ml-4 (110px), ml-5 (72px), ml-6 (0)
+   ========================================================================== */
+
+/* Staggered Pills: relative z-30 flex w-full flex-col items-start gap-2 pl-[96px] sm:pl-8 sm:mt-8 sm:w-[60%] sm:gap-7 lg:mt-0 lg:w-[55%] lg:gap-8 lg:pl-[140px] xl:pl-[240px] */
+.why-us-pills-list {
+  position: relative;
+  z-index: 30;
+  display: flex;
+  width: 100%;
+  flex-direction: column;
+  align-items: flex-start;
+  gap: 0.5rem;
+  padding-left: 96px;
+}
+
+@media (min-width: 640px) {
+  .why-us-pills-list {
+    margin-top: 2rem;
+    width: 60%;
+    gap: 1.75rem;
+    padding-left: 2rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-pills-list {
+    margin-top: 0;
+    width: 55%;
+    gap: 2rem;
+    padding-left: 140px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .why-us-pills-list {
+    padding-left: 240px;
+  }
+}
+
+/* Exact offsets */
+.ml-0 { margin-left: 0; }
+.ml-1 { margin-left: 40px; }
+.ml-2 { margin-left: 60px; }
+.ml-3 { margin-left: 66px; }
+.ml-4 { margin-left: 60px; }
+.ml-5 { margin-left: 40px; }
+.ml-6 { margin-left: 0; }
+
+@media (min-width: 1024px) {
+  .ml-0 { margin-left: 0; }
+  .ml-1 { margin-left: 72px; }
+  .ml-2 { margin-left: 110px; }
+  .ml-3 { margin-left: 122px; }
+  .ml-4 { margin-left: 110px; }
+  .ml-5 { margin-left: 72px; }
+  .ml-6 { margin-left: 0; }
+}
+
+.why-us-pill-card {
+  position: relative;
+  display: flex;
+  width: 180px;
+  max-width: calc(100vw - 100px);
+  cursor: pointer;
+  align-items: center;
+  transition: transform 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-card {
+    width: 380px;
+    max-width: 100%;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-pill-card {
+    width: 420px;
+  }
+}
+
+@media (min-width: 1280px) {
+  .why-us-pill-card {
+    width: 480px;
+  }
+}
+
+.why-us-pill-card:hover {
+  transform: translateX(0.5rem);
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-card:hover {
+    transform: translateX(0.75rem);
+  }
+}
+
+/* Dark circle marker */
+.why-us-pill-marker {
+  position: relative;
+  z-index: 20;
+  display: flex;
+  width: 2.25rem;
+  height: 2.25rem;
+  flex-shrink: 0;
+  align-items: center;
+  justify-content: center;
+  border-radius: 9999px;
+  border-width: 2px;
+  border-color: var(--whyus-primary-fallback);
+  border-color: var(--whyus-primary);
+  background-color: var(--whyus-slate-900);
+  box-shadow: 0 20px 25px -5px rgba(0, 0, 0, 0.1);
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-marker {
+    width: 72px;
+    height: 72px;
+    border-width: 6px;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-pill-marker {
+    border-color: transparent;
+  }
+}
+
+.why-us-pill-card:hover .why-us-pill-marker {
+  transform: scale(1.1);
+  background-color: var(--whyus-accent-fallback);
+  background-color: var(--whyus-accent);
+}
+
+.why-us-pill-icon {
+  width: 0.875rem;
+  height: 0.875rem;
+  color: #ffffff;
+  opacity: 0.9;
+  transition: transform 0.3s ease, opacity 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-icon {
+    width: 1.75rem;
+    height: 1.75rem;
+  }
+}
+
+.why-us-pill-card:hover .why-us-pill-icon {
+  transform: rotate(6deg);
+  opacity: 1;
+}
+
+/* White pill body */
+.why-us-pill-body {
+  position: relative;
+  z-index: 10;
+  flex: 1;
+  margin-left: -1rem;
+  overflow: hidden;
+  border-top-right-radius: 9999px;
+  border-bottom-right-radius: 9999px;
+  background-color: var(--whyus-offwhite);
+  padding: 0.5rem 0.5rem 0.5rem 1.5rem;
+  box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-body {
+    margin-left: -2rem;
+    padding: 1.25rem 2rem 1.25rem 3rem;
+  }
+}
+
+.why-us-pill-overlay {
+  position: absolute;
+  inset: 0;
+  background-color: #ffffff;
+  opacity: 0.6;
+  transition: opacity 0.3s ease;
+}
+
+.why-us-pill-card:hover .why-us-pill-overlay {
+  opacity: 1;
+}
+
+.why-us-pill-sheen {
+  pointer-events: none;
+  position: absolute;
+  top: 0;
+  bottom: 0;
+  right: -8rem;
+  width: 8rem;
+  transform: skewX(-20deg);
+  background: linear-gradient(to right, transparent, rgba(41, 171, 226, 0.2), transparent);
+  transition: transform 0.7s ease;
+}
+
+.why-us-pill-card:hover .why-us-pill-sheen {
+  transform: skewX(-20deg) translateX(-400px);
+}
+
+.why-us-pill-inner {
+  position: relative;
+  z-index: 10;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-inner {
+    gap: 1rem;
+  }
+}
+
+.why-us-pill-text {
+  padding-right: 0.25rem;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-text {
+    padding-right: 0;
+  }
+}
+
+.why-us-pill-title {
+  margin: 0;
+  font-size: 0.75rem;
+  letter-spacing: -0.025em;
+  line-height: 1.25;
+  font-weight: 700;
+  color: var(--whyus-slate-900);
+  transition: color 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-title {
+    font-size: 1.25rem;
+    letter-spacing: normal;
+  }
+}
+
+.why-us-pill-card:hover .why-us-pill-title {
+  color: var(--whyus-accent-fallback);
+  color: var(--whyus-accent);
+}
+
+.why-us-pill-subtitle {
+  display: none;
+  margin: 0;
+  font-size: 6px;
+  font-weight: 600;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  color: var(--whyus-slate-600);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-subtitle {
+    display: block;
+    font-size: 0.75rem;
+  }
+}
+
+.why-us-pill-check {
+  width: 0.625rem;
+  height: 0.625rem;
+  flex-shrink: 0;
+  color: var(--whyus-accent-fallback);
+  color: var(--whyus-accent);
+  opacity: 0;
+  transition: all 0.3s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-pill-check {
+    width: 1.25rem;
+    height: 1.25rem;
+  }
+}
+
+.why-us-pill-card:hover .why-us-pill-check {
+  opacity: 1;
+}
+
+/* ==========================================================================
+   MASK CONTAINER & SPOTLIGHT (EXACT MaskContainer from svg-mask-effect.tsx)
+   ========================================================================== */
+
+.why-us-mask-container {
+  position: relative;
+  z-index: 10;
+  width: 100%;
+  margin-top: 5rem;
+  padding-bottom: 0;
+  overflow: hidden;
+  -webkit-touch-callout: none;
+}
+
+@media (min-width: 640px) {
+  .why-us-mask-container {
+    margin-top: 7rem;
+    padding-bottom: 0;
+    user-select: auto;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-mask-container {
+    padding-bottom: 0;
+  }
+}
+
+/* Pure white circular spotlight layer (sits at z-0 behind children) */
+/* Single mask-image URL only - JS RAF loop drives position & size (NO CSS transition) */
+.why-us-spotlight-layer {
+  pointer-events: none;
+  position: absolute;
+  inset: 0;
+  z-index: 0;
+  -webkit-mask-image: url('/public/mask.svg');
+  mask-image: url('/public/mask.svg');
+  -webkit-mask-repeat: no-repeat;
+  mask-repeat: no-repeat;
+  -webkit-mask-size: 10px 10px;
+  mask-size: 10px 10px;
+  -webkit-mask-position: -9999px -9999px;
+  mask-position: -9999px -9999px;
+  /* NO CSS transition here - JS RAF lerp handles smooth animation */
+}
+
+.why-us-spotlight-white-fill {
+  width: 100%;
+  height: 100%;
+  background-color: #ffffff;
+}
+
+/* Content sits on top of spotlight */
+/* Content sits on top of spotlight */
+.why-us-mask-content {
+  pointer-events: none;
+}
+
+.why-us-mask-content > * {
+  pointer-events: auto;
+}
+
+.why-us-invert-text {
+  position: relative;
+  z-index: 1;
+}
+
+/* ---- Spotlight Difference Inversion (Exact Gulf Talents mechanism) ---- */
+/* White text on pure-white spotlight inverts to pure black (#000000) */
+/* Cyan/blue text inverts to vivid orange (#d6541d) */
+.why-us-invert-text {
+  mix-blend-mode: difference;
+}
+
+.why-us-invert-text,
+.why-us-invert-text p,
+.why-us-invert-text h3,
+.why-us-invert-text span {
+  color: #ffffff;
+}
+
+/* Accent text ("Delivered with precision."):
+   - On dark bg: Cyan / Blue (#29ABE2)
+   - Under pure-white spotlight: Inverts to Vivid Orange (#d6541d) */
+.why-us-orange-text,
+.why-us-invert-text .why-us-orange-text,
+.why-us-invert-text .text-accent {
+  color: var(--whyus-accent-fallback, #29ABE2) !important;
+  color: var(--whyus-accent, #29ABE2) !important;
+  font-weight: 800;
+  display: inline;
+}
+
+/* ==========================================================================
+   STATISTICS 4-COLUMN ROW (from Gulf Talents lines 797-835)
+   ========================================================================== */
+
+.why-us-stats-wrapper {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+}
+
+@media (min-width: 640px) {
+  .why-us-stats-wrapper {
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-stats-wrapper {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.why-us-stats-grid {
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .why-us-stats-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-stats-grid {
+    grid-template-columns: repeat(4, 1fr);
+  }
+}
+
+.why-us-stat-p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.65;
+  color: #ffffff;
+  margin: 0;
+  text-align: left;
+  text-justify: none;
+}
+
+.why-us-stat-p span {
+  font-weight: 900;
+}
+
+@media (min-width: 640px) {
+  .why-us-stat-p {
+    font-size: 1.05rem;
+  }
+}
+
+/* ==========================================================================
+   OUR PROMISE & BENTO FEATURE CARDS (from Gulf Talents lines 837-933)
+   ========================================================================== */
+
+.why-us-bento-section {
+  max-width: 72rem;
+  margin-left: auto;
+  margin-right: auto;
+  margin-top: 5rem;
+  padding-left: 1.25rem;
+  padding-right: 1.25rem;
+  padding-bottom: 5rem;
+}
+
+@media (min-width: 640px) {
+  .why-us-bento-section {
+    margin-top: 7rem;
+    padding-left: 1.5rem;
+    padding-right: 1.5rem;
+    padding-bottom: 7rem;
+  }
+}
+
+@media (min-width: 1024px) {
+  .why-us-bento-section {
+    padding-left: 2rem;
+    padding-right: 2rem;
+  }
+}
+
+.why-us-bento-layout {
+  display: grid;
+  gap: 2.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 1024px) {
+  .why-us-bento-layout {
+    grid-template-columns: repeat(12, 1fr);
+    gap: 3.5rem;
+  }
+}
+
+/* Left: Our Promise Column */
+.why-us-promise-col {
+  display: flex;
+  flex-direction: column;
+}
+
+@media (min-width: 1024px) {
+  .why-us-promise-col {
+    grid-column: span 5 / span 5;
+  }
+}
+
+.why-us-promise-badge {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  display: inline-block;
+  width: fit-content;
+  font-size: 11px;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.2em;
+  color: #ffffff;
+  background: rgba(41, 171, 226, 0.35);
+  padding: 2px 6px;
+  border-radius: 2px;
+}
+
+.why-us-promise-h3 {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  letter-spacing: -0.025em;
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  font-size: 1.875rem;
+  font-weight: 800;
+  line-height: 1.25;
+  color: #ffffff;
+}
+
+@media (min-width: 640px) {
+  .why-us-promise-h3 {
+    font-size: 2.25rem;
+  }
+}
+
+.why-us-promise-h3 .text-accent {
+  color: var(--whyus-accent-fallback);
+  color: var(--whyus-accent);
+}
+
+/* "Delivered with precision." — stays vivid orange regardless of spotlight blend */
+/* Uses position relative + z-index to sit above the mix-blend layer */
+/* .why-us-orange-text styled above */
+
+.why-us-promise-p {
+  margin-top: 1.25rem;
+  margin-bottom: 0;
+  font-size: 1.05rem;
+  font-weight: 600;
+  line-height: 1.7;
+  color: #ffffff;
+  text-align: left;
+  text-justify: none;
+}
+
+/* Right: Bento Feature Cards Column */
+.why-us-bento-col {
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+@media (min-width: 1024px) {
+  .why-us-bento-col {
+    grid-column: span 7 / span 7;
+  }
+}
+
+.why-us-bento-grid {
+  position: relative;
+  z-index: 10;
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 0.5rem;
+  grid-auto-rows: 1fr;
+}
+
+@media (min-width: 640px) {
+  .why-us-bento-grid {
+    gap: 1rem;
+    grid-auto-rows: 150px;
+  }
+}
+
+/* Individual Bento Cards */
+.why-us-card-blue-tall {
+  display: flex;
+  height: 100%;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  border-radius: 1.25rem;
+  background-color: var(--whyus-card-blue);
+  padding: 0.625rem;
+  text-align: center;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+}
+
+@media (min-width: 640px) {
+  .why-us-card-blue-tall {
+    border-radius: 2rem;
+    padding: 1.5rem;
+  }
+}
+
+.why-us-card-white-wide {
+  display: flex;
+  height: 100%;
+  align-items: center;
+  gap: 0.75rem;
+  border-radius: 1.25rem;
+  background-color: #ffffff;
+  padding: 0.75rem;
+  box-shadow: 0 10px 15px -3px rgba(0, 0, 0, 0.1);
+  transition: transform 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-card-white-wide {
+    gap: 1.5rem;
+    border-radius: 2rem;
+    padding: 1.5rem 2.5rem;
+  }
+}
+
+.why-us-card-white-wide:hover {
+  transform: translateY(-0.25rem);
+}
+
+.why-us-card-title-dark {
+  font-size: 11px;
+  line-height: 1.1;
+  font-weight: 800;
+  color: var(--whyus-slate-900);
+  margin: 0;
+}
+
+@media (min-width: 640px) {
+  .why-us-card-title-dark {
+    font-size: 1.25rem;
+    line-height: 1.25;
+  }
+}
+
+.why-us-card-p-slate {
+  margin: 0.375rem 0 0 0;
+  font-size: 7px;
+  line-height: 1.3;
+  color: var(--whyus-slate-700);
+}
+
+@media (min-width: 640px) {
+  .why-us-card-p-slate {
+    margin-top: 0.75rem;
+    font-size: 0.875rem;
+  }
+}
+
+.why-us-bento-star {
+  width: 0.875rem;
+  height: 0.875rem;
+  margin-bottom: 0.375rem;
+  color: var(--whyus-slate-900);
+}
+
+@media (min-width: 640px) {
+  .why-us-bento-star {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 1rem;
+  }
+}
+
+.why-us-bento-users {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  color: var(--whyus-slate-900);
+  transition: transform 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-bento-users {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.why-us-card-white-wide:hover .why-us-bento-users {
+  transform: scale(1.1);
+}
+
+.why-us-bento-truck {
+  width: 1.25rem;
+  height: 1.25rem;
+  margin-bottom: 0.375rem;
+  color: var(--whyus-slate-900);
+}
+
+@media (min-width: 640px) {
+  .why-us-bento-truck {
+    width: 2.5rem;
+    height: 2.5rem;
+    margin-bottom: 0.75rem;
+  }
+}
+
+.why-us-bento-lightbulb {
+  width: 1.5rem;
+  height: 1.5rem;
+  flex-shrink: 0;
+  color: var(--whyus-slate-900);
+  transition: transform 0.5s ease;
+}
+
+@media (min-width: 640px) {
+  .why-us-bento-lightbulb {
+    width: 3rem;
+    height: 3rem;
+  }
+}
+
+.why-us-card-white-wide:hover .why-us-bento-lightbulb {
+  transform: scale(1.1);
+}
+
+/* Bottom Narrative Paragraphs (from Gulf Talents lines 923-930) */
+.why-us-bottom-text-grid {
+  margin-top: 1rem;
+  display: grid;
+  gap: 1.5rem;
+  grid-template-columns: 1fr;
+}
+
+@media (min-width: 640px) {
+  .why-us-bottom-text-grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.why-us-bottom-p {
+  font-size: 0.95rem;
+  font-weight: 600;
+  line-height: 1.7;
+  color: #ffffff;
+  margin: 0;
+  text-align: left;
+  text-justify: none;
+}
+
+@media (min-width: 640px) {
+  .why-us-bottom-p {
+    font-size: 1.05rem;
+  }
+}
+
+/* ==========================================================================
+   SCROLL REVEAL ENTRANCE
+   ========================================================================== */
+
+.why-us-reveal {
+  opacity: 0;
+  transform: translateY(20px);
+  transition: opacity 0.8s cubic-bezier(0.22, 1, 0.36, 1), transform 0.8s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+.why-us-reveal.is-visible {
+  opacity: 1;
+  transform: none !important;
+}
+
+
+/* ==========================================================================
+   WHY-US SCROLLABLE STEPS (1, 2, 3...) REPLACING BOTTOM PARAGRAPHS
+   ========================================================================== */
+
+.why-us-scrollable-steps-wrap {
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.why-us-scroll-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.why-us-scroll-pill {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.why-us-scroll-hint {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+}
+
+.why-us-scrollable-steps {
+  max-height: none;
+  overflow: visible;
+  padding-right: 0;
+  display: flex;
+  flex-direction: column;
+  gap: 0.85rem;
+}
+
+@media (min-width: 640px) {
+  .why-us-scrollable-steps {
+    max-height: none;
+    gap: 0.95rem;
+  }
+}
+
+.why-us-scrollable-steps::-webkit-scrollbar {
+  display: none;
+}
+
+.why-us-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.95rem;
+  padding: 0.85rem 1.15rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.85rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.25s ease, border-color 0.25s ease, transform 0.25s ease;
+}
+
+.why-us-step-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(41, 171, 226, 0.4);
+  transform: translateX(4px);
+}
+
+.why-us-step-num {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.why-us-step-content {
+  flex: 1;
+}
+
+.why-us-step-title {
+  display: inline;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-right: 0.35rem;
+}
+
+.why-us-step-text {
+  display: inline;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: #ffffff;
+  margin: 0;
+}
