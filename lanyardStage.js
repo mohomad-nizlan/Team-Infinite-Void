@@ -933,7 +933,7 @@ export function initUnifiedLanyardStage() {
       name: 'Luqman',
       role: 'Speaker',
       handle: '@luqman',
-      front: '/assets/badge_luqman_color.png?v=20261115_color',
+      front: '/assets/badge_luqman_color.png?v=20261115_color2',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
