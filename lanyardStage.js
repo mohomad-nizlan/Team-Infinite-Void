@@ -877,17 +877,17 @@ export function initUnifiedLanyardStage() {
       linkedin: 'https://www.linkedin.com/in/rifa-rauff-852709225?utm_source=share_via&utm_content=profile&utm_medium=member_android'
     },
     {
-      id: 'rashini',
-      name: 'Rashini',
+      id: 'rivishani',
+      name: 'Rivishani',
       role: 'Coding',
-      handle: '@rashini',
+      handle: '@rivishani',
       front: '/assets/reference_badge.png?v=20261021j',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: 'https://www.instagram.com/rashini.dev',
-      linkedin: 'https://www.linkedin.com/in/rashini-coding'
+      instagram: '',
+      linkedin: 'https://www.linkedin.com/in/rivishani-kumarage-17594a326/'
     },
     {
       id: 'aathiqa',
@@ -916,17 +916,17 @@ export function initUnifiedLanyardStage() {
       linkedin: 'https://www.linkedin.com/in/mohomadnizlan/'
     },
     {
-      id: 'byon',
-      name: 'Byon',
+      id: 'biyon',
+      name: 'Biyon',
       role: 'Researcher',
-      handle: '@byon',
+      handle: '@biyon',
       front: '/assets/reference_badge.png?v=20261021j',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: 'https://www.instagram.com/byon.research',
-      linkedin: 'https://www.linkedin.com/in/byon-void'
+      instagram: 'https://www.instagram.com/biyon._c/',
+      linkedin: 'https://www.linkedin.com/in/biyon-chathuranga-636861313/'
     },
     {
       id: 'Luqman',
