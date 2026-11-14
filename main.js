@@ -1708,10 +1708,10 @@ class FullPageSectionController {
       document.getElementById('missions-page'),
       document.getElementById('infinite-menu-page'),
       document.getElementById('why-us'),
-      document.getElementById('team-section'),
       document.getElementById('scientists-section'),
       document.getElementById('inside-nasa-section'),
-      document.getElementById('research-section')
+      document.getElementById('research-section'),
+      document.getElementById('team-section')
     ].filter(Boolean);
 
     if (this.sections.length === 0) return;
