@@ -894,7 +894,7 @@ export function initUnifiedLanyardStage() {
       name: 'Aathiqa',
       role: 'Coding',
       handle: '@aathiqa',
-      front: '/assets/badge_atheeqa_color.png?v=20261114_color',
+      front: '/assets/badge_atheeqa_color.png?v=20261115_full_bottom',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
