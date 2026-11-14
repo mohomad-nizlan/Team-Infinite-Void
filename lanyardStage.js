@@ -920,7 +920,7 @@ export function initUnifiedLanyardStage() {
       name: 'Biyon',
       role: 'Researcher',
       handle: '@biyon',
-      front: '/assets/reference_badge.png?v=20261021j',
+      front: '/assets/badge_biyon_color.png?v=20261115_color',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
