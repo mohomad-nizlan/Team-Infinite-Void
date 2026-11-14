@@ -1,4 +1,4 @@
-<!DOCTYPE html>
+﻿<!DOCTYPE html>
 <html lang="en">
 <head>
   <meta charset="UTF-8">
@@ -9,10 +9,11 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261022n">
+  <link rel="stylesheet" href="style.css?v=20261023c">
   <link rel="stylesheet" href="InfiniteMenu.css?v=20261022a">
   <link rel="stylesheet" href="DriftWall.css?v=20261022b">
   <link rel="stylesheet" href="FlexCarousel.css?v=20261022f">
+  <link rel="stylesheet" href="Folder.css?v=20261023c">
   <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js"></script>
   <script type="importmap">
   {
@@ -103,7 +104,7 @@
           type="button"
         >
           <span class="sm-toggle-text">MENU</span>
-          <span class="sm-close-mark" aria-hidden="true" title="Close menu">✕</span>
+          <span class="sm-close-mark" aria-hidden="true" title="Close menu">âœ•</span>
         </button>
       </header>
 
@@ -116,7 +117,7 @@
               </a>
             </li>
             <li class="sm-panel-itemWrap">
-              <a class="sm-panel-item" href="#missions-page" aria-label="Explore 20 discarded relics missions">
+              <a class="sm-panel-item" href="#missions-page" aria-label="Explore 26 historic missions with discarded equipment with discarded equipment">
                 <span class="sm-panel-itemLabel">Missions</span>
               </a>
             </li>
@@ -150,6 +151,11 @@
                 <span class="sm-panel-itemLabel">Inside NASA</span>
               </a>
             </li>
+            <li class="sm-panel-itemWrap">
+              <a class="sm-panel-item" href="#research-section" aria-label="Our Research Documents and Archival Dossiers">
+                <span class="sm-panel-itemLabel">Research</span>
+              </a>
+            </li>
           </ul>
         </div>
       </aside>
@@ -165,10 +171,11 @@
         playsinline
         preload="auto"
       >
-        <source src="public/frames/scene-1/scene_1.mp4" type="video/mp4">
-        <source src="./public/frames/scene-1/scene_1.mp4" type="video/mp4">
+        <source src="public/assets/BACKGROUND.mp4" type="video/mp4">
+        <source src="./public/assets/BACKGROUND.mp4" type="video/mp4">
+        <source src="assets/BACKGROUND.mp4" type="video/mp4">
+        <source src="/assets/BACKGROUND.mp4" type="video/mp4">
         <source src="public/videos/scene_1.mp4" type="video/mp4">
-        <source src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4" type="video/mp4">
       </video>
       <div class="hero-video-shade"></div>
     </div>
@@ -209,10 +216,11 @@
                 playsinline
                 preload="auto"
               >
-                <source src="public/frames/scene-1/scene_1.mp4" type="video/mp4">
-                <source src="./public/frames/scene-1/scene_1.mp4" type="video/mp4">
+                <source src="public/assets/BACKGROUND.mp4" type="video/mp4">
+                <source src="./public/assets/BACKGROUND.mp4" type="video/mp4">
+                <source src="assets/BACKGROUND.mp4" type="video/mp4">
+                <source src="/assets/BACKGROUND.mp4" type="video/mp4">
                 <source src="public/videos/scene_1.mp4" type="video/mp4">
-                <source src="https://res.cloudinary.com/dnabg4wke/video/upload/v1792165219/scene_1_zqrb5c.mp4" type="video/mp4">
               </video>
             </foreignObject>
           </svg>
@@ -221,12 +229,12 @@
       </div>
 
       <div class="hero-cta-wrap">
-        <button class="btn-launch-exact" id="btn-launch">LAUNCH</button>
+        <button class="btn-launch-exact" id="btn-launch">EXPLORE</button>
       </div>
     </div>
   </div>
 
-  <!-- ===== 2ND PAGE: 20 NASA MISSIONS WITH DISCARDED EQUIPMENT ===== -->
+  <!-- ===== 2ND PAGE: 26 NASA & DEEP SPACE MISSIONS WITH DISCARDED EQUIPMENT ===== -->
   <section id="missions-page" class="missions-page">
     <div class="missions-bg-image" id="missions-bg-image"></div>
     <div class="missions-overlay-gradient"></div>
@@ -240,10 +248,19 @@
       <!-- RIGHT: JUST HEADING AND PARAGRAPH DIRECTLY OVER THE IMAGE -->
       <div class="missions-text-pane">
         <h2 class="mission-heading" id="mission-heading">APOLLO 11</h2>
-        <p class="mission-subheading" id="mission-subheading">Moon • Sea of Tranquility (1969)</p>
+        <p class="mission-subheading" id="mission-subheading">Moon • Sea of Tranquility (0.674° N, 23.473° E) (1969)</p>
         <p class="mission-paragraph" id="mission-paragraph">
-          Humanity's first footsteps. When the Eagle's ascent stage launched back to orbit, it left behind the gold-foil descent stage, seismic experiments, the laser retroreflector, the television camera, and the astronauts' jettisoned life-support backpacks at Tranquility Base.
+          The first mission to land humans on the Moon. Neil Armstrong and Buzz Aldrin explored the Sea of Tranquility, leaving behind the Eagle lunar module's descent stage and scientific instruments.
         </p>
+        <div class="mission-cta-wrap">
+          <!-- From Uiverse.io by cssbuttons-io --> 
+          <button class="learn-more" id="mission-enter-btn" aria-label="Learn more about mission" title="Learn More">
+            <span class="circle" aria-hidden="true">
+              <span class="icon arrow"></span>
+            </span>
+            <span class="button-text">Learn More</span>
+          </button>
+        </div>
       </div>
     </div>
   </section>
@@ -264,7 +281,7 @@
       <button class="icon-btn audio-btn" id="audio-toggle-btn" title="Toggle Sound (M)">
         <span id="audio-icon">🔊</span>
       </button>
-      <button class="icon-btn exit-btn" id="frame-exit-btn" title="Exit (Esc)">✕</button>
+      <button class="icon-btn exit-btn" id="frame-exit-btn" title="Exit (Esc)">âœ•</button>
     </div>
 
     <!-- Screen 1: Full-Screen Video 1 -->
@@ -382,7 +399,7 @@
     <!-- Bottom-Right Space Filler: Field Dispatch & Archival Quote Panel (Moved down, zero overlap) -->
     <div class="scientists-dispatch-panel">
       <blockquote id="scientist-dynamic-quote" class="scientist-dynamic-quote">
-        “Like what you do, and then you will do your best. We mapped celestial trajectories before silicon computers could think.”
+        â€œLike what you do, and then you will do your best. We mapped celestial trajectories before silicon computers could think.â€
       </blockquote>
 
       <div class="dispatch-attribution">
@@ -461,6 +478,24 @@
     </div>
   </section>
 
-  <script type="module" src="main.js?v=20261022p"></script>
+  <!-- ===== SECTION 8: OUR RESEARCH DOCUMENTS (React Bits Folder Integration) ===== -->
+  <section id="research-section" class="research-section" aria-label="Our Research Documents and Archival Dossiers">
+    <div class="research-container">
+      <!-- Header: Clean Heading + 2-line Description -->
+      <div class="research-header">
+        <h2 class="research-title">
+          OUR RESEARCH <span class="research-title-accent">DOCUMENTS</span>
+        </h2>
+        <p class="research-subtitle">
+          Archival telemetry, material degradation analyses, and field dossiers documenting relics of lunar and Martian exploration.
+        </p>
+      </div>
+
+      <!-- 8 Folder Components Mount Grid (4 Per Row) -->
+      <div id="research-grid-root" class="research-grid"></div>
+    </div>
+  </section>
+
+  <script type="module" src="main.js?v=20261023d"></script>
 </body>
 </html>
