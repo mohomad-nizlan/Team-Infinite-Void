@@ -448,7 +448,7 @@ const NASA_RELIC_MISSIONS = [
     "body": "Moon",
     "site": "Ocean of Storms",
     "status": "Crew returned; Intrepid descent stage and ALSEP remain",
-    "img": "public/assets/missions/apollo11.jpg",
+    "img": "public/assets/missions/apollo12.jpg",
     "relics": [
       "Intrepid Descent Stage Base",
       "Apollo Lunar Surface Experiments Package (ALSEP)",
@@ -469,7 +469,7 @@ const NASA_RELIC_MISSIONS = [
     "body": "Moon",
     "site": "Fra Mauro region",
     "status": "Crew returned; Antares descent stage, ALSEP and handcart remain",
-    "img": "public/assets/missions/apollo11.jpg",
+    "img": "public/assets/missions/apollo14.jpg",
     "relics": [
       "Antares Descent Stage",
       "Modular Equipment Transporter (MET Handcart)",
@@ -574,7 +574,7 @@ const NASA_RELIC_MISSIONS = [
     "body": "Moon",
     "site": "Southeast of Copernicus crater, approximate impact region",
     "status": "Failed landing; impact debris likely remains",
-    "img": "public/assets/missions/surveyor1.jpg",
+    "img": "public/assets/missions/surveyor2.jpg",
     "relics": [
       "Surveyor 2 Spacecraft Impact Debris",
       "Vernier Thruster Engine Cluster",
@@ -616,7 +616,7 @@ const NASA_RELIC_MISSIONS = [
     "body": "Moon",
     "site": "Near planned Sinus Medii target; impact location not confirmed",
     "status": "Lost before landing; spacecraft likely destroyed at impact",
-    "img": "public/assets/missions/surveyor3.jpg",
+    "img": "public/assets/missions/surveyor4.jpg",
     "relics": [
       "Surveyor 4 Descent Stage & Main Bus Debris",
       "Mechanical Surface-Sampler Claw Hardware",
@@ -637,7 +637,7 @@ const NASA_RELIC_MISSIONS = [
     "body": "Moon",
     "site": "Sea of Tranquility",
     "status": "Successful landing; inactive chemistry-capable lander remains",
-    "img": "public/assets/missions/surveyor3.jpg",
+    "img": "public/assets/missions/surveyor5.jpg",
     "relics": [
       "Surveyor 5 Lander Body & Landing Legs",
       "Alpha-Scattering Surface Chemistry Sensor",
@@ -658,7 +658,7 @@ const NASA_RELIC_MISSIONS = [
     "body": "Moon",
     "site": "Sinus Medii, central lunar nearside",
     "status": "Successful landing and short hop; inactive lander remains",
-    "img": "public/assets/missions/surveyor3.jpg",
+    "img": "public/assets/missions/surveyor6.jpg",
     "relics": [
       "Surveyor 6 Lander Chassis (Post-Hop Position)",
       "Alpha-Scattering In-Situ Instrument",
@@ -1196,6 +1196,9 @@ class VanillaOptionWheel {
   }
 }
 
+window.updateMissionShowcase = updateMissionShowcase;
+window.NASA_RELIC_MISSIONS = NASA_RELIC_MISSIONS;
+
 function updateMissionShowcase(idx) {
   const mission = NASA_RELIC_MISSIONS[idx];
   if (!mission) return;
@@ -1208,7 +1211,7 @@ function updateMissionShowcase(idx) {
 
   if (bgImage) {
     const cleanImg = mission.img.replace(/^(\.\/)?public\//, '');
-    bgImage.style.backgroundImage = `url('/${cleanImg}'), url('${mission.img}')`;
+    bgImage.style.backgroundImage = `url('/${cleanImg}')`;
   }
 
   if (heading) {
@@ -1252,6 +1255,14 @@ function initMissionsPage() {
   });
 
   updateMissionShowcase(0);
+
+  // Preload all 26 mission images so wheel transitions are instant and seamless
+  NASA_RELIC_MISSIONS.forEach(m => {
+    if (m.img) {
+      const preload = new Image();
+      preload.src = `/${m.img.replace(/^(\.\/)?public\//, "")}`;
+    }
+  });
 
   // Wire up the ENTER MISSION button to open mission-detail.html
   const enterBtn = document.getElementById('mission-enter-btn');
