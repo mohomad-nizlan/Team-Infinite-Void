@@ -1872,3 +1872,432 @@ body {
   }
 }
 
+/* ==============================================================
+   INSIDE NASA FACILITIES SECTION (Screen 7: Full 100vh)
+   React Bits DriftWall Component Integration
+   ============================================================== */
+.inside-nasa-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  background: #040509;
+  display: flex;
+  align-items: center;
+  justify-content: flex-start;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+/* Left Hero Typography & Brief Card */
+.inside-nasa-left {
+  position: absolute;
+  left: clamp(2rem, 5.5vw, 6.5rem);
+  top: 50%;
+  transform: translateY(-50%);
+  max-width: clamp(340px, 32vw, 470px);
+  z-index: 10;
+  pointer-events: none;
+  display: flex;
+  flex-direction: column;
+  gap: 1.15rem;
+}
+
+.inside-nasa-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 6px 14px;
+  background: rgba(255, 255, 255, 0.05);
+  border: 1px solid rgba(0, 240, 255, 0.28);
+  border-radius: 9999px;
+  backdrop-filter: blur(16px);
+  -webkit-backdrop-filter: blur(16px);
+  font-family: var(--ff-tech, 'Rajdhani', sans-serif);
+  font-size: 0.74rem;
+  font-weight: 700;
+  letter-spacing: 2px;
+  color: #00f0ff;
+  width: fit-content;
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.6), 0 0 12px rgba(0, 240, 255, 0.15);
+}
+
+.inside-nasa-badge-dot {
+  width: 7px;
+  height: 7px;
+  border-radius: 50%;
+  background: #00f0ff;
+  box-shadow: 0 0 10px #00f0ff, 0 0 18px rgba(0, 240, 255, 0.7);
+  animation: pulse-dot 2s infinite ease-in-out;
+}
+
+.inside-nasa-title {
+  font-family: var(--ff-display);
+  font-size: clamp(2.4rem, 4.2vw, 4.2rem);
+  font-weight: 900;
+  line-height: 1.05;
+  letter-spacing: 3px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 4px 24px rgba(0, 0, 0, 0.95);
+}
+
+.inside-nasa-title-gradient {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 50%, #ffffff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+  display: block;
+}
+
+.inside-nasa-brief {
+  font-family: var(--ff-body);
+  font-size: clamp(0.95rem, 1.1vw, 1.15rem);
+  font-weight: 300;
+  line-height: 1.75;
+  color: rgba(255, 255, 255, 0.92);
+  margin: 0;
+  letter-spacing: 0.3px;
+  text-shadow: 0 2px 12px rgba(0, 0, 0, 0.95);
+}
+
+.inside-nasa-wall-wrap {
+  position: absolute;
+  inset: 0;
+  width: 100%;
+  height: 100%;
+  z-index: 1;
+}
+
+/* Subtle left vignette to guarantee text legibility without obscuring the 3D drift wall */
+.inside-nasa-vignette {
+  position: absolute;
+  top: 0;
+  left: 0;
+  bottom: 0;
+  width: clamp(380px, 46vw, 600px);
+  background: linear-gradient(to right, rgba(4, 5, 9, 0.92) 0%, rgba(4, 5, 9, 0.65) 55%, transparent 100%);
+  pointer-events: none;
+  z-index: 5;
+}
+
+@media (max-width: 900px) {
+  .inside-nasa-left {
+    left: 1.5rem;
+    right: 1.5rem;
+    top: auto;
+    bottom: 2rem;
+    transform: none;
+    max-width: none;
+    background: rgba(4, 5, 9, 0.88);
+    padding: 1.25rem 1.5rem;
+    border-radius: 16px;
+    border: 1px solid rgba(255, 255, 255, 0.1);
+    backdrop-filter: blur(16px);
+    -webkit-backdrop-filter: blur(16px);
+  }
+  .inside-nasa-vignette {
+    display: none;
+  }
+}
+
+/* ==============================================================
+   SECTION 8: OUR REFERENCES (React Bits Folder Integration)
+   Top-Aligned Heading, Spacious 4-per-Row Grid, No Card Boxes
+   Clean Free-Floating 3D Folders with Project Title & Year Below
+   ============================================================== */
+.research-section {
+  position: relative;
+  width: 100vw;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  overflow: hidden;
+  box-sizing: border-box;
+  padding: clamp(0.4rem, 1.2vh, 1rem) clamp(1.2rem, 2.5vw, 2.5rem);
+  background: 
+    radial-gradient(circle at 50% 10%, rgba(0, 240, 255, 0.06) 0%, transparent 60%),
+    radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
+    linear-gradient(180deg, #020408 0%, #050812 50%, #010206 100%);
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  z-index: 2;
+  scroll-snap-align: start;
+  scroll-snap-stop: always;
+}
+
+.research-container {
+  width: 100%;
+  max-width: 1440px;
+  height: 100%;
+  margin: 0 auto;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
+  z-index: 2;
+  overflow: visible;
+}
+
+/* Compact Heading at the Top — calibrated for 100vh single screen */
+.research-header {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  text-align: center;
+  gap: 0.15rem;
+  max-width: 900px;
+  margin: 0 auto clamp(0.15rem, 0.5vh, 0.4rem);
+  flex-shrink: 0;
+}
+
+.research-title {
+  font-family: var(--ff-display, 'Orbitron', sans-serif);
+  font-size: clamp(1.2rem, 1.7vw, 1.8rem);
+  font-weight: 900;
+  line-height: 1.1;
+  letter-spacing: 2.5px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  text-shadow: 0 4px 20px rgba(0, 0, 0, 0.8);
+}
+
+.research-title-accent {
+  background: linear-gradient(135deg, #00f0ff 0%, #38bdf8 55%, #7aa7ff 100%);
+  -webkit-background-clip: text;
+  -webkit-text-fill-color: transparent;
+}
+
+.research-subtitle {
+  font-family: var(--ff-body, 'Space Grotesk', sans-serif);
+  font-size: clamp(0.7rem, 0.76vw, 0.82rem);
+  font-weight: 300;
+  line-height: 1.25;
+  color: rgba(255, 255, 255, 0.82);
+  margin: 0;
+  max-width: 780px;
+}
+
+.research-disclaimer {
+  font-family: var(--ff-body, 'Space Grotesk', sans-serif);
+  font-size: clamp(0.56rem, 0.62vw, 0.68rem);
+  font-weight: 400;
+  color: rgba(148, 163, 184, 0.75);
+  line-height: 1.2;
+  margin: 2px 0 0 0;
+  max-width: 860px;
+  letter-spacing: 0.2px;
+}
+
+/* 4 PER ROW COMPACT GRID — FITS 100% IN 1 SCREEN (100VH) */
+.research-grid {
+  flex: 1 1 auto;
+  display: grid;
+  grid-template-columns: repeat(4, 1fr);
+  grid-template-rows: repeat(2, 1fr);
+  gap: clamp(0.25rem, 0.8vh, 0.7rem) clamp(0.7rem, 1.8vw, 1.8rem);
+  width: 100%;
+  margin: 0 auto;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: visible;
+}
+
+/* No Container Box: Pure Floating 3D Folder Item */
+.research-item {
+  position: relative;
+  background: none !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  text-align: center;
+  height: 100%;
+  max-height: 100%;
+  transition: transform 0.25s ease;
+}
+
+.research-item:hover {
+  transform: translateY(-3px);
+}
+
+/* Folder Stage Mount calibrated to single-screen view */
+.research-folder-stage {
+  width: 100%;
+  height: clamp(80px, 10.5vh, 105px);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  position: relative;
+  overflow: visible;
+}
+
+/* Metadata directly below folder: Project Title & Year */
+.research-dossier-meta {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 1px;
+  margin-top: clamp(0.12rem, 0.3vh, 0.3rem);
+  border: none !important;
+  padding: 0 !important;
+  width: 100%;
+  flex-shrink: 0;
+}
+
+.research-dossier-title {
+  font-family: var(--ff-tech, 'Rajdhani', sans-serif);
+  font-size: clamp(0.72rem, 0.82vw, 0.88rem);
+  font-weight: 700;
+  letter-spacing: 1px;
+  text-transform: uppercase;
+  color: #ffffff;
+  margin: 0;
+  line-height: 1.15;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95%;
+}
+
+.research-dossier-year {
+  font-family: var(--ff-tech, 'Rajdhani', monospace);
+  font-size: clamp(0.62rem, 0.7vw, 0.75rem);
+  font-weight: 700;
+  letter-spacing: 1.5px;
+  color: #38bdf8;
+  opacity: 0.95;
+}
+
+/* Responsive Grid Breakpoints */
+@media (max-width: 1200px) {
+  .research-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 2rem 1.5rem;
+  }
+}
+
+@media (max-width: 640px) {
+  .research-section {
+    padding: 2rem 1rem;
+  }
+  .research-grid {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+/* From Uiverse.io by cssbuttons-io */ 
+.mission-cta-wrap {
+  margin-top: 1.4rem;
+  display: flex;
+  align-items: center;
+}
+
+button.learn-more {
+ position: relative;
+ display: inline-block;
+ cursor: pointer;
+ outline: none;
+ border: 0;
+ vertical-align: middle;
+ text-decoration: none;
+ background: transparent;
+ padding: 0;
+ font-size: inherit;
+ font-family: inherit;
+ width: 12rem;
+ height: auto;
+}
+
+button.learn-more .circle {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: relative;
+ display: block;
+ margin: 0;
+ width: 3rem;
+ height: 3rem;
+ background: #282936;
+ border-radius: 1.625rem;
+}
+
+button.learn-more .circle .icon {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: absolute;
+ top: 0;
+ bottom: 0;
+ margin: auto;
+ background: #fff;
+}
+
+button.learn-more .circle .icon.arrow {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ left: 0.625rem;
+ width: 1.125rem;
+ height: 0.125rem;
+ background: none;
+}
+
+button.learn-more .circle .icon.arrow::before {
+ position: absolute;
+ content: "";
+ top: -0.29rem;
+ right: 0.0625rem;
+ width: 0.625rem;
+ height: 0.625rem;
+ border-top: 0.125rem solid #fff;
+ border-right: 0.125rem solid #fff;
+ transform: rotate(45deg);
+}
+
+button.learn-more .button-text {
+ transition: all 0.45s cubic-bezier(0.65, 0, 0.076, 1);
+ position: absolute;
+ top: 0;
+ left: 0;
+ right: 0;
+ bottom: 0;
+ padding: 0.75rem 0;
+ margin: 0 0 0 1.85rem;
+ color: #282936;
+ font-weight: 700;
+ line-height: 1.6;
+ text-align: center;
+ text-transform: uppercase;
+}
+
+button.learn-more:hover .circle {
+ width: 100%;
+}
+
+button.learn-more:hover .circle .icon.arrow {
+ background: #fff;
+ transform: translate(1rem, 0);
+}
+
+button.learn-more:hover .button-text {
+ color: #fff;
+}
+
+.mission-heading {
+  cursor: pointer;
+  transition: color 0.2s ease, text-shadow 0.2s ease;
+}
+
+.mission-heading:hover {
+  color: #fc3d21;
+  text-shadow: 0 0 20px rgba(252, 61, 33, 0.8);
+}

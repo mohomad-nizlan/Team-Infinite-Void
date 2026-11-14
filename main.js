@@ -2251,9 +2251,7 @@ function initResearchSection() {
       zoomOnClick: true,
       draggable: true,
       onItemClick: (item, index) => {
-        if (item && item.url) {
-          window.open(item.url, '_blank', 'noopener,noreferrer');
-        }
+        // Document zoomed into view; navigation occurs strictly when clicking the link button
       },
       onOpenChange: (open) => {
         try {

@@ -547,3 +547,37 @@
 .pill-text {
   text-transform: uppercase;
 }
+
+/* Focused / Zoomed Document Card Pop-up Enhancements */
+.folder-item.is-focused {
+  z-index: 150 !important;
+}
+
+.folder-item.is-focused .folder-doc {
+  box-shadow: 0 16px 40px rgba(0, 0, 0, 0.8), 0 0 25px rgba(0, 240, 255, 0.45) !important;
+  border-top-width: 4px !important;
+}
+
+.folder-item.is-focused .folder-doc-title {
+  font-size: calc(9.5px * var(--folder-scale)) !important;
+  color: #0284c7 !important;
+  -webkit-line-clamp: 3 !important;
+}
+
+.folder-item.is-focused .folder-doc-text {
+  font-size: calc(7.8px * var(--folder-scale)) !important;
+  line-height: 1.35 !important;
+  color: #1e293b !important;
+  -webkit-line-clamp: 4 !important;
+}
+
+.folder-item.is-focused .folder-doc-url-pill {
+  background: #0284c7 !important;
+  color: #ffffff !important;
+  box-shadow: 0 4px 12px rgba(2, 132, 199, 0.6) !important;
+  font-weight: 800 !important;
+}
+
+.folder-item.is-focused .folder-doc-url-pill .pill-dot {
+  background: #ffffff !important;
+}
