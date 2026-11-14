@@ -2234,7 +2234,7 @@ function initResearchSection() {
       paperColor: '#ffffff',
       tabPosition: 'right',
       openOn: 'click',
-      size: 0.65,
+      size: 0.52,
       frost: 0.25,
       tilt: 0.45,
       bounce: 0.35,
