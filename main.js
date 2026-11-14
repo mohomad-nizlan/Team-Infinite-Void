@@ -1712,7 +1712,7 @@ class VanillaStaggeredMenu {
   }
 }
 
-// ─── 6. FULL-SCREEN 1-PAGE SNAP NAVIGATION (Hero -> Missions -> Relics Sphere -> Team -> Scientists -> Cosmos -> Inside NASA) ──
+// ─── 6. FULL-SCREEN 1-PAGE SNAP NAVIGATION (Hero -> Missions -> Relics Sphere -> Team -> Scientists -> Inside NASA) ──
 class FullPageSectionController {
   constructor() {
     this.sections = [
@@ -1722,7 +1722,6 @@ class FullPageSectionController {
       document.getElementById('why-us'),
       document.getElementById('team-section'),
       document.getElementById('scientists-section'),
-      document.getElementById('cosmos-section'),
       document.getElementById('inside-nasa-section'),
       document.getElementById('research-section')
     ].filter(Boolean);
@@ -1962,7 +1961,6 @@ class FullPageSectionController {
       if (frameScreen && !frameScreen.classList.contains('hidden')) return;
       if (e.target && e.target.closest('#team-lanyard-stage')) return;
       if (e.target && e.target.closest('.infinite-menu__canvas')) return;
-      if (e.target && e.target.closest('#cosmos-canvas-container')) return;
       if (e.target && e.target.closest('.flex-carousel')) return;
 
       if (e.changedTouches.length === 1) {
@@ -2121,218 +2119,7 @@ function initScientistsSection() {
   window.scientistsCarousel = carousel;
 }
 
-// ─── 8. COSMOS 3D ORBIT GALLERY (Particle Sphere + Outward Orbiting Images) ───
-function initCosmosOrbitGallery() {
-  const container = document.getElementById('cosmos-canvas-container');
-  if (!container) return;
-
-  const images = [
-    "https://cdn.21st.dev/assets/mirror/63/63dd9755c755cf0633ea36c78a64d26ce861f83faf2950e45b6d0323063165cb.jpg",
-    "https://cdn.21st.dev/assets/mirror/8f/8f2e7dffe0d66b0c75205b38287682aef6d2063425038ed0e4d7db9b6f263bc7.jpg",
-    "https://cdn.21st.dev/assets/mirror/22/2231063bbc8df9b5f879d985c257f46d781684b340bc17ab82e836157c4e2a63.jpg",
-    "https://cdn.21st.dev/assets/mirror/e6/e63c95b73a702ee4cdd684b5bcb8b314fdf365a1170dc103f272bdb17593b916.jpg",
-    "https://cdn.21st.dev/assets/mirror/57/57e5fa1b3a6556c99c5b886760587d2ede7a81d418ec7452edd62909c188f380.jpg",
-    "https://cdn.21st.dev/assets/mirror/c0/c0d7bd9dd8d7188c78921deefa43ed2d8ec43764e5cb26f6a76460f50693d902.jpg",
-    "https://cdn.21st.dev/assets/mirror/82/825eacecce852a8c5ef1e6500af399824f6b3f90a1ff9725726534f1e3c15376.jpg",
-    "https://cdn.21st.dev/assets/mirror/0f/0fc0ed0dae94aea0b89567ece95646b86d1d4811216dcddd5ef811532f48aa84.jpg",
-    "https://cdn.21st.dev/assets/mirror/44/44d9e457e6ddbfbf9e28824082d21c56262079e7bbe1653d90dcc4aa3870ca95.jpg",
-    "https://cdn.21st.dev/assets/mirror/a3/a3a2f5ef8b462460fd06629b004cebc66741b432f5a54688ad78bd205ceb88dc.jpg",
-    "https://cdn.21st.dev/assets/mirror/85/85f9dcd8a3db2020ff08432bd3ba77e3c1a6105b5e9f7a6a3ba6f63c1cad420d.jpg",
-    "https://cdn.21st.dev/assets/mirror/43/43a549178a56d34ddba4f6024f27c5ec0ed82b4d8132bd813de0d1edea175399.jpg",
-    "https://cdn.21st.dev/assets/mirror/bf/bfa125b36137d6464bea9ada9bf7a9d7d3ed5a0d1fb5ef491a7e89f40e9d7688.jpg",
-    "https://cdn.21st.dev/assets/mirror/6a/6a53ab92753c4facc64134d260460346b5323741017d7d2753e2a32e1e626e5e.jpg",
-    "https://cdn.21st.dev/assets/mirror/69/699f4fa61d3312af842265920a6707628ba67eaea7ac00e2040edadb4505eac8.jpg",
-    "https://cdn.21st.dev/assets/mirror/14/148264ce8b3e45ecffa2a2b76444622633e331d31b082b7be643321de592d9d1.jpg",
-    "https://cdn.21st.dev/assets/mirror/60/6038d39fe65bc218b6a036a800f835753519a043fb0376002c989ba30a6f90dc.jpg",
-    "https://cdn.21st.dev/assets/mirror/83/838c3fb6be73c52b9d8442d3a96015b2b2c275e6cd0ba5cc297fadbb8d2d7a17.jpg",
-    "https://cdn.21st.dev/assets/mirror/34/340c464d061db93bf3b78145ad1894047524c4bd93cf5d485b73cb65fc3ea908.jpg",
-    "https://cdn.21st.dev/assets/mirror/6c/6caf1639774c907db8059602e59b7bad37eb17974e1d9dd640553aee88c43af2.jpg",
-    "https://cdn.21st.dev/assets/mirror/e9/e9893051287acf74ab64bd28a4dfa2bdf86b83192e1453e452d56ede2068ca57.jpg",
-    "https://cdn.21st.dev/assets/mirror/29/2944be541f9877030efbb253e2925dbfc3171766809d1b506a31b34c82889126.jpg",
-    "https://cdn.21st.dev/assets/mirror/60/607e443f43f933177bd1f3ddcd5592a226c74c04be21ba7a716c6e7fb4640a39.jpg",
-    "https://cdn.21st.dev/assets/mirror/14/144b1358bfdfcbac71e1f90d5d4b41cf6e5a57d16e919af24e972d6895b47a4d.jpg"
-  ];
-
-  const PARTICLE_COUNT = 1500;
-  const PARTICLE_SIZE_MIN = 0.005;
-  const PARTICLE_SIZE_MAX = 0.01;
-  const SPHERE_RADIUS = 9;
-  const POSITION_RANDOMNESS = 4;
-  const ROTATION_SPEED_X = 0.0;
-  const ROTATION_SPEED_Y = 0.0005;
-  const PARTICLE_OPACITY = 1;
-  const IMAGE_COUNT = images.length;
-  const IMAGE_SIZE = 1.5;
-
-  const width = container.clientWidth || window.innerWidth;
-  const height = container.clientHeight || window.innerHeight;
-
-  const scene = new THREE.Scene();
-  const camera = new THREE.PerspectiveCamera(50, width / height, 0.1, 1000);
-  camera.position.set(-10, 1.5, 10);
-
-  const renderer = new THREE.WebGLRenderer({ antialias: true, alpha: true, powerPreference: 'high-performance' });
-  renderer.setSize(width, height);
-  renderer.setPixelRatio(Math.min(window.devicePixelRatio, 2));
-  renderer.toneMapping = THREE.ACESFilmicToneMapping;
-  container.appendChild(renderer.domElement);
-
-  const controls = new OrbitControls(camera, renderer.domElement);
-  controls.enablePan = true;
-  controls.enableZoom = false;
-  controls.enableRotate = true;
-  controls.enableDamping = true;
-  controls.dampingFactor = 0.05;
-  controls.minDistance = 2.5;
-  controls.maxDistance = 35;
-
-  // Lights matching React component
-  const ambientLight = new THREE.AmbientLight(0xffffff, 0.5);
-  scene.add(ambientLight);
-
-  const pointLight = new THREE.PointLight(0xffffff, 1, 100);
-  pointLight.position.set(10, 10, 10);
-  scene.add(pointLight);
-
-  // Group containing particles and orbiting images
-  const group = new THREE.Group();
-  scene.add(group);
-
-  // 1500 Particles
-  const sphereGeo = new THREE.SphereGeometry(1, 8, 6);
-  const sphereMat = new THREE.MeshBasicMaterial({
-    transparent: true,
-    opacity: PARTICLE_OPACITY
-  });
-  const instancedParticles = new THREE.InstancedMesh(sphereGeo, sphereMat, PARTICLE_COUNT);
-  const dummy = new THREE.Object3D();
-  const color = new THREE.Color();
-
-  for (let i = 0; i < PARTICLE_COUNT; i++) {
-    const phi = Math.acos(-1 + (2 * i) / PARTICLE_COUNT);
-    const theta = Math.sqrt(PARTICLE_COUNT * Math.PI) * phi;
-    const radiusVariation = SPHERE_RADIUS + (Math.random() - 0.5) * POSITION_RANDOMNESS;
-
-    const x = radiusVariation * Math.cos(theta) * Math.sin(phi);
-    const y = radiusVariation * Math.cos(phi);
-    const z = radiusVariation * Math.sin(theta) * Math.sin(phi);
-
-    const scale = Math.random() * (PARTICLE_SIZE_MAX - PARTICLE_SIZE_MIN) + PARTICLE_SIZE_MIN;
-    dummy.position.set(x, y, z);
-    dummy.scale.set(scale, scale, scale);
-    dummy.updateMatrix();
-    instancedParticles.setMatrixAt(i, dummy.matrix);
-
-    // Yellow-orange star hues matching component
-    color.setHSL(
-      Math.random() * 0.1 + 0.05,
-      0.8,
-      0.6 + Math.random() * 0.3
-    );
-    instancedParticles.setColorAt(i, color);
-  }
-  instancedParticles.instanceMatrix.needsUpdate = true;
-  if (instancedParticles.instanceColor) instancedParticles.instanceColor.needsUpdate = true;
-  group.add(instancedParticles);
-
-  // Orbiting Images Ring
-  const textureLoader = new THREE.TextureLoader();
-  textureLoader.setCrossOrigin('anonymous');
-  const planeGeo = new THREE.PlaneGeometry(IMAGE_SIZE, IMAGE_SIZE);
-
-  function makeFallbackTexture(idx) {
-    const cvs = document.createElement('canvas');
-    cvs.width = 256;
-    cvs.height = 256;
-    const ctx = cvs.getContext('2d');
-    const hue = (idx * 360 / IMAGE_COUNT) % 360;
-    ctx.fillStyle = `hsl(${hue}, 70%, 35%)`;
-    ctx.fillRect(0, 0, 256, 256);
-    ctx.fillStyle = '#ffffff';
-    ctx.font = 'bold 26px sans-serif';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    ctx.fillText(`STAR-STUFF #${idx + 1}`, 128, 128);
-    return new THREE.CanvasTexture(cvs);
-  }
-
-  for (let i = 0; i < IMAGE_COUNT; i++) {
-    const angle = (i / IMAGE_COUNT) * Math.PI * 2;
-    const x = SPHERE_RADIUS * Math.cos(angle);
-    const y = 0; // Aligned on X-Z plane
-    const z = SPHERE_RADIUS * Math.sin(angle);
-
-    const position = new THREE.Vector3(x, y, z);
-    const center = new THREE.Vector3(0, 0, 0);
-    const outwardDirection = position.clone().sub(center).normalize();
-
-    const euler = new THREE.Euler();
-    const matrix = new THREE.Matrix4();
-    matrix.lookAt(position, position.clone().add(outwardDirection), new THREE.Vector3(0, 1, 0));
-    euler.setFromRotationMatrix(matrix);
-
-    const mat = new THREE.MeshBasicMaterial({
-      side: THREE.DoubleSide,
-      transparent: true,
-      opacity: 1
-    });
-
-    textureLoader.load(
-      images[i],
-      (tex) => {
-        tex.colorSpace = THREE.SRGBColorSpace;
-        mat.map = tex;
-        mat.needsUpdate = true;
-      },
-      undefined,
-      () => {
-        mat.map = makeFallbackTexture(i);
-        mat.needsUpdate = true;
-      }
-    );
-
-    const mesh = new THREE.Mesh(planeGeo, mat);
-    mesh.position.set(x, y, z);
-    mesh.rotation.copy(euler);
-    group.add(mesh);
-  }
-
-  // Continuous smooth celestial rotation animation loop
-  function animate() {
-    requestAnimationFrame(animate);
-    group.rotation.y += ROTATION_SPEED_Y;
-    group.rotation.x += ROTATION_SPEED_X;
-    controls.update();
-    renderer.render(scene, camera);
-  }
-  animate();
-
-  // Reset Camera View button (Icon only)
-  const resetBtn = document.getElementById('cosmos-reset-cam');
-  if (resetBtn) {
-    resetBtn.addEventListener('click', () => {
-      gsap.to(camera.position, {
-        x: -10,
-        y: 1.5,
-        z: 10,
-        duration: 1.2,
-        ease: 'power2.inOut',
-        onUpdate: () => controls.update()
-      });
-    });
-  }
-
-  // Responsive resize
-  window.addEventListener('resize', () => {
-    const w = container.clientWidth || window.innerWidth;
-    const h = container.clientHeight || window.innerHeight;
-    camera.aspect = w / h;
-    camera.updateProjectionMatrix();
-    renderer.setSize(w, h);
-  });
-}
-
-// ─── 9. INSIDE NASA HIGH-BAY & MISSION CONTROL DRIFT WALL (React Bits DriftWall) ───
+// ─── 8. INSIDE NASA HIGH-BAY & MISSION CONTROL DRIFT WALL (React Bits DriftWall) ───
 function initInsideNasaSection() {
   const container = document.getElementById('drift-wall-root');
   if (!container) return;
@@ -2378,7 +2165,6 @@ document.addEventListener('DOMContentLoaded', () => {
   });
   initUnifiedLanyardStage();
   initScientistsSection();
-  initCosmosOrbitGallery();
   initInsideNasaSection();
   initResearchSection();
   window.initWhyUsSection?.();
