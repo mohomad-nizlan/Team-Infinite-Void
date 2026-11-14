@@ -873,8 +873,8 @@ export function initUnifiedLanyardStage() {
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: 'https://www.instagram.com/rifa.teamlead',
-      linkedin: 'https://www.linkedin.com/in/rifa-teamlead'
+      instagram: 'https://www.instagram.com/rifa_rauff?exln=aDFhMXJ2ZXh4cmNp',
+      linkedin: 'https://www.linkedin.com/in/rifa-rauff-852709225?utm_source=share_via&utm_content=profile&utm_medium=member_android'
     },
     {
       id: 'rashini',
@@ -890,17 +890,17 @@ export function initUnifiedLanyardStage() {
       linkedin: 'https://www.linkedin.com/in/rashini-coding'
     },
     {
-      id: 'atheeqa',
-      name: 'Atheeqa',
+      id: 'aathiqa',
+      name: 'Aathiqa',
       role: 'Coding',
-      handle: '@atheeqa',
+      handle: '@aathiqa',
       front: '/assets/badge_atheeqa_color.png?v=20261114_color',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: 'https://www.instagram.com/atheeqa.dev',
-      linkedin: 'https://www.linkedin.com/in/atheeqa-coding'
+      instagram: 'https://www.instagram.com/aathiqa_n',
+      linkedin: 'https://www.linkedin.com/in/aathiqa-nassim-5a98162b7'
     },
     {
       id: 'nizlan',
@@ -912,8 +912,8 @@ export function initUnifiedLanyardStage() {
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: 'https://www.instagram.com/nizlan.cosmic',
-      linkedin: 'https://www.linkedin.com/in/mohomad-nizlan'
+      instagram: 'https://www.instagram.com/mohomad_nizlan_1',
+      linkedin: 'https://www.linkedin.com/in/mohomadnizlan/'
     },
     {
       id: 'byon',
