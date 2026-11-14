@@ -78,26 +78,55 @@ body {
   top: 0;
   left: 0;
   right: 0;
-  height: 70%; /* Shifted upper, keeping ~1/3 space at the bottom */
+  bottom: 0;
+  width: 100%;
+  height: 100%;
   z-index: 1;
   overflow: hidden;
-  mask-image: linear-gradient(180deg, #000000 0%, #000000 68%, transparent 100%);
-  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 68%, transparent 100%);
 }
 
 .hero-bg-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center bottom; /* Shows bottom of video where the effect is */
+  object-position: center center;
 }
 
 .hero-video-shade {
+  display: none;
+}
+
+.hero-stencil-overlay {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(2, 6, 18, 0.38) 0%, rgba(1, 3, 10, 0.72) 100%),
-              linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.92) 100%);
+  width: 100%;
+  height: 100%;
+  background: #000000;
+  mix-blend-mode: multiply;
+  pointer-events: none;
   z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+.hero-stencil-content {
+  width: 100%;
+  max-width: 1400px;
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 40px 24px;
+  box-sizing: border-box;
+}
+
+.hero-stencil-svg {
+  width: 100%;
+  height: auto;
+  display: block;
+  user-select: none;
 }
 
 .hero-mockup-container {

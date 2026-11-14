@@ -178,34 +178,11 @@ class VideoStoryApp {
       this.exitBtn.addEventListener('click', () => this.close());
     }
 
-    // Synchronize hero background video and title masked video playhead
-    if (this.heroVideo && this.titleVideo) {
+    // Play hero background video (stencil overlay reveals video only inside INFINITE VOID text)
+    if (this.heroVideo) {
       this.heroVideo.muted = true;
-      this.titleVideo.muted = true;
+      this.heroVideo.playsInline = true;
       this.heroVideo.play().catch(() => {});
-      this.titleVideo.play().catch(() => {});
-
-      // Smooth synchronization without decoder seek-thrashing
-      let lastSync = 0;
-      const syncHeroVideos = () => {
-        const now = performance.now();
-        if (now - lastSync < 1000) return; // Check at most once per second
-        if (Math.abs(this.titleVideo.currentTime - this.heroVideo.currentTime) > 0.4) {
-          this.titleVideo.currentTime = this.heroVideo.currentTime;
-          lastSync = now;
-        }
-      };
-      this.heroVideo.addEventListener('timeupdate', syncHeroVideos);
-      this.heroVideo.addEventListener('play', () => {
-        this.titleVideo.currentTime = this.heroVideo.currentTime;
-        this.titleVideo.play().catch(() => {});
-      });
-      this.heroVideo.addEventListener('pause', () => {
-        this.titleVideo.pause();
-      });
-      this.heroVideo.addEventListener('seeked', () => {
-        this.titleVideo.currentTime = this.heroVideo.currentTime;
-      });
     }
 
     // Click on video to toggle play / pause
