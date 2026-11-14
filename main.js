@@ -4,7 +4,7 @@
    ============================================================== */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261021k';
+import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261114_color';
 import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
 import { VanillaDriftWall, NASA_INSIDE_ITEMS } from './DriftWall.js?v=20261022a';
 import { VanillaFlexCarousel, NASA_SCIENTIST_ITEMS } from './FlexCarousel.js?v=20261022f';
@@ -1786,6 +1786,8 @@ class FullPageSectionController {
       targetTop = targetSection.offsetTop + targetSection.offsetHeight - window.innerHeight;
     }
 
+
+
     window.scrollTo({
       top: targetTop,
       behavior: smooth ? 'smooth' : 'auto'
@@ -1856,8 +1858,21 @@ class FullPageSectionController {
       // If cursor is over the FlexCarousel, let it handle wheel events natively (cycling cards)
       if (e.target && e.target.closest('.flex-carousel')) return;
 
+
+
       // Smooth controlled scroll through why-us section
-      if (currentSection && currentSection.id === 'why-us') {
+      const overWhyUs = (e.target && e.target.closest('#why-us')) || (currentSection && currentSection.id === 'why-us');
+      if (overWhyUs) {
+      // When cursor is over why-us-steps-scroll, let user scroll vertically through 1, 2, 3...
+      const stepsScroll = e.target && e.target.closest('#why-us-steps-scroll');
+      if (stepsScroll) {
+        const atTop = stepsScroll.scrollTop <= 4;
+        const atBottom = stepsScroll.scrollTop + stepsScroll.clientHeight >= stepsScroll.scrollHeight - 4;
+        if ((e.deltaY > 0 && !atBottom) || (e.deltaY < 0 && !atTop)) {
+          // Allow natural scroll inside steps container
+          return;
+        }
+      }
         const currentScroll = window.scrollY || window.pageYOffset || 0;
         const sectionTop = currentSection.offsetTop;
         const sectionHeight = currentSection.offsetHeight;
@@ -2464,4 +2479,7 @@ function initResearchSection() {
     });
   });
 }
+
+
+
 

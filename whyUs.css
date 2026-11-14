@@ -130,47 +130,47 @@
 
 /* Container (from Gulf Talents line 603: relative z-10 mx-auto flex max-w-7xl flex-row items-center px-2 sm:px-6 lg:px-8) */
 /* Container: Screen-edge anchored on desktop so exact half rotating circle is visible */
+/* ==========================================================================
+   CONTAINER & ROTARY DIAL SECTION (EXACT 1:1 FROM D:\gulf-talents)
+   ========================================================================== */
+
+/* Container: relative z-10 mx-auto flex max-w-7xl flex-row items-center px-2 sm:px-6 lg:px-8 */
 .why-us-container {
   position: relative;
   z-index: 10;
-  width: 100%;
+  margin-left: auto;
+  margin-right: auto;
   display: flex;
+  max-width: 80rem; /* max-w-7xl = 1280px */
   flex-direction: row;
   align-items: center;
-  padding-left: 0.5rem;
+  padding-left: 0.5rem; /* px-2 */
   padding-right: 0.5rem;
   box-sizing: border-box;
 }
 
 @media (min-width: 640px) {
   .why-us-container {
-    padding-left: 1.5rem;
+    padding-left: 1.5rem; /* sm:px-6 */
     padding-right: 1.5rem;
   }
 }
 
 @media (min-width: 1024px) {
   .why-us-container {
-    max-width: 100%;
-    margin-left: 0;
-    margin-right: 0;
-    padding-left: 0;
-    padding-right: 3rem;
-    justify-content: flex-start;
-  }
-}
-
-@media (min-width: 1440px) {
-  .why-us-container {
-    padding-right: 5rem;
+    padding-left: 2rem; /* lg:px-8 */
+    padding-right: 2rem;
   }
 }
 
 /* ==========================================================================
-   LARGE LEFT CIRCLE WITH ROTARY DIAL (from Gulf Talents lines 604-615)
+   LARGE LEFT CIRCLE WITH ROTARY DIAL
+   exact classes: absolute top-1/2 -translate-y-1/2 -left-[120px] flex shrink-0
+   h-[260px] w-[260px] items-center justify-center sm:static sm:h-[480px]
+   sm:w-[50%] sm:translate-y-0 sm:-ml-[10%] lg:mb-0 lg:-ml-[15%] lg:h-[700px]
+   lg:w-[45%] lg:origin-left lg:scale-[0.85] lg:items-start lg:justify-start xl:scale-100
    ========================================================================== */
 
-/* Rotary Dial Wrapper: anchored to left edge so only the half rotating circle is visible */
 .why-us-dial-wrapper {
   position: absolute;
   top: 50%;
@@ -186,10 +186,12 @@
 
 @media (min-width: 640px) {
   .why-us-dial-wrapper {
-    position: relative;
+    position: static;
+    top: auto;
+    left: auto;
     width: 50%;
     height: 480px;
-    transform: none;
+    transform: translateY(0);
     margin-left: -10%;
     align-items: center;
     justify-content: center;
@@ -198,14 +200,15 @@
 
 @media (min-width: 1024px) {
   .why-us-dial-wrapper {
-    position: relative;
-    flex-shrink: 0;
-    width: 480px;
-    height: 700px;
-    margin-left: -240px;
+    position: static;
+    top: auto;
+    left: auto;
     margin-bottom: 0;
+    margin-left: -15%;
+    width: 45%;
+    height: 700px;
     transform-origin: left center;
-    transform: scale(0.88);
+    transform: scale(0.85);
     display: flex;
     align-items: flex-start;
     justify-content: flex-start;
@@ -214,13 +217,11 @@
 
 @media (min-width: 1280px) {
   .why-us-dial-wrapper {
-    width: 540px;
-    margin-left: -220px;
     transform: scale(1);
   }
 }
 
-/* Rotary Dial Stage */
+/* Rotary Dial Stage: pointer-events-none absolute inset-0 z-10 block */
 .why-us-dial-stage {
   pointer-events: none;
   position: absolute;
@@ -229,7 +230,7 @@
   display: block;
 }
 
-/* Concentric Dial Orbit Box: exactly surrounds the 800px circle with 40px ring */
+/* Orbit box: absolute top-1/2 left-1/2 h-[880px] w-[880px] origin-center -translate-x-1/2 -translate-y-1/2 scale-[0.33] lg:-left-[40px] lg:-translate-x-0 lg:scale-100 */
 .why-us-dial-orbit-box {
   position: absolute;
   top: 50%;
@@ -240,16 +241,10 @@
   transform: translate(-50%, -50%) scale(0.33);
 }
 
-@media (min-width: 640px) {
-  .why-us-dial-orbit-box {
-    transform: translate(-50%, -50%) scale(0.55);
-  }
-}
-
 @media (min-width: 1024px) {
   .why-us-dial-orbit-box {
     left: -40px;
-    transform: translateY(-50%) scale(1);
+    transform: translate(0, -50%) scale(1);
   }
 }
 
@@ -335,7 +330,7 @@
   background-color: rgba(255, 255, 255, 0.15);
 }
 
-/* Counter-rotating inner dashed ring (from Gulf Talents lines 662-673) */
+/* Counter-rotating inner dashed ring */
 .why-us-dashed-ring {
   position: absolute;
   inset: 80px;
@@ -351,7 +346,7 @@
   100% { transform: rotate(0deg); }
 }
 
-/* Finger stop indicator (from Gulf Talents lines 674-681) */
+/* Finger stop indicator */
 .why-us-finger-stop {
   position: absolute;
   top: 50%;
@@ -372,7 +367,11 @@
 }
 
 /* ==========================================================================
-   LARGE OFF-WHITE CIRCLE (from Gulf Talents lines 684-754)
+   LARGE OFF-WHITE CIRCLE
+   exact classes: relative z-20 flex shrink-0 flex-col items-center justify-center
+   overflow-hidden rounded-full bg-[#f8f5f0] p-4 shadow-2xl h-[260px] w-[260px]
+   sm:h-[450px] sm:w-[450px] sm:p-10 lg:absolute lg:top-1/2 lg:left-0 lg:h-[800px]
+   lg:w-[800px] lg:-translate-y-1/2 lg:items-center lg:justify-center lg:p-0
    ========================================================================== */
 
 .why-us-big-circle {
@@ -385,7 +384,7 @@
   justify-content: center;
   overflow: hidden;
   border-radius: 9999px;
-  background-color: var(--whyus-offwhite);
+  background-color: var(--whyus-offwhite, #f8f5f0);
   padding: 1rem;
   box-shadow: 0 25px 50px -12px rgba(0, 0, 0, 0.25);
   width: 260px;
@@ -433,46 +432,43 @@
   }
 }
 
-/* Circle Content Box - Clean, consistent alignment */
-/* Circle Content Box — Exact Gulf Talents Alignment inside 800px Circle */
+/* Circle Content Box: exact classes:
+   relative z-30 w-full pl-12 pr-2 sm:px-12 flex flex-col items-end sm:items-center lg:items-center lg:justify-center lg:p-0 text-right sm:text-center lg:text-center */
 .why-us-circle-content {
   position: relative;
   z-index: 30;
   width: 100%;
+  padding-left: 3rem;
+  padding-right: 0.5rem;
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  justify-content: center;
   text-align: right;
-  padding-left: 3rem;
-  padding-right: 0.5rem;
 }
 
 @media (min-width: 640px) {
   .why-us-circle-content {
-    align-items: center;
-    justify-content: center;
-    text-align: center;
     padding-left: 3rem;
     padding-right: 3rem;
+    align-items: center;
+    text-align: center;
   }
 }
 
 @media (min-width: 1024px) {
   .why-us-circle-content {
+    padding: 0;
     align-items: center;
     justify-content: center;
     text-align: center;
-    padding-left: 140px;
-    padding-right: 40px;
   }
 }
 
+/* Inner box: flex flex-col items-end sm:items-center lg:items-center w-full max-w-[100%] lg:max-w-[650px] xl:max-w-[700px] */
 .why-us-circle-inner-box {
   display: flex;
   flex-direction: column;
   align-items: flex-end;
-  text-align: right;
   width: 100%;
   max-width: 100%;
 }
@@ -480,15 +476,12 @@
 @media (min-width: 640px) {
   .why-us-circle-inner-box {
     align-items: center;
-    text-align: center;
-    max-width: 480px;
   }
 }
 
 @media (min-width: 1024px) {
   .why-us-circle-inner-box {
     align-items: center;
-    text-align: center;
     max-width: 650px;
   }
 }
@@ -499,7 +492,7 @@
   }
 }
 
-/* Mobile Title (from Gulf Talents lines 710-722) */
+/* Mobile Title (exact classes from Gulf Talents lines 710-722) */
 .why-us-mobile-title {
   font-family: 'Urbanist', system-ui, sans-serif;
   margin-bottom: 0;
@@ -537,7 +530,7 @@
   writing-mode: vertical-rl;
 }
 
-/* Desktop Title Box (Centered in Circle, Left-Aligned Internally) */
+/* Desktop Title Box (exact classes: hidden sm:flex flex-col items-center justify-center w-full relative mb-6) */
 .why-us-desktop-title-box {
   display: none;
   flex-direction: column;
@@ -628,13 +621,13 @@
   }
 }
 
-/* Description paragraph centered inside circle */
+/* Description paragraph: mb-4 sm:mb-8 hidden sm:block max-w-[120px] sm:max-w-[400px] lg:max-w-[550px] text-[8px] sm:text-base leading-snug sm:leading-relaxed font-medium text-slate-600 text-center lg:text-center */
 .why-us-desc {
   margin-bottom: 1rem;
   display: none;
-  max-width: 100%;
+  max-width: 120px;
   font-size: 8px;
-  line-height: 1.4;
+  line-height: 1.375;
   font-weight: 500;
   color: var(--whyus-slate-600);
   text-align: center;
@@ -644,7 +637,7 @@
   .why-us-desc {
     display: block;
     max-width: 400px;
-    margin: 0 auto 2rem auto;
+    margin-bottom: 2rem;
     font-size: 1rem;
     line-height: 1.625;
     text-align: center;
@@ -658,7 +651,7 @@
   }
 }
 
-/* Subtle right edge gradient on circle (from Gulf Talents line 753) */
+/* Subtle right edge gradient on circle (exact from Gulf Talents line 753) */
 .why-us-circle-edge-gradient {
   pointer-events: none;
   position: absolute;
@@ -775,6 +768,7 @@
    Offsets: ml-0, ml-1 (72px), ml-2 (110px), ml-3 (122px), ml-4 (110px), ml-5 (72px), ml-6 (0)
    ========================================================================== */
 
+/* Staggered Pills: relative z-30 flex w-full flex-col items-start gap-2 pl-[96px] sm:pl-8 sm:mt-8 sm:w-[60%] sm:gap-7 lg:mt-0 lg:w-[55%] lg:gap-8 lg:pl-[140px] xl:pl-[240px] */
 .why-us-pills-list {
   position: relative;
   z-index: 30;
@@ -797,20 +791,16 @@
 
 @media (min-width: 1024px) {
   .why-us-pills-list {
-    flex: 1;
-    width: auto;
-    max-width: 620px;
     margin-top: 0;
-    margin-left: 2rem;
-    gap: 1.75rem;
-    padding-left: 0;
+    width: 55%;
+    gap: 2rem;
+    padding-left: 140px;
   }
 }
 
 @media (min-width: 1280px) {
   .why-us-pills-list {
-    margin-left: 3.5rem;
-    gap: 2rem;
+    padding-left: 240px;
   }
 }
 
@@ -1545,4 +1535,116 @@
 .why-us-reveal.is-visible {
   opacity: 1;
   transform: none !important;
+}
+
+
+/* ==========================================================================
+   WHY-US SCROLLABLE STEPS (1, 2, 3...) REPLACING BOTTOM PARAGRAPHS
+   ========================================================================== */
+
+.why-us-scrollable-steps-wrap {
+  margin-top: 1.25rem;
+  width: 100%;
+}
+
+.why-us-scroll-header-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 0.65rem;
+  padding-bottom: 0.4rem;
+  border-bottom: 1px solid rgba(255, 255, 255, 0.15);
+}
+
+.why-us-scroll-pill {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  font-size: 11px;
+  font-weight: 800;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: #ffffff;
+}
+
+.why-us-scroll-hint {
+  font-size: 11px;
+  font-weight: 600;
+  color: rgba(255, 255, 255, 0.7);
+  letter-spacing: 0.04em;
+}
+
+.why-us-scrollable-steps {
+  max-height: 195px;
+  overflow-y: auto;
+  overflow-x: hidden;
+  overscroll-behavior: contain;
+  padding-right: 0.75rem;
+  display: flex;
+  flex-direction: column;
+  gap: 0.75rem;
+  scroll-behavior: smooth;
+}
+
+@media (min-width: 640px) {
+  .why-us-scrollable-steps {
+    max-height: 220px;
+  }
+}
+
+.why-us-scrollable-steps::-webkit-scrollbar {
+  width: 5px;
+}
+
+.why-us-scrollable-steps::-webkit-scrollbar-track {
+  background: rgba(255, 255, 255, 0.1);
+  border-radius: 9999px;
+}
+
+.why-us-scrollable-steps::-webkit-scrollbar-thumb {
+  background: var(--whyus-accent-fallback, #29ABE2);
+  border-radius: 9999px;
+}
+
+.why-us-step-item {
+  display: flex;
+  align-items: flex-start;
+  gap: 0.85rem;
+  padding: 0.6rem 0.85rem;
+  background: rgba(255, 255, 255, 0.05);
+  border-radius: 0.75rem;
+  border: 1px solid rgba(255, 255, 255, 0.1);
+  transition: background 0.25s ease, border-color 0.25s ease;
+}
+
+.why-us-step-item:hover {
+  background: rgba(255, 255, 255, 0.1);
+  border-color: rgba(41, 171, 226, 0.4);
+}
+
+.why-us-step-num {
+  font-family: 'Urbanist', system-ui, sans-serif;
+  font-size: 1.15rem;
+  font-weight: 900;
+  line-height: 1.2;
+  flex-shrink: 0;
+}
+
+.why-us-step-content {
+  flex: 1;
+}
+
+.why-us-step-title {
+  display: inline;
+  font-size: 0.95rem;
+  font-weight: 800;
+  color: #ffffff;
+  margin-right: 0.35rem;
+}
+
+.why-us-step-text {
+  display: inline;
+  font-size: 0.9rem;
+  font-weight: 600;
+  line-height: 1.55;
+  color: #ffffff;
+  margin: 0;
 }
