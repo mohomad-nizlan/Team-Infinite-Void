@@ -579,7 +579,7 @@ class CircularGallery {
           dim: state.open * (1 - focus) * 0.4,
           gray: s.grayscale ? 1 - Math.max(hover, focus, slot === state.active ? state.ring : 0) : 0,
           focus,
-          labelAlpha: mix(1 - state.open, 1, focus),
+          labelAlpha: 1 - state.open,
           labelSize: mix(baseLabel, captionSize(), focus),
           frame
         };
@@ -675,15 +675,17 @@ class CircularGallery {
             entry.el.style.font = font;
           }
           const size = card.labelSize;
-          const offset = card.h / 2 + size * 1.1;
+          const labelGap = Math.max(10, size * 0.55);
+          const offset = card.h / 2 + labelGap;
           const x = card.x + Math.sin(card.angle) * offset;
           const y = card.y - Math.cos(card.angle) * offset;
           const cssX = view.width / 2 + x;
           const cssY = view.height / 2 - y;
           const edge = fade(cssX / view.width) * fade(1 - cssX / view.width);
-          entry.el.style.fontSize = `${size}px`;
+          entry.el.style.fontSize = `${Math.max(11, size * 0.85)}px`;
           entry.el.style.color = s.textColor;
-          entry.el.style.transform = `translate(${cssX}px, ${cssY}px) translate(-50%, -50%) rotate(${-card.angle}rad)`;
+          entry.el.style.transformOrigin = '0 0';
+          entry.el.style.transform = `translate(${cssX}px, ${cssY}px) rotate(${-card.angle}rad) rotate(90deg) translate(0%, -50%)`;
           entry.el.style.opacity = String(card.alpha * card.labelAlpha * mix(edge, 1, card.focus));
         });
       }

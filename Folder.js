@@ -118,7 +118,7 @@ const measureFolder = (book, scale, labelWidth, hasLabel, tabPosition) => {
       : tabPosition === 'center'
         ? (w - tabW) / 2
         : w - corners[1] - 5 * scale - shoulder - tabW;
-  const docW = book ? w * 0.8 : w * 0.54;
+  const docW = book ? w * 0.82 : w * 0.82;
   return {
     book,
     scale,
@@ -133,7 +133,7 @@ const measureFolder = (book, scale, labelWidth, hasLabel, tabPosition) => {
     frontTop,
     frontH: tabH + h - frontTop,
     docW,
-    docH: docW * (book ? 1.28 : 1.22)
+    docH: docW * (book ? 1.28 : 1.25)
   };
 };
 
@@ -164,30 +164,26 @@ const placeFlap = (rank, count, phase, layout, g, pointer) => {
   const floor = g.tabH + g.h - 5 * g.scale - g.docH / 2;
   const mid = (count - 1) / 2;
   if (phase === 'open') {
-    const lift = g.tabH - g.h * 0.02;
-    if (layout === 'stack') {
-      const strip = Math.min(30 * g.scale, (g.h * 0.62) / Math.max(1, count - 1));
-      const fit = 1.04 - rank * 0.05;
+    const lift = -g.h * 0.28;
+    if (count === 1) {
       return {
         x: g.w / 2,
-        y: g.tabH + g.h * 0.1 - rank * strip - (g.docH * (1.04 - fit)) / 2,
-        z: -rank * 18 * g.scale,
+        y: lift,
+        z: 15,
         r: 0,
         ry: 0,
-        s: fit
+        s: 1.08
       };
     }
-    const gap = 12 * g.scale;
-    const fit = Math.min(0.94, (g.w * 2.3 - gap * (count - 1)) / (count * g.docW));
-    const step = g.docW * fit + gap;
-    const tidy = layout === 'row';
+    const offset = (rank === 0 ? -1 : 1) * (g.docW * 0.26);
+    const tilt = (rank === 0 ? -3 : 3);
     return {
-      x: g.w / 2 + (rank - mid) * step,
-      y: lift + (tidy ? 0 : SPREAD_DROP[rank] * g.h * 0.7),
-      z: 0,
-      r: tidy ? 0 : SPREAD_TURN[rank] * 0.55,
+      x: g.w / 2 + offset,
+      y: lift - rank * 6 * g.scale,
+      z: rank * 12 + 10,
+      r: tilt,
       ry: 0,
-      s: fit
+      s: 1.05
     };
   }
   const part = phase === 'receive' ? 1.7 : phase === 'peek' ? 1.3 : 1;
@@ -399,12 +395,45 @@ export class VanillaFolder {
       } else {
         const title = typeof item === 'object' ? item.title || '' : String(item);
         const desc = typeof item === 'object' ? item.description || '' : '';
+        const url = typeof item === 'object' ? item.url || '' : '';
+        const tag = typeof item === 'object' ? item.tag || 'NASA ARCHIVE' : 'NASA ARCHIVE';
+
         itemEl.innerHTML = `
-          <div class="folder-doc">
+          <div class="folder-doc" style="--folder-accent: ${this.color};">
+            <div class="folder-doc-header">
+              <span class="folder-doc-tag">${tag}</span>
+              ${url ? `
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="folder-doc-link-btn" title="Open official NASA resource" onclick="event.stopPropagation(); window.open('${url}', '_blank');">
+                  <span>NASA.GOV</span>
+                  <svg viewBox="0 0 12 12" width="9" height="9" fill="none" stroke="currentColor" stroke-width="1.8">
+                    <path d="M2.5 9.5L9.5 2.5M9.5 2.5H4.5M9.5 2.5V7.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              ` : ''}
+            </div>
             ${title ? `<span class="folder-doc-title">${title}</span>` : ''}
             ${desc ? `<span class="folder-doc-text">${desc}</span>` : ''}
+            ${url ? `
+              <div class="folder-doc-footer">
+                <a href="${url}" target="_blank" rel="noopener noreferrer" class="folder-doc-url-pill" onclick="event.stopPropagation(); window.open('${url}', '_blank');">
+                  <span class="pill-dot"></span>
+                  <span class="pill-text">VISIT NASA RESOURCE</span>
+                  <svg viewBox="0 0 10 10" width="8" height="8" fill="none" stroke="currentColor" stroke-width="1.6">
+                    <path d="M2 8L8 2M8 2H3.5M8 2V6.5" stroke-linecap="round" stroke-linejoin="round"/>
+                  </svg>
+                </a>
+              </div>
+            ` : ''}
           </div>
         `;
+
+        if (url) {
+          itemEl.style.cursor = 'pointer';
+          itemEl.addEventListener('click', (e) => {
+            e.stopPropagation();
+            window.open(url, '_blank', 'noopener,noreferrer');
+          });
+        }
       }
 
       this.stage.appendChild(itemEl);
@@ -601,8 +630,8 @@ export class VanillaFolder {
         move(-pivotX, -pivotY)
       );
       const folder = multiply(desk, move(shift, 0));
-      const flipped = isBook && theta < -90;
-      const frontZ = flipped ? '3' : '40';
+      const flipped = isBook ? theta < -90 : theta < -20;
+      const frontZ = flipped ? '15' : '40';
 
       if (this.backRef) {
         this.backRef.style.transform = toCss(folder);
@@ -654,8 +683,8 @@ export class VanillaFolder {
           stretch(item.s.value, item.s.value),
           move(-docW / 2, -docH / 2)
         );
-        let layer = 10 + s.count - item.rank;
-        if (item.layer === 'inside' && state.phase === 'open' && state.hoveredItem === index) layer = 30;
+        let layer = (state.phase === 'open' || s.open) ? (50 + item.rank) : (10 + s.count - item.rank);
+        if (state.hoveredItem === index) layer = 70;
         if (item.layer === 'out') layer = LAYERS.out + outs.indexOf(index);
         if (item.layer === 'drag') layer = LAYERS.drag;
         if (item.layer === 'focus') layer = LAYERS.focus;
@@ -846,16 +875,29 @@ export class VanillaFolder {
     });
 
     stage.addEventListener('click', e => {
+      const linkEl = e.target.closest('a');
+      if (linkEl && linkEl.href) {
+        // Direct link button clicked - allow native navigation to new tab
+        return;
+      }
+
       const itemEl = e.target.closest('[data-folder-item]');
       if (itemEl) {
         const idx = Number(itemEl.getAttribute('data-folder-item'));
         if (s.open || state.items[idx]?.place === 'out') {
           e.stopPropagation();
+          const clickedItem = this.items[idx];
+          
           if (s.zoomOnClick) {
-            state.focus = state.focus === idx ? -1 : idx;
+            // If already focused and has a valid url, clicking again opens it
+            if (state.focus === idx && clickedItem && clickedItem.url) {
+              window.open(clickedItem.url, '_blank', 'noopener,noreferrer');
+            } else {
+              state.focus = state.focus === idx ? -1 : idx;
+            }
           }
           if (typeof this.options.onItemClick === 'function') {
-            this.options.onItemClick(this.items[idx], idx);
+            this.options.onItemClick(clickedItem, idx);
           }
           wake();
           return;
@@ -898,107 +940,175 @@ export class VanillaFolder {
  */
 export const RESEARCH_DOSSIERS = [
   {
-    id: 'lunar-01',
-    tab: 'LUNAR-01',
-    title: 'Lunar Regolith Corrosion',
-    year: '2026',
+    id: 'nasa-01',
+    tab: 'NSSDCA-01',
+    title: 'NASA Definitive Archive',
+    year: 'NASA GSFC',
     color: '#00f0ff', // Neon Cyan
     variant: 'glass',
     docs: [
-      { title: 'Surveyor III Tubing Degradation', description: 'Apollo 12 retrieved aluminum-copper alloy analysis. Micro-meteorite craters showed 34% accelerated pitting.' },
-      { title: 'Sub-Micron Dust Adhesion', description: 'Triboelectric charging models of sharp lunar dust on suit seals during terminator crossings.' },
-      { title: 'Basaltic Sintering Berths', description: '2.45 GHz microwave vitrification tests for in-situ launch berms to stop rocket plume scatter.' }
+      {
+        title: 'NASA Space Science Data Archive (NSSDCA)',
+        description: "The NSSDCA is NASA's definitive, publicly available catalog. Use it to search for any spacecraft or instrument, retrieve mission parameters, and learn its final resting place and operational status.",
+        url: 'https://nssdc.gsfc.nasa.gov/',
+        tag: 'MASTER CATALOG'
+      },
+      {
+        title: 'NASA Data Compliance & Terms',
+        description: 'NASA does not endorse any non-U.S. Government entity and is not responsible for information contained on non-U.S. Government websites. For non-U.S. Government websites, participants must comply with data use parameters.',
+        url: 'https://nssdc.gsfc.nasa.gov/',
+        tag: 'OFFICIAL POLICY'
+      }
+    ]
+  },
+  {
+    id: 'lunar-01',
+    tab: 'LUNAR-01',
+    title: 'Apollo Lunar Modules & Surveyors',
+    year: '1966-1972',
+    color: '#38bdf8', // Neon Sky Blue
+    variant: 'glass',
+    docs: [
+      {
+        title: 'Apollo Lunar Modules',
+        description: "The descent stages of the Lunar Modules (like Apollo 11's Eagle) were left behind as launch pads.",
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-059C',
+        tag: 'THE MOON'
+      },
+      {
+        title: 'Surveyor Landers',
+        description: 'Robotic probes sent in the 1960s to prove soft landings were possible.',
+        url: 'https://science.nasa.gov/mission/surveyor-3/',
+        tag: 'THE MOON'
+      }
+    ]
+  },
+  {
+    id: 'lunar-02',
+    tab: 'LUNAR-02',
+    title: 'Lunar Roving Vehicles & ALSEP',
+    year: '1969-1977',
+    color: '#7aa7ff', // Space Blue
+    variant: 'glass',
+    docs: [
+      {
+        title: 'Lunar Roving Vehicles (LRVs)',
+        description: 'Three electric "moon buggies" driven by astronauts. Parked permanently on the Moon.',
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1971-063C',
+        tag: 'THE MOON'
+      },
+      {
+        title: 'ALSEP Scientific Packages',
+        description: 'Apollo Lunar Surface Experiments Packages (seismometers, retroreflectors, etc.) left to do science after astronauts departed.',
+        url: 'https://nssdc.gsfc.nasa.gov/nmc/spacecraft/display.action?id=1969-099C',
+        tag: 'THE MOON'
+      }
+    ]
+  },
+  {
+    id: 'mars-01',
+    tab: 'MARS-01',
+    title: 'First Mars Landers & Sojourner',
+    year: '1976-1997',
+    color: '#ff5722', // Martian Orange-Red
+    variant: 'glass',
+    docs: [
+      {
+        title: 'Sojourner Rover',
+        description: 'The first rover on Mars (1997), delivered by the Pathfinder lander. Now permanently parked.',
+        url: 'https://science.nasa.gov/mission/mars-pathfinder/',
+        tag: 'MARS'
+      },
+      {
+        title: 'Viking 1 & 2 Landers',
+        description: 'The first U.S. landers to successfully operate on Mars (1976), remaining exactly where they touched down.',
+        url: 'https://science.nasa.gov/mission/viking-1/',
+        tag: 'MARS'
+      }
     ]
   },
   {
     id: 'mars-02',
     tab: 'MARS-02',
-    title: 'Martian Relic Telemetry',
-    year: '2025',
-    color: '#ff5722', // Martian Orange-Red
+    title: 'Spirit & Opportunity & Aerial',
+    year: '2004-2024',
+    color: '#ff9800', // Solar Amber
     variant: 'glass',
     docs: [
-      { title: 'Mars 2 & 3 Retro-Rockets', description: 'Reconstructed descent profiles from 1971 dust storm conditions and terminal retro-thrust failure.' },
-      { title: 'Beagle 2 Solar Array Stall', description: 'HiRISE orbital stereo telemetry confirming multi-panel hang-up covering RF feed horn.' },
-      { title: 'Perseverance Parachute Dynamics', description: 'Supersonic canopy fragmentation dynamics during 12.2 km parachute inflation over Jezero Crater.' }
+      {
+        title: 'Spirit & Opportunity',
+        description: 'Twin rovers that operated for years. Both are now inactive monuments to Mars exploration.',
+        url: 'https://science.nasa.gov/mission/mars-exploration-rovers-spirit-and-opportunity/',
+        tag: 'MARS'
+      },
+      {
+        title: 'Ingenuity Helicopter',
+        description: 'The first aircraft on another planet. Sustained rotor damage and became a stationary artifact.',
+        url: 'https://science.nasa.gov/mission/mars-2020-perseverance/ingenuity-mars-helicopter/',
+        tag: 'MARS'
+      }
     ]
   },
   {
-    id: 'bio-03',
-    tab: 'BIO-03',
-    title: 'Planetary Bioburden Audits',
-    year: '2026',
-    color: '#10b981', // Bio Emerald Green
-    variant: 'glass',
-    docs: [
-      { title: 'Endospore Vacuum Survival', description: 'Assays of Bacillus pumilus spores mounted to Apollo 15 ALSEP brackets under cosmic ray exposure.' },
-      { title: 'Sample Return Sterilization', description: 'Dry heat microbial reduction protocols (115°C for 40h) ensuring complete containment.' },
-      { title: 'COSPAR Category IVc Zones', description: 'Buffer perimeters around confirmed subsurface Martian water ice scarps to prevent microbial seeding.' }
-    ]
-  },
-  {
-    id: 'dsn-04',
-    tab: 'DSN-04',
-    title: 'Deep Space Relay Arrays',
-    year: '2024',
-    color: '#a855f7', // Cosmic Violet
-    variant: 'glass',
-    docs: [
-      { title: 'DSN 70-Meter Carrier Intercept', description: 'Goldstone & Madrid interferometry re-acquiring phantom RF pulses from derelict lunar transmitters.' },
-      { title: '1.2μm Optical Downlink (DSOC)', description: 'Laser transceiver tests achieving 267 Mbps burst downlinks across 140 million miles.' },
-      { title: 'Delay-Tolerant Networking (DTN)', description: 'Multi-hop bundle protocol packet storage architecture ensuring zero data drop between deep space nodes.' }
-    ]
-  },
-  {
-    id: 'hab-05',
-    tab: 'HAB-05',
-    title: 'Artemis ECLSS Habitats',
-    year: '2026',
+    id: 'mars-03',
+    tab: 'MARS-03',
+    title: 'Phoenix & InSight Landers',
+    year: '2008-2022',
     color: '#eab308', // Solar Gold
     variant: 'glass',
     docs: [
-      { title: 'Closed-Loop ECLSS Regeneration', description: 'Vacuum distillation and thermoelectric urine processor recovering 98.4% of potable water.' },
-      { title: 'Sabatier Ruthenium Reactor Run', description: 'Catalytic carbon dioxide methanation converting metabolic CO2 into water and propellant feedstock.' },
-      { title: 'Whipple Shield Hypervelocity', description: 'Multi-layer Kevlar and Nextel bumper impact tests against 7 km/s micro-meteoroid analogs.' }
+      {
+        title: 'Phoenix & InSight Landers',
+        description: 'Phoenix dug for water ice; InSight listened for marsquakes. Both eventually lost power.',
+        url: 'https://science.nasa.gov/mission/insight/',
+        tag: 'MARS'
+      }
     ]
   },
   {
-    id: 'ntp-06',
-    tab: 'NTP-06',
-    title: 'Nuclear Thermal Propulsion',
-    year: '2025',
-    color: '#ff2a70', // Plasma Magenta/Pink
+    id: 'ast-04',
+    tab: 'AST-01',
+    title: 'Dawn & NEAR Shoemaker Relics',
+    year: '2000-2018',
+    color: '#10b981', // Emerald Green
     variant: 'glass',
     docs: [
-      { title: 'HALEU Ceramic Matrix Core', description: 'Low-enriched uranium fuel elements engineered for 2,750 Kelvin operating temperatures in liquid hydrogen.' },
-      { title: 'Cryogenic Turbopump Dynamics', description: 'Inducer fluid dynamics pumping liquid hydrogen at 20 Kelvin through regenerative cooling channels.' },
-      { title: '900s Specific Impulse Benchmark', description: 'Thermal expansion ratios delivering double the fuel efficiency of chemical rocket engines.' }
+      {
+        title: 'Dawn Spacecraft',
+        description: 'Mapped Vesta and Ceres. Ran out of fuel and remains in a perpetual, unpowered orbit around Ceres.',
+        url: 'https://science.nasa.gov/mission/dawn/',
+        tag: 'CERES & VESTA'
+      },
+      {
+        title: 'NEAR Shoemaker',
+        description: 'First spacecraft to orbit and land on an asteroid. Left resting on the surface of 433 Eros.',
+        url: 'https://science.nasa.gov/mission/near-shoemaker/',
+        tag: 'ASTEROID 433 EROS'
+      }
     ]
   },
   {
-    id: 'isru-07',
-    tab: 'ISRU-07',
-    title: 'Cryo-Ice Mining & Refining',
-    year: '2026',
-    color: '#38bdf8', // Arctic Ice Blue
+    id: 'deep-05',
+    tab: 'DEEP-02',
+    title: 'Pioneer Probes & Kepler Hunter',
+    year: '1972-2018',
+    color: '#a855f7', // Cosmic Violet
     variant: 'glass',
     docs: [
-      { title: 'Shackleton Crater Volatiles', description: 'Neutron spectrometer data indicating 5.6 wt% water ice deposits in cryogenic regolith.' },
-      { title: 'Sublimation Capture Thermal', description: 'Solar heliostat concentrated mirror heating capturing sublimated steam into cold traps.' },
-      { title: 'SOXE Solid Oxide Electrolysis', description: 'High-temperature ceramic cell cracking lunar meltwater into liquid oxygen and liquid hydrogen.' }
-    ]
-  },
-  {
-    id: 'relic-08',
-    tab: 'RELIC-08',
-    title: 'Derelict Hardware Catalog',
-    year: '2024',
-    color: '#84cc16', // Relic Lime
-    variant: 'glass',
-    docs: [
-      { title: 'Global GPS Map of 96 Lunar Relics', description: 'Precise coordinates of Apollo descent stages, rover chassis, and Soviet lunar landers.' },
-      { title: 'Laser Retroreflector Status', description: 'Apache Point Observatory photon return measurements of Apollo 11, 14, and 15 corner cubes.' },
-      { title: 'Historic Artifacts Protection', description: 'Guidelines under the Artemis Accords establishing non-interference archaeological protection.' }
+      {
+        title: 'Pioneer 10 & 11',
+        description: 'Early deep-space probes that explored the outer planets. Now drifting silently out of the solar system.',
+        url: 'https://science.nasa.gov/mission/pioneer-10/',
+        tag: 'INTERSTELLAR'
+      },
+      {
+        title: 'Kepler Space Telescope',
+        description: 'Revolutionary exoplanet-hunting telescope that ran out of fuel and is drifting in an Earth-trailing orbit.',
+        url: 'https://science.nasa.gov/mission/kepler/',
+        tag: 'EXOPLANETS'
+      }
     ]
   }
 ];
+
+export default VanillaFolder;

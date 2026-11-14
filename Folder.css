@@ -290,78 +290,150 @@
 .folder-doc {
   display: flex;
   height: 100%;
+  width: 100%;
   box-sizing: border-box;
   flex-direction: column;
-  gap: calc(4px * var(--folder-scale));
-  padding: calc(10px * var(--folder-scale)) calc(10px * var(--folder-scale));
-  background: linear-gradient(180deg, #ffffff 0%, #f1f5f9 100%);
+  padding: 8px 10px;
+  background: #ffffff;
   position: relative;
   overflow: hidden;
+  border-radius: 6px;
+  box-shadow: 0 4px 16px rgba(0, 0, 0, 0.4);
+  cursor: pointer;
+  border-top: 3px solid var(--folder-accent, #00f0ff);
+  user-select: none;
 }
 
-.folder-doc::before {
-  content: '';
-  position: absolute;
-  top: 0;
-  left: 0;
-  right: 0;
-  height: 2px;
-  background: linear-gradient(90deg, rgba(var(--folder-rgb), 0.9), transparent);
+.folder-doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 4px;
+  margin-bottom: 4px;
+  flex-shrink: 0;
+}
+
+.folder-doc-tag {
+  font-family: 'Rajdhani', monospace;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #0369a1;
+  background: #e0f2fe;
+  padding: 1px 5px;
+  border-radius: 3px;
+  text-transform: uppercase;
+  line-height: 1.1;
+}
+
+.folder-doc-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 3px;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 8.5px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #ffffff;
+  background: #0284c7;
+  padding: 2px 6px;
+  border-radius: 3px;
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  line-height: 1.1;
+  flex-shrink: 0;
+}
+
+.folder-doc-link-btn:hover {
+  background: #0369a1;
+  transform: translateY(-1px);
 }
 
 .folder-doc-title {
-  margin-bottom: calc(2px * var(--folder-scale));
+  margin-bottom: 3px;
   color: #0f172a;
-  font-size: calc(9.5px * var(--folder-scale));
-  font-weight: 700;
-  letter-spacing: -0.01em;
-  line-height: 1.25;
+  font-size: 10px;
+  font-weight: 800;
+  letter-spacing: 0.4px;
+  line-height: 1.2;
   font-family: 'Rajdhani', sans-serif;
   text-transform: uppercase;
+  display: -webkit-box;
+  -webkit-line-clamp: 2;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  flex-shrink: 0;
 }
 
 .folder-doc-text {
   color: #334155;
-  font-size: calc(8px * var(--folder-scale));
-  line-height: 1.35;
+  font-size: 8.5px;
+  line-height: 1.3;
   font-family: 'Space Grotesk', sans-serif;
   display: -webkit-box;
-  -webkit-line-clamp: 4;
+  -webkit-line-clamp: 3;
   -webkit-box-orient: vertical;
   overflow: hidden;
+  margin-bottom: 2px;
 }
 
-.folder-doc-heading {
-  width: 56%;
-  height: calc(6px * var(--folder-scale));
-  flex: none;
-  margin-bottom: calc(3px * var(--folder-scale));
-  border-radius: 999px;
-  background: rgba(var(--folder-rgb), 0.65);
+.folder-doc-footer {
+  margin-top: auto;
+  padding-top: 3px;
+  flex-shrink: 0;
 }
 
-.folder-doc-line {
-  height: calc(3.5px * var(--folder-scale));
-  flex: none;
-  border-radius: 999px;
-  background: #cbd5e1;
-}
-
-.folder-doc-block {
-  height: calc(32px * var(--folder-scale));
-  flex: none;
-  margin: calc(2px * var(--folder-scale)) 0;
-  border-radius: calc(4px * var(--folder-scale));
-  background: linear-gradient(135deg, rgba(var(--folder-rgb), 0.15), rgba(var(--folder-rgb), 0.05));
-  border: 1px dashed rgba(var(--folder-rgb), 0.35);
-  display: flex;
+.folder-doc-url-pill {
+  display: inline-flex;
   align-items: center;
-  justify-content: center;
-  font-size: calc(8px * var(--folder-scale));
-  color: rgba(var(--folder-rgb), 0.9);
-  font-family: 'Rajdhani', monospace;
-  font-weight: 600;
-  letter-spacing: 0.05em;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  background: #0f172a;
+  color: #38bdf8;
+  padding: 3px 6px;
+  border-radius: 4px;
+  text-decoration: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: 8px;
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+}
+
+.folder-doc-url-pill:hover {
+  background: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+}
+
+.pill-dot {
+  width: 4px;
+  height: 4px;
+  border-radius: 50%;
+  background: #38bdf8;
+  display: inline-block;
+  flex-shrink: 0;
+}
+
+.folder-doc-url-pill:hover .pill-dot {
+  background: #ffffff;
+}
+
+.pill-text {
+  text-transform: uppercase;
+}
+
+.folder-root[data-open] .folder-item {
+  z-index: 50 !important;
+  cursor: pointer !important;
+}
+
+.folder-root[data-open] .folder-front {
+  pointer-events: none !important;
+  z-index: 20 !important;
 }
 
 .folder-photo {
@@ -378,4 +450,100 @@
   object-fit: cover;
   pointer-events: none;
   -webkit-user-drag: none;
+}
+
+/* Document Header & Tag */
+.folder-doc-header {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: calc(4px * var(--folder-scale));
+  margin-bottom: calc(2px * var(--folder-scale));
+}
+
+.folder-doc-tag {
+  font-family: 'Rajdhani', monospace;
+  font-size: calc(7px * var(--folder-scale));
+  font-weight: 700;
+  letter-spacing: 0.8px;
+  color: #0284c7;
+  background: rgba(2, 132, 199, 0.1);
+  padding: calc(1px * var(--folder-scale)) calc(4px * var(--folder-scale));
+  border-radius: calc(3px * var(--folder-scale));
+  text-transform: uppercase;
+  line-height: 1.2;
+}
+
+/* NASA.GOV Header Link Button */
+.folder-doc-link-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: calc(3px * var(--folder-scale));
+  font-family: 'Rajdhani', sans-serif;
+  font-size: calc(7.5px * var(--folder-scale));
+  font-weight: 700;
+  letter-spacing: 0.5px;
+  color: #0f172a;
+  background: #e2e8f0;
+  padding: calc(1.5px * var(--folder-scale)) calc(5px * var(--folder-scale));
+  border-radius: calc(3px * var(--folder-scale));
+  text-decoration: none;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  z-index: 5;
+  line-height: 1.2;
+}
+
+.folder-doc-link-btn:hover {
+  background: #0284c7;
+  color: #ffffff;
+  transform: translateY(-1px);
+}
+
+/* Document Footer Link Pill */
+.folder-doc-footer {
+  margin-top: auto;
+  padding-top: calc(3px * var(--folder-scale));
+}
+
+.folder-doc-url-pill {
+  display: inline-flex;
+  align-items: center;
+  justify-content: space-between;
+  width: 100%;
+  box-sizing: border-box;
+  background: #0f172a;
+  color: #38bdf8;
+  padding: calc(3px * var(--folder-scale)) calc(6px * var(--folder-scale));
+  border-radius: calc(4px * var(--folder-scale));
+  text-decoration: none;
+  font-family: 'Rajdhani', sans-serif;
+  font-size: calc(7.2px * var(--folder-scale));
+  font-weight: 700;
+  letter-spacing: 0.6px;
+  transition: all 0.2s ease;
+  cursor: pointer;
+  z-index: 5;
+}
+
+.folder-doc-url-pill:hover {
+  background: #0284c7;
+  color: #ffffff;
+  box-shadow: 0 2px 8px rgba(2, 132, 199, 0.4);
+}
+
+.pill-dot {
+  width: calc(4px * var(--folder-scale));
+  height: calc(4px * var(--folder-scale));
+  border-radius: 50%;
+  background: #38bdf8;
+  display: inline-block;
+}
+
+.folder-doc-url-pill:hover .pill-dot {
+  background: #ffffff;
+}
+
+.pill-text {
+  text-transform: uppercase;
 }

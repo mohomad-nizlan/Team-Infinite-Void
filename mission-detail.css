@@ -179,57 +179,85 @@ img {
 }
 
 /* ==============================================================
-   2. MISSION NAVIGATION BAR (Prev / Next)
+   2. HERO FLOATING NAV (Directly inside Hero Image, Pure Text & Glyphs, No Box Containers)
    ============================================================== */
-.mission-nav-bar {
-  background: rgba(0,0,0,0.9);
-  border-bottom: 1px solid rgba(255,255,255,0.08);
-  padding: 0.65rem 2rem;
+.hero-top-nav {
+  position: absolute;
+  top: clamp(1.75rem, 3.5vh, 2.75rem);
+  left: 0;
+  right: 0;
   display: flex;
   align-items: center;
   justify-content: space-between;
-  gap: 1rem;
-  font-size: 0.8rem;
-  font-weight: 700;
-  letter-spacing: 0.8px;
+  padding: 0 clamp(1.5rem, 3.5vw, 4rem);
+  z-index: 15;
+  pointer-events: auto;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
 }
 
-.mission-nav-btn {
+.hero-nav-arrow-btn {
   display: inline-flex;
   align-items: center;
-  gap: 0.5rem;
-  color: rgba(255,255,255,0.65);
-  cursor: pointer;
-  background: none;
-  border: 1px solid rgba(255,255,255,0.15);
-  padding: 0.4rem 0.9rem;
-  border-radius: 2px;
-  font-family: var(--font-main);
-  font-size: 0.75rem;
+  gap: 0.65rem;
+  background: transparent !important;
+  border: none !important;
+  outline: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+  border-radius: 0 !important;
+  color: rgba(255, 255, 255, 0.85);
+  font-family: var(--font-main, 'Space Grotesk', -apple-system, sans-serif);
+  font-size: clamp(0.78rem, 0.92vw, 0.9rem);
   font-weight: 700;
-  letter-spacing: 1px;
+  letter-spacing: 2px;
   text-transform: uppercase;
-  transition: all 0.22s ease;
   text-decoration: none;
+  cursor: pointer;
+  transition: color 0.22s ease, transform 0.22s ease, text-shadow 0.22s ease;
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 0, 0, 0.85);
+  user-select: none;
 }
 
-.mission-nav-btn:hover {
-  color: #fff;
-  border-color: var(--accent);
-  background: rgba(255,255,255,0.05);
+.hero-nav-arrow-btn:hover {
+  color: #fc3d21;
+  text-shadow: 0 0 16px rgba(252, 61, 33, 0.65), 0 2px 14px rgba(0, 0, 0, 0.95);
 }
 
-.mission-nav-btn.disabled {
-  opacity: 0.3;
-  pointer-events: none;
+#btn-prev-mission:hover {
+  transform: translateX(-5px);
 }
 
-.mission-nav-center {
-  font-size: 0.72rem;
-  letter-spacing: 1.5px;
-  color: rgba(255,255,255,0.4);
+#btn-next-mission:hover {
+  transform: translateX(5px);
+}
+
+.hero-nav-glyph {
+  font-size: 1.25rem;
+  line-height: 1;
+  transition: transform 0.22s ease;
+}
+
+.hero-nav-counter {
+  font-family: var(--font-main, 'Space Grotesk', -apple-system, sans-serif);
+  font-size: clamp(0.76rem, 0.88vw, 0.86rem);
+  font-weight: 800;
+  letter-spacing: 2.8px;
   text-transform: uppercase;
-  text-align: center;
+  color: rgba(255, 255, 255, 0.72);
+  text-shadow: 0 2px 14px rgba(0, 0, 0, 0.95), 0 0 20px rgba(0, 0, 0, 0.85);
+  user-select: none;
+  background: transparent !important;
+  border: none !important;
+  box-shadow: none !important;
+  padding: 0 !important;
+}
+
+.hero-nav-arrow-btn.disabled {
+  opacity: 0.2;
+  pointer-events: none;
+  cursor: default;
 }
 
 /* ==============================================================
@@ -847,65 +875,74 @@ body.theme-deepspace .status-label {
 }
 
 /* ==============================================================
-   9. DISCOVER MORE (CircularGallery 3D Arc)
+   9. DISCOVER MORE (CircularGallery 3D Arc — Single 100vh Screen)
    ============================================================== */
 .section-discover-topics {
   background: #040711;
   color: #ffffff;
-  padding: 5rem 0 6rem;
+  height: 100vh;
+  min-height: 100vh;
+  max-height: 100vh;
+  padding: 1.8rem 0 0 0;
   position: relative;
   overflow: hidden;
   border-top: 1px solid rgba(255, 255, 255, 0.08);
+  display: flex;
+  flex-direction: column;
+  justify-content: flex-start;
+  box-sizing: border-box;
 }
 
 .discover-header-wrap {
   text-align: center;
   max-width: 820px;
-  margin: 0 auto 1.5rem;
+  margin: 0 auto 0.4rem;
   position: relative;
   z-index: 2;
+  flex-shrink: 0;
 }
 
 .discover-eyebrow {
-  font-size: 0.75rem;
+  font-size: 0.72rem;
   font-weight: 800;
   letter-spacing: 2px;
   text-transform: uppercase;
   color: #fc3d21;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   display: block;
   text-align: center;
 }
 
 .discover-h2 {
-  font-size: clamp(2rem, 3.2vw, 2.8rem);
+  font-size: clamp(1.6rem, 2.4vw, 2.2rem);
   font-weight: 900;
   letter-spacing: -0.6px;
   color: #ffffff;
-  margin-bottom: 0.5rem;
+  margin-bottom: 0.25rem;
   text-align: center;
 }
 
 .discover-subtitle {
-  font-size: 0.95rem;
+  font-size: 0.88rem;
   color: #94a3b8;
-  max-width: 600px;
+  max-width: 580px;
   margin: 0 auto;
   text-align: center;
-  line-height: 1.5;
+  line-height: 1.4;
 }
 
 .circular-gallery-wrapper {
-  height: 640px;
+  flex: 1 1 auto;
+  min-height: 0;
   position: relative;
   width: 100%;
   max-width: 100%;
-  margin: 1.5rem 0 0 0;
+  margin: 0;
   border-radius: 0;
   overflow: hidden;
   background: radial-gradient(circle at 50% 30%, rgba(20, 30, 55, 0.4) 0%, rgba(4, 7, 17, 0.98) 75%);
-  border-top: 1px solid rgba(255, 255, 255, 0.08);
-  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  border-bottom: none;
   box-shadow: inset 0 0 60px rgba(0, 0, 0, 0.8);
 }
 
@@ -1249,8 +1286,9 @@ body.theme-mars .discover-red-circle {
   .gallery-item:first-child {
     height: 220px;
   }
-  .mission-nav-bar {
-    padding: 0.65rem 1rem;
+  .hero-top-nav {
+    padding: 0 1rem;
+    top: 0.85rem;
   }
 }
 

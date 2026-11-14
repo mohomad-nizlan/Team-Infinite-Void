@@ -96,6 +96,7 @@
 }
 
 .infinite-menu__action {
+  display: none !important;
   position: absolute;
   bottom: 8%;
   left: 50%;
@@ -138,6 +139,7 @@
 }
 
 .infinite-menu__info[data-moving='true'] .infinite-menu__action {
+  display: none !important;
   opacity: 0;
   pointer-events: none;
   transform: translate(-50%, 16px) scale(0.6);
@@ -168,6 +170,7 @@
 }
 
 .infinite-menu__info[data-layout='stacked'] .infinite-menu__action {
+  display: none !important;
   right: 24px;
   bottom: 24px;
   left: auto;
@@ -184,5 +187,6 @@
 }
 
 .infinite-menu__info[data-layout='stacked'][data-moving='true'] .infinite-menu__action {
+  display: none !important;
   transform: translateY(12px) scale(0.6);
 }

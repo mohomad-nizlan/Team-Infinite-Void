@@ -1503,17 +1503,83 @@ export function initUnifiedLanyardStage() {
     raf = requestAnimationFrame(tick);
   };
 
+  // ── Jangle / Jumble Cards (Playful physics swing when scrolling to The Team) ──
+  let lastJangleTime = 0;
+  const jangleCards = (intensity = 1.0) => {
+    const now = performance.now();
+    if (now - lastJangleTime < 500) return; // Debounce rapid consecutive triggers
+    lastJangleTime = now;
+
+    // Distinct alternating impulse vectors so cards sway in opposition and overlap gracefully
+    const lateralImpulses = [-3.8, 4.2, -3.4, 3.9, -4.5, 3.6];
+    const depthImpulses   = [0.85, -0.75, 0.90, -0.80, 0.78, -0.88];
+    const tiltImpulses    = [-5.5, 6.0, -5.0, 5.8, -6.2, 5.4];
+    const twistImpulses   = [2.8, -3.2, 2.4, -2.9, 3.1, -2.6];
+
+    cards.forEach((card, i) => {
+      if (card.sim.grab) return; // Don't interrupt user manual drag
+
+      const mult = intensity * (0.88 + Math.random() * 0.28);
+      const b = card.sim.body;
+
+      // 1. Physical linear sway (X and Z with subtle Y lift)
+      b.velocity.x += (lateralImpulses[i % lateralImpulses.length] || (Math.random() - 0.5) * 6) * mult;
+      b.velocity.z += (depthImpulses[i % depthImpulses.length] || (Math.random() - 0.5) * 2) * mult;
+      b.velocity.y += (Math.random() * 0.4 - 0.2) * mult;
+
+      // 2. Dynamic angular tilt & twist momentum
+      b.angular.z += (tiltImpulses[i % tiltImpulses.length] || (Math.random() - 0.5) * 10) * mult;
+      b.angular.y += (twistImpulses[i % twistImpulses.length] || (Math.random() - 0.5) * 5) * mult;
+      b.angular.x += (Math.random() - 0.5) * 2.5 * mult;
+
+      // 3. Impart ripple wave to flexible strap joints
+      for (let j = 1; j < JOINTS; j++) {
+        card.sim.velocities[j].x += (lateralImpulses[i % lateralImpulses.length] * 0.4 + (Math.random() - 0.5) * 1.5) * mult;
+        card.sim.velocities[j].z += (depthImpulses[i % depthImpulses.length] * 0.4 + (Math.random() - 0.5) * 1.2) * mult;
+      }
+
+      card.calm = 0;
+    });
+
+    startLoop();
+  };
+
+  // Expose globally so scroll controller and menu can invoke jangle on scroll
+  window.jangleTeamCards = jangleCards;
+
   // 8. Lifecycle & Observers
   const ro = new ResizeObserver(updateStageLayout);
   ro.observe(stage);
   window.addEventListener('resize', updateStageLayout);
   window.addEventListener('orientationchange', updateStageLayout);
 
+  // Observe team section so entering the section automatically jangles the cards
+  const teamSection = document.getElementById('team-section');
+  const targetElement = teamSection || stage;
+
+  let wasIntersecting = false;
   const io = new IntersectionObserver(([entry]) => {
     isIntersecting = entry.isIntersecting;
-    if (isIntersecting) startLoop();
-  });
-  io.observe(stage);
+    if (isIntersecting) {
+      startLoop();
+      if (!wasIntersecting) {
+        wasIntersecting = true;
+        // Jangle cards as you arrive at The Team!
+        setTimeout(() => jangleCards(1.05), 120);
+      }
+    } else {
+      wasIntersecting = false;
+    }
+  }, { threshold: 0.25 });
+  io.observe(targetElement);
+
+  // Click on Meet The Team header to playfully jangle them again anytime
+  const teamHeader = document.querySelector('.team-header');
+  if (teamHeader) {
+    teamHeader.style.cursor = 'pointer';
+    teamHeader.title = 'Click to swing team lanyards';
+    teamHeader.addEventListener('click', () => jangleCards(1.2));
+  }
 
   document.addEventListener('visibilitychange', () => {
     if (!document.hidden) startLoop();

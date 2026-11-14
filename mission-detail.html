@@ -46,13 +46,6 @@
     </nav>
   </header>
 
-  <!-- Mission Prev/Next Navigation Bar -->
-  <div class="mission-nav-bar" id="mission-nav-bar">
-    <a class="mission-nav-btn" id="btn-prev-mission" href="#">&#8592; PREV MISSION</a>
-    <span class="mission-nav-center" id="mission-nav-center">MISSION 1 / 21</span>
-    <a class="mission-nav-btn" id="btn-next-mission" href="#">NEXT MISSION &#8594;</a>
-  </div>
-
   <main>
     <!-- ==============================================================
          2. HERO SECTION
@@ -60,6 +53,18 @@
     <section id="hero" class="mission-hero">
       <img class="mission-hero-bg" id="hero-bg-img" src="" alt="Mission hero image">
       <div class="mission-hero-gradient"></div>
+
+      <!-- Floating Mission Nav inside Hero Image (No box containers) -->
+      <div class="hero-top-nav">
+        <a class="hero-nav-arrow-btn" id="btn-prev-mission" href="#" aria-label="Previous Mission">
+          <span class="hero-nav-glyph">&#8592;</span> PREV MISSION
+        </a>
+        <span class="hero-nav-counter" id="mission-nav-center">MISSION 1 / 26</span>
+        <a class="hero-nav-arrow-btn" id="btn-next-mission" href="#" aria-label="Next Mission">
+          NEXT MISSION <span class="hero-nav-glyph">&#8594;</span>
+        </a>
+      </div>
+
       <div class="nasa-container">
         <div class="mission-hero-content">
           <div class="mission-hero-badges" id="hero-badges">
@@ -245,91 +250,11 @@
         </div>
       </div>
 
-      <div style="height: 640px; position: relative; width: 100%;" class="circular-gallery-wrapper">
+      <div class="circular-gallery-wrapper">
         <div id="circular-gallery-mount" style="height: 100%; width: 100%; position: relative;"></div>
       </div>
     </section>
   </main>
-
-  <!-- ==============================================================
-       9. OFFICIAL NASA GLOBAL FOOTER
-       ============================================================== -->
-  <footer class="nasa-global-footer">
-    <div class="nasa-container">
-      <div class="footer-top-grid">
-        <div class="footer-agency-info">
-          <a href="index.html" class="footer-brand-title">INFINITE VOID</a>
-          <h3 class="footer-agency-title">National Aeronautics and Space Administration</h3>
-          <p class="footer-agency-para">
-            NASA explores the unknown in air and space, innovates for the benefit of humanity, and inspires the world through discovery.
-          </p>
-        </div>
-
-        <div class="footer-links-col">
-          <h4 class="footer-heading">About NASA</h4>
-          <ul class="footer-ul">
-            <li><a href="#">Leadership</a></li>
-            <li><a href="#">Centers &amp; Facilities</a></li>
-            <li><a href="#">History</a></li>
-            <li><a href="#">Careers</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links-col">
-          <h4 class="footer-heading">Missions</h4>
-          <ul class="footer-ul">
-            <li><a href="#">Artemis Campaign</a></li>
-            <li><a href="#">James Webb Telescope</a></li>
-            <li><a href="#">Mars Perseverance</a></li>
-            <li><a href="#">Space Station</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links-col">
-          <h4 class="footer-heading">News &amp; Media</h4>
-          <ul class="footer-ul">
-            <li><a href="#">News Releases</a></li>
-            <li><a href="#">Media Resources</a></li>
-            <li><a href="#">NASA TV Live</a></li>
-            <li><a href="#">Podcasts</a></li>
-          </ul>
-        </div>
-
-        <div class="footer-links-col">
-          <h4 class="footer-heading">Follow NASA</h4>
-          <div class="footer-social-flex">
-            <a href="https://twitter.com/NASA" target="_blank" rel="noopener" class="footer-social-icon" aria-label="NASA on X">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M18.244 2.25h3.308l-7.227 8.26 8.502 11.24H16.17l-5.214-6.817L4.99 21.75H1.68l7.73-8.835L1.254 2.25H8.08l4.713 6.231zm-1.161 17.52h1.833L7.084 4.126H5.117z"/>
-              </svg>
-            </a>
-            <a href="https://instagram.com/NASA" target="_blank" rel="noopener" class="footer-social-icon" aria-label="NASA on Instagram">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2">
-                <rect x="2" y="2" width="20" height="20" rx="5" ry="5"></rect>
-                <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"></path>
-                <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"></line>
-              </svg>
-            </a>
-            <a href="https://youtube.com/NASA" target="_blank" rel="noopener" class="footer-social-icon" aria-label="NASA on YouTube">
-              <svg width="15" height="15" viewBox="0 0 24 24" fill="currentColor">
-                <path d="M23.498 6.186a3.016 3.016 0 0 0-2.122-2.136C19.505 3.545 12 3.545 12 3.545s-7.505 0-9.377.505A3.017 3.017 0 0 0 .502 6.186C0 8.07 0 12 0 12s0 3.93.502 5.814a3.016 3.016 0 0 0 2.122 2.136c1.871.505 9.376.505 9.376.505s7.505 0 9.377-.505a3.015 3.015 0 0 0 2.122-2.136C24 15.93 24 12 24 12s0-3.93-.502-5.814zM9.545 15.568V8.432L15.818 12l-6.273 3.568z"/>
-              </svg>
-            </a>
-          </div>
-        </div>
-      </div>
-
-      <div class="footer-sub-bar">
-        <p>&copy; 2026 National Aeronautics and Space Administration.</p>
-        <div class="footer-sub-links">
-          <a href="#">Privacy Policy</a>
-          <a href="#">FOIA</a>
-          <a href="#">Accessibility</a>
-          <a href="index.html">Return to Infinite Void</a>
-        </div>
-      </div>
-    </div>
-  </footer>
 
   <script src="CircularGallery.js"></script>
   <script>
@@ -1119,77 +1044,80 @@
       if (!mount || typeof CircularGallery === 'undefined') return;
 
       const DISCOVER_ITEMS = [
+        // ── MARS — The Red Planet ──
+        {
+          image: 'public/assets/celestial/mars.jpg',
+          text: 'Fourth Planet from Sun',
+          description: 'Mars is the fourth planet in our solar system, located approximately 228 million kilometers from the Sun on average. Its reddish appearance comes from iron oxide in its soil and rocks.',
+          url: 'mission-detail.html?mission=13'
+        },
+        {
+          image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
+          text: "Day Similar to Earth's",
+          description: 'One Martian day, called a sol, lasts approximately 24 hours and 39 minutes. However, a Martian year lasts 687 Earth days because Mars takes longer to orbit the Sun.',
+          url: 'mission-detail.html?mission=14'
+        },
+        {
+          image: 'https://images.unsplash.com/photo-1446776858070-70c3d5ed6758?auto=format&fit=crop&w=1200&q=80',
+          text: 'Cold, Thin Atmosphere',
+          description: 'Mars has a thin atmosphere made mostly of carbon dioxide. Its average surface temperature is around −63°C, making it a cold and challenging environment for robotic explorers.',
+          url: 'mission-detail.html?mission=16'
+        },
+        {
+          image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=1200&q=80',
+          text: 'Giant Volcano Olympus Mons',
+          description: 'Mars is home to Olympus Mons, the largest known volcano in the solar system. Rising more than 20 kilometers above its surroundings, it is one of the most remarkable features in space.',
+          url: 'mission-detail.html?mission=19'
+        },
+        {
+          image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=1200&q=80',
+          text: 'Evidence of Ancient Water',
+          description: 'Scientists have discovered ancient river channels, lakebeds, water-formed minerals, and underground ice on Mars. These findings suggest Mars once had environments that may have supported life.',
+          url: 'mission-detail.html?mission=18'
+        },
+        {
+          image: 'public/assets/missions/opportunity.jpg',
+          text: 'Planet of Robotic Explorers',
+          description: 'Mars has been explored by landers, rovers, and even a helicopter. Machines such as Spirit, Opportunity, InSight, and Ingenuity are now silent on its surface, preserving exploration history.',
+          url: 'mission-detail.html?mission=15'
+        },
+
+        // ── THE MOON — Earth's Natural Satellite ──
+        {
+          image: 'public/assets/celestial/moon.jpg',
+          text: "Earth's Only Natural Moon",
+          description: "The Moon is Earth's only natural satellite, orbiting at an average distance of approximately 384,400 kilometers. It is the closest celestial body humans have visited.",
+          url: 'moon-base.html'
+        },
+        {
+          image: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=1200&q=80',
+          text: 'Long Lunar Days & Nights',
+          description: 'One complete day-night cycle on the Moon lasts approximately 29.5 Earth days. This means most locations experience roughly two weeks of sunlight followed by two weeks of darkness.',
+          url: 'mission-detail.html?mission=1'
+        },
+        {
+          image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80',
+          text: 'Extreme Temperatures',
+          description: 'Without a substantial atmosphere to regulate heat, lunar surface temperatures can rise above 120°C during the day and fall below −170°C at night near the equator.',
+          url: 'mission-detail.html?mission=6'
+        },
         {
           image: 'public/assets/missions/apollo11.jpg',
-          text: 'Apollo 11',
-          description: 'Historic July 1969 landing at Sea of Tranquility. Eagle descent stage and retroreflectors remain on the Moon.',
+          text: 'The First Human Landing',
+          description: "On July 20, 1969, NASA's Apollo 11 mission achieved the first human landing on the Moon. Neil Armstrong and Buzz Aldrin explored its surface and left behind instruments and the Eagle descent stage.",
           url: 'mission-detail.html?mission=0'
         },
         {
           image: 'public/assets/missions/surveyor3.jpg',
-          text: 'Surveyor 3',
-          description: 'Soft-landed on Ocean of Storms in 1967. Apollo 12 astronauts visited this robotic probe in 1969 to inspect space exposure.',
+          text: 'Surface of Ancient History',
+          description: 'The Moon is covered with impact craters, mountains, and dark volcanic plains called maria. Without wind or rain, surface features and astronaut footprints remain for millennia.',
           url: 'mission-detail.html?mission=8'
         },
         {
-          image: 'public/assets/missions/pathfinder.jpg',
-          text: 'Mars Pathfinder',
-          description: 'Touched down in Ares Vallis in 1997 with Sojourner, the first successful robotic rover on the Martian surface.',
-          url: 'mission-detail.html?mission=13'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=800&q=80',
-          text: 'Spirit Rover',
-          description: 'Traversed 7.7 km across Gusev Crater, discovering silica deposits from ancient hot springs and Martian hydrothermal activity.',
-          url: 'mission-detail.html?mission=14'
-        },
-        {
-          image: 'public/assets/missions/opportunity.jpg',
-          text: 'Opportunity',
-          description: 'Marathon rover at Meridiani Planum that logged 45 km over nearly 15 years, discovering hematite blueberries.',
-          url: 'mission-detail.html?mission=15'
-        },
-        {
-          image: 'public/assets/missions/viking1.jpg',
-          text: 'Viking 1 Lander',
-          description: 'First successful long-term Mars landing at Chryse Planitia in 1976, transmitting Martian weather and soil chemistry.',
-          url: 'mission-detail.html?mission=16'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=800&q=80',
-          text: 'Phoenix Lander',
-          description: 'Landed in the Martian arctic plains of Vastitas Borealis in 2008 and scraped directly into pure sub-surface water ice.',
-          url: 'mission-detail.html?mission=18'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=800&q=80',
-          text: 'InSight Lander',
-          description: 'Geophysics station on Elysium Planitia that recorded over 1,300 marsquakes and charted the liquid Martian core.',
-          url: 'mission-detail.html?mission=19'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1506703719100-a0f3a48c0f86?auto=format&fit=crop&w=800&q=80',
-          text: 'Ingenuity Helicopter',
-          description: 'First powered extraterrestrial aircraft in human history, soaring through 72 aerial flights over Jezero crater.',
-          url: 'mission-detail.html?mission=20'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=800&q=80',
-          text: 'Dawn Probe',
-          description: 'Ion-propelled explorer that orbited giant protoplanet Vesta and dwarf planet Ceres in the Asteroid Belt.',
-          url: 'mission-detail.html?mission=21'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=800&q=80',
-          text: 'Pioneer 10',
-          description: 'First probe across the Asteroid Belt and past Jupiter; now drifting endlessly through interstellar space.',
-          url: 'mission-detail.html?mission=23'
-        },
-        {
-          image: 'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=800&q=80',
-          text: 'Kepler Telescope',
-          description: 'Legendary planet hunter in solar orbit that confirmed over 2,600 worlds beyond our Solar System.',
-          url: 'mission-detail.html?mission=25'
+          image: 'public/assets/missions/lunar_rover.jpg',
+          text: 'Museum of Space Exploration',
+          description: 'The Moon contains abandoned lunar modules, robotic landers, three lunar rovers, and scientific experiments. These historic objects provide valuable evidence of early space exploration.',
+          url: 'mission-detail.html?mission=3'
         }
       ];
 
@@ -1215,7 +1143,7 @@
       if (isNaN(idx) || idx < 0 || idx >= NASA_RELIC_MISSIONS.length) idx = 0;
       renderMission(idx);
       initCircularDiscoveryGallery();
-    })();
+})();
   </script>
 </body>
 </html>

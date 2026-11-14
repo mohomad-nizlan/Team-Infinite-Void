@@ -75,25 +75,28 @@ body {
 
 .hero-video-wrap {
   position: absolute;
-  inset: 0;
-  width: 100%;
-  height: 100%;
+  top: 0;
+  left: 0;
+  right: 0;
+  height: 70%; /* Shifted upper, keeping ~1/3 space at the bottom */
   z-index: 1;
   overflow: hidden;
+  mask-image: linear-gradient(180deg, #000000 0%, #000000 68%, transparent 100%);
+  -webkit-mask-image: linear-gradient(180deg, #000000 0%, #000000 68%, transparent 100%);
 }
 
 .hero-bg-video {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 30%;
+  object-position: center bottom; /* Shows bottom of video where the effect is */
 }
 
 .hero-video-shade {
   position: absolute;
   inset: 0;
-  background: radial-gradient(circle at 50% 50%, rgba(2, 6, 18, 0.62) 0%, rgba(1, 3, 10, 0.86) 100%),
-              linear-gradient(180deg, rgba(0, 0, 0, 0.68) 0%, rgba(0, 0, 0, 0.45) 50%, rgba(0, 0, 0, 0.82) 100%);
+  background: radial-gradient(circle at 50% 50%, rgba(2, 6, 18, 0.38) 0%, rgba(1, 3, 10, 0.72) 100%),
+              linear-gradient(180deg, rgba(0, 0, 0, 0.45) 0%, rgba(0, 0, 0, 0.12) 50%, rgba(0, 0, 0, 0.92) 100%);
   z-index: 2;
 }
 
@@ -167,7 +170,7 @@ body {
   width: 100%;
   height: 100%;
   object-fit: cover;
-  object-position: center 35%;
+  object-position: center 75%;
   filter: contrast(1.25) brightness(1.2) saturate(1.15);
   outline: none;
   border: none;
@@ -939,7 +942,7 @@ body {
   right: 0;
   display: flex;
   align-items: center;
-  justify-content: space-between;
+  justify-content: center;
   padding: 0 48px;
   z-index: 10;
   pointer-events: none;
@@ -2170,17 +2173,19 @@ body {
 }
 
 /* ==============================================================
-   SECTION 8: OUR RESEARCH DOCUMENTS (React Bits Folder Integration)
+   SECTION 8: OUR REFERENCES (React Bits Folder Integration)
    Top-Aligned Heading, Spacious 4-per-Row Grid, No Card Boxes
    Clean Free-Floating 3D Folders with Project Title & Year Below
    ============================================================== */
 .research-section {
   position: relative;
   width: 100vw;
+  height: 100vh;
   min-height: 100vh;
-  height: auto;
+  max-height: 100vh;
+  overflow: hidden;
   box-sizing: border-box;
-  padding: clamp(3.5rem, 6vh, 5.5rem) clamp(2rem, 5vw, 5.5rem);
+  padding: clamp(0.4rem, 1.2vh, 1rem) clamp(1.2rem, 2.5vw, 2.5rem);
   background: 
     radial-gradient(circle at 50% 10%, rgba(0, 240, 255, 0.06) 0%, transparent 60%),
     radial-gradient(circle at 80% 80%, rgba(56, 189, 248, 0.05) 0%, transparent 50%),
@@ -2188,41 +2193,44 @@ body {
   display: flex;
   flex-direction: column;
   align-items: center;
-  justify-content: flex-start;
+  justify-content: space-between;
   z-index: 2;
   scroll-snap-align: start;
   scroll-snap-stop: always;
-  overflow-y: auto;
-  overflow-x: hidden;
 }
 
 .research-container {
   width: 100%;
-  max-width: 1540px;
+  max-width: 1440px;
+  height: 100%;
   margin: 0 auto;
   display: flex;
   flex-direction: column;
   align-items: center;
+  justify-content: space-between;
+  box-sizing: border-box;
   z-index: 2;
+  overflow: visible;
 }
 
-/* Heading at the Top */
+/* Compact Heading at the Top — calibrated for 100vh single screen */
 .research-header {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  gap: 0.75rem;
-  max-width: 840px;
-  margin: 0 auto clamp(2.5rem, 4.5vh, 4rem);
+  gap: 0.15rem;
+  max-width: 900px;
+  margin: 0 auto clamp(0.15rem, 0.5vh, 0.4rem);
+  flex-shrink: 0;
 }
 
 .research-title {
   font-family: var(--ff-display, 'Orbitron', sans-serif);
-  font-size: clamp(2rem, 3.2vw, 3rem);
+  font-size: clamp(1.2rem, 1.7vw, 1.8rem);
   font-weight: 900;
   line-height: 1.1;
-  letter-spacing: 3px;
+  letter-spacing: 2.5px;
   text-transform: uppercase;
   color: #ffffff;
   margin: 0;
@@ -2237,21 +2245,38 @@ body {
 
 .research-subtitle {
   font-family: var(--ff-body, 'Space Grotesk', sans-serif);
-  font-size: clamp(0.95rem, 1.1vw, 1.12rem);
+  font-size: clamp(0.7rem, 0.76vw, 0.82rem);
   font-weight: 300;
-  line-height: 1.6;
+  line-height: 1.25;
   color: rgba(255, 255, 255, 0.82);
   margin: 0;
   max-width: 780px;
 }
 
-/* 4 PER ROW SPACIOUS GRID — WITH PROPER BREATHING ROOM */
+.research-disclaimer {
+  font-family: var(--ff-body, 'Space Grotesk', sans-serif);
+  font-size: clamp(0.56rem, 0.62vw, 0.68rem);
+  font-weight: 400;
+  color: rgba(148, 163, 184, 0.75);
+  line-height: 1.2;
+  margin: 2px 0 0 0;
+  max-width: 860px;
+  letter-spacing: 0.2px;
+}
+
+/* 4 PER ROW COMPACT GRID — FITS 100% IN 1 SCREEN (100VH) */
 .research-grid {
+  flex: 1 1 auto;
   display: grid;
   grid-template-columns: repeat(4, 1fr);
-  gap: clamp(3rem, 5vh, 4.5rem) clamp(2.2rem, 3.5vw, 4rem);
+  grid-template-rows: repeat(2, 1fr);
+  gap: clamp(0.25rem, 0.8vh, 0.7rem) clamp(0.7rem, 1.8vw, 1.8rem);
   width: 100%;
   margin: 0 auto;
+  align-items: center;
+  box-sizing: border-box;
+  min-height: 0;
+  overflow: visible;
 }
 
 /* No Container Box: Pure Floating 3D Folder Item */
@@ -2261,25 +2286,24 @@ body {
   border: none !important;
   box-shadow: none !important;
   padding: 0 !important;
-  backdrop-filter: none !important;
-  -webkit-backdrop-filter: none !important;
   display: flex;
   flex-direction: column;
   align-items: center;
   justify-content: center;
   text-align: center;
-  overflow: visible;
-  transition: transform 0.3s ease;
+  height: 100%;
+  max-height: 100%;
+  transition: transform 0.25s ease;
 }
 
 .research-item:hover {
-  transform: translateY(-6px);
+  transform: translateY(-3px);
 }
 
-/* Folder Stage Mount with Generous Height */
+/* Folder Stage Mount calibrated to single-screen view */
 .research-folder-stage {
   width: 100%;
-  height: clamp(165px, 19vh, 190px);
+  height: clamp(80px, 10.5vh, 105px);
   display: flex;
   align-items: center;
   justify-content: center;
@@ -2293,30 +2317,35 @@ body {
   flex-direction: column;
   align-items: center;
   justify-content: center;
-  gap: 5px;
-  margin-top: 1.4rem;
+  gap: 1px;
+  margin-top: clamp(0.12rem, 0.3vh, 0.3rem);
   border: none !important;
   padding: 0 !important;
   width: 100%;
+  flex-shrink: 0;
 }
 
 .research-dossier-title {
   font-family: var(--ff-tech, 'Rajdhani', sans-serif);
-  font-size: clamp(1rem, 1.15vw, 1.25rem);
+  font-size: clamp(0.72rem, 0.82vw, 0.88rem);
   font-weight: 700;
-  letter-spacing: 1.4px;
+  letter-spacing: 1px;
   text-transform: uppercase;
   color: #ffffff;
   margin: 0;
-  line-height: 1.3;
-  text-shadow: 0 2px 10px rgba(0, 0, 0, 0.9);
+  line-height: 1.15;
+  text-shadow: 0 2px 8px rgba(0, 0, 0, 0.9);
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  max-width: 95%;
 }
 
 .research-dossier-year {
   font-family: var(--ff-tech, 'Rajdhani', monospace);
-  font-size: clamp(0.85rem, 0.95vw, 1rem);
+  font-size: clamp(0.62rem, 0.7vw, 0.75rem);
   font-weight: 700;
-  letter-spacing: 2px;
+  letter-spacing: 1.5px;
   color: #38bdf8;
   opacity: 0.95;
 }
@@ -2325,20 +2354,19 @@ body {
 @media (max-width: 1200px) {
   .research-grid {
     grid-template-columns: repeat(2, 1fr);
-    gap: 3.5rem 2.5rem;
+    gap: 2rem 1.5rem;
   }
 }
 
 @media (max-width: 640px) {
   .research-section {
-    padding: 3rem 1.5rem;
+    padding: 2rem 1rem;
   }
   .research-grid {
     grid-template-columns: 1fr;
-    gap: 3rem;
+    gap: 1.5rem;
   }
 }
-
 
 /* From Uiverse.io by cssbuttons-io */ 
 .mission-cta-wrap {

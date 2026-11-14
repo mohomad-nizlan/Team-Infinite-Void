@@ -394,7 +394,44 @@ export class VanillaInfiniteMenu {
     const usage = new Array(totalItems).fill(0);
     this.state.assign = this.state.tiles.map(() => -1);
 
+    // 1. Identify the front-most tile facing the viewer
+    let first = -1;
+    let firstZ = -2;
     this.state.tiles.forEach((tile, i) => {
+      const z = rotate(this.state.orientation, tile)[2];
+      if (z > firstZ) {
+        firstZ = z;
+        first = i;
+      }
+    });
+
+    // 2. Assign front-most tile to THE SUN (item 0)
+    this.state.assign[first] = 0;
+    usage[0] += 1;
+
+    // 3. Find neighboring tiles immediately touching the Sun
+    const neighbors = this.state.tiles
+      .map((tile, j) => [j === first ? -2 : dot(this.state.tiles[first], tile), j])
+      .sort((a, b) => b[0] - a[0])
+      .map(([, j]) => j);
+
+    // 4. Place EARTH (item 1) and MARS (item 2) right next to the Sun!
+    if (totalItems > 1 && neighbors.length > 0) {
+      this.state.assign[neighbors[0]] = 1; // Earth next to Sun
+      usage[1] += 1;
+    }
+    if (totalItems > 2 && neighbors.length > 1) {
+      this.state.assign[neighbors[1]] = 2; // Mars next to Sun
+      usage[2] += 1;
+    }
+    if (totalItems > 3 && neighbors.length > 2) {
+      this.state.assign[neighbors[2]] = 3; // Moon next to Earth/Sun
+      usage[3] += 1;
+    }
+
+    // 5. Fill remaining tiles across the sphere evenly
+    this.state.tiles.forEach((tile, i) => {
+      if (this.state.assign[i] >= 0) return;
       const near = this.state.tiles
         .map((other, j) => [j === i ? -2 : dot(tile, other), j])
         .sort((a, b) => b[0] - a[0])
@@ -416,15 +453,6 @@ export class VanillaInfiniteMenu {
     this.gl.bindBuffer(this.gl.ARRAY_BUFFER, this.tileBuffer);
     this.gl.bufferData(this.gl.ARRAY_BUFFER, data, this.gl.STATIC_DRAW);
 
-    let first = -1;
-    let firstZ = -2;
-    this.state.tiles.forEach((tile, i) => {
-      const z = rotate(this.state.orientation, tile)[2];
-      if (this.state.assign[i] === 0 && z > firstZ) {
-        firstZ = z;
-        first = i;
-      }
-    });
     this.state.target = first;
   }
 
@@ -591,15 +619,12 @@ export class VanillaInfiniteMenu {
     if (!list.length) return;
     const itemIndex = (this.state.assign[index] ?? 0) % list.length;
     const item = list[itemIndex];
+    this.state.target = index;
+    this.state.speed = 0;
+    this.wake();
+    this.updateOverlay(item, itemIndex);
     if (this.options.onItemClick) {
       this.options.onItemClick(item, itemIndex);
-    } else if (item?.link) {
-      if (item.link.startsWith('#')) {
-        const targetEl = document.querySelector(item.link);
-        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.open(item.link, item.link.startsWith('http') ? '_blank' : '_self', 'noopener');
-      }
     }
   }
 
@@ -642,19 +667,11 @@ export class VanillaInfiniteMenu {
   }
 
   handleActionClick(e) {
+    if (e) e.preventDefault();
     const current = this.items.length ? this.items[this.active % this.items.length] : null;
     if (!current) return;
     if (this.options.onItemClick) {
       this.options.onItemClick(current, this.active % this.items.length);
-      if (!current.link) e.preventDefault();
-    } else if (current.link) {
-      if (current.link.startsWith('#')) {
-        e.preventDefault();
-        const targetEl = document.querySelector(current.link);
-        if (targetEl) targetEl.scrollIntoView({ behavior: 'smooth' });
-      } else {
-        window.open(current.link, current.link.startsWith('http') ? '_blank' : '_self', 'noopener');
-      }
     }
   }
 

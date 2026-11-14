@@ -1,4 +1,4 @@
-﻿/* ==============================================================
+/* ==============================================================
    INFINITE VOID — NASA SPACE APPS 2026
    Main JS: Smooth Video Player + 2-Screen Snap (Video -> Astronauts)
    ============================================================== */
@@ -9,6 +9,7 @@ import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
 import { VanillaDriftWall, NASA_INSIDE_ITEMS } from './DriftWall.js?v=20261022a';
 import { VanillaFlexCarousel, NASA_SCIENTIST_ITEMS } from './FlexCarousel.js?v=20261022f';
 import { VanillaFolder, RESEARCH_DOSSIERS } from './Folder.js?v=20261023b';
+import { VanillaSplashCursor } from './SplashCursor.js?v=20261023a';
 
 // ─── 1. STARFIELD BACKGROUND ─────────────────────────────────
 class Starfield {
@@ -1275,89 +1276,96 @@ function initMissionsPage() {
 
 // ─── CELESTIAL BODIES: SPACE MATERIALS & DISCOVERIES ─────────
 const CELESTIAL_BODIES_DISCOVERIES = [
+  // 0. The Sun (Centerpiece)
   {
     name: 'The Sun',
-    material: 'Thermonuclear Plasma • 73% Hydrogen, 25% Helium • Magnetic Flux',
-    discovery: 'Parker Solar Probe touched the solar corona at 1,300°C (2021), unravelling magnetic switchbacks, coronal heating mechanisms, and high-speed solar wind origins.',
-    image: 'public/assets/celestial/sun.jpg',
-    link: '#experience'
+    material: 'THE SUN — G-Type Main-Sequence Star & Solar Dynamo',
+    discovery: 'The central star of our solar system containing 99.86% of its mass. Its core thermonuclear fusion of hydrogen into helium powers solar radiation, solar winds, and sustains planetary atmospheres.',
+    image: 'public/assets/celestial/sun.jpg'
   },
+  // 1. Earth (Immediate neighbor to the Sun)
   {
-    name: 'The Moon',
-    material: 'Anorthosite Crust • Titanium Ilmenite • Polar Water Ice • Regolith',
-    discovery: 'LCROSS & Chandrayaan verified billions of tons of water ice in permanently shadowed polar craters; Chang\'e-5 returned fresh volcanic basalts and mineral Changesite-(Y).',
-    image: 'public/assets/celestial/moon.jpg',
-    link: '#experience'
+    name: 'Earth',
+    material: 'EARTH — Habitable Oasis & Dynamic Biosphere',
+    discovery: 'Our home world in the circumstellar habitable zone. Features a protective nitrogen-oxygen atmosphere, vast liquid water oceans, and a dynamic geomagnetic field powered by its molten core.',
+    image: 'public/assets/celestial/earth.jpg'
   },
-  {
-    name: 'Mercury',
-    material: 'Superdense Metallic Iron Core (85% radius) • Graphite Crust • Sodium Exosphere',
-    discovery: 'NASA MESSENGER detected volatile water ice in permanently frozen polar craters despite 430°C solar radiation, alongside a dynamic active magnetic field.',
-    image: 'public/assets/celestial/mercury.jpg',
-    link: '#experience'
-  },
-  {
-    name: 'Venus',
-    material: 'Supercritical CO2 Atmosphere • Sulfuric Acid Clouds • Basaltic Volcanics',
-    discovery: 'Magellan radar and archival studies confirmed active volcanic lava flows (2023); atmospheric probes identified anomalous chemical disequilibria in temperate cloud decks.',
-    image: 'public/assets/celestial/venus.jpg',
-    link: '#experience'
-  },
+  // 2. Mars (Immediate neighbor to the Sun)
   {
     name: 'Mars',
-    material: 'Iron-Rich Basaltic Regolith • Ferric Oxide Dust • Permafrost & Delta Clays',
-    discovery: 'Curiosity & Perseverance uncovered ancient habitable lacustrine mudstones, organic carbon macromolecules, delta clay minerals, and sub-glacial radar lake signatures.',
-    image: 'public/assets/celestial/mars.jpg',
-    link: '#experience'
+    material: 'MARS — Iron Oxide Crust & Olympus Mons Volcano',
+    discovery: 'The fourth planet from the Sun, named the Red Planet for its iron oxide surface. Home to ancient dry river valleys, massive shield volcanoes, and sub-surface water ice explored by NASA rovers.',
+    image: 'public/assets/celestial/mars.jpg'
   },
+  // 3. The Moon
+  {
+    name: 'The Moon',
+    material: 'THE MOON — Anorthosite Highlands & Basaltic Maria',
+    discovery: "Earth's natural satellite, orbiting at 384,400 km. Its surface preserves billions of years of impact craters, volcanic maria, and cold-trap volatile water deposits in polar craters.",
+    image: 'public/assets/celestial/moon.jpg'
+  },
+  // 4. Jupiter
   {
     name: 'Jupiter',
-    material: 'Liquid Metallic Hydrogen Mantle • Ammonia Ice Crystals • Superheated Core',
-    discovery: 'Juno spacecraft pierced deep atmospheric belts, revealing a diffuse fuzzy core, deep-rooted Great Red Spot roots (300 km), and polygonal polar cyclonic storms.',
-    image: 'public/assets/celestial/jupiter.jpg',
-    link: '#experience'
+    material: 'JUPITER — Giant Gas Vortex & Metallic Hydrogen Core',
+    discovery: 'The largest planet in our solar system, more than twice the mass of all other planets combined. Known for the Great Red Spot anticyclonic storm and dozens of moons including oceanic Europa.',
+    image: 'public/assets/celestial/jupiter.jpg'
   },
+  // 5. Saturn
+  {
+    name: 'Saturn',
+    material: 'SATURN — Water-Ice Ring System & Hexagonal Polar Jet',
+    discovery: 'Famous for its dazzling system of icy planetary rings spanning thousands of kilometers, yet only meters thick. Its atmosphere features a persistent hexagonal vortex at its north pole.',
+    image: 'public/assets/celestial/saturn.jpg'
+  },
+  // 6. Europa
   {
     name: 'Europa',
-    material: 'Cracked Water-Ice Shell (20 km) • Global Subsurface Saline Ocean (100 km deep)',
-    discovery: 'Active cryovolcanic water plumes erupt into space; JWST confirmed carbon dioxide sourced directly from its interior ocean, making it prime target for astrobiology.',
-    image: 'public/assets/celestial/europa.jpg',
-    link: '#experience'
+    material: 'EUROPA — Global Subsurface Ocean & Chaotic Ice Rafts',
+    discovery: "Jupiter's ice-crusted moon harboring a deep global ocean of liquid saltwater beneath a 20 km ice shell. Gravitational tidal flexing generates internal heat, making it a prime candidate for astrobiology.",
+    image: 'public/assets/celestial/europa.jpg'
   },
+  // 7. Asteroid Belt
   {
-    name: 'Saturn & Rings',
-    material: '99% Pure Water Ice Shards • Silicate Nanodust • Metallic Hydrogen Interior',
-    discovery: 'Cassini Grand Finale dives confirmed "ring rain" depositing tons of ice into the atmosphere per second, along with a persistent geometric hexagon at the north pole.',
-    image: 'public/assets/celestial/saturn.jpg',
-    link: '#experience'
+    name: 'Asteroid Belt',
+    material: 'ASTEROID BELT — Primordial Planetesimals & Chondrites',
+    discovery: 'A circumstellar debris disc located between Mars and Jupiter containing millions of rocky asteroids and dwarf planet Ceres, preserving primordial remnants from planetary accretion 4.6 billion years ago.',
+    image: 'public/assets/celestial/asteroid.jpg'
   },
-  {
-    name: 'Neptune',
-    material: 'Supercritical Water-Methane-Ammonia Fluid • Hydrocarbon Haze • Diamond Rain',
-    discovery: 'Voyager 2 and JWST revealed supersonic winds clocking 2,100 km/h, transient Great Dark Spots, and active nitrogen-ice cryogeysers on captured moon Triton.',
-    image: 'public/assets/celestial/neptune.jpg',
-    link: '#experience'
-  },
-  {
-    name: 'Asteroid Bennu',
-    material: 'Pristine Carbonaceous Chondrite • Hydrated Clay Minerals • Prebiotic Amino Acids',
-    discovery: 'NASA OSIRIS-REx collected and returned primordial regolith (2023), identifying abundant carbon, water-bearing crystals, and organic molecules dating back 4.5 billion years.',
-    image: 'public/assets/celestial/asteroid.jpg',
-    link: '#experience'
-  },
-  {
-    name: 'Sagittarius A*',
-    material: 'Supermassive Gravitational Singularity • Relativistic Accretion Plasma Disk',
-    discovery: 'Event Horizon Telescope resolved the first direct radio shadow of the Milky Way\'s central black hole (2022), verifying Einstein\'s General Relativity at extreme spacetime curves.',
-    image: 'public/assets/celestial/blackhole.jpg',
-    link: '#experience'
-  },
+  // 8. Cosmic Nebula
   {
     name: 'Cosmic Nebula',
-    material: 'Molecular Hydrogen Clouds • Stellar Dust Filaments • Ionized Emission Plasma',
-    discovery: 'James Webb Space Telescope pierced dust shrouds to image stellar nurseries in Carina and Orion, pinpointing the birth of protostars and planetary disks in deep cosmos.',
-    image: 'public/assets/celestial/nebula.jpg',
-    link: '#experience'
+    material: 'STELLAR NEBULA — Ionized Hydrogen & Star nurseries',
+    discovery: 'Vast interstellar clouds of dust, hydrogen, and helium gases. These nebular clouds collapse under gravity to form embryonic protostars and planetary systems throughout the Milky Way.',
+    image: 'public/assets/celestial/nebula.jpg'
+  },
+  // 9. Black Hole
+  {
+    name: 'Black Hole',
+    material: 'BLACK HOLE — Relativistic Gravitational Singularity',
+    discovery: 'Spacetime regions of immense gravitational attraction where escape velocity exceeds light speed. Matter spiraling into accretion disks radiates high-energy X-rays while bending nearby light paths.',
+    image: 'public/assets/celestial/blackhole.jpg'
+  },
+  // 10. Mercury
+  {
+    name: 'Mercury',
+    material: 'MERCURY — Iron Core Giant & Extreme Thermal Exosphere',
+    discovery: 'The smallest planet and closest to the Sun. It experiences extreme temperature swings between 430°C and -180°C, and possesses an unusually large metallic iron core spanning 85% of its radius.',
+    image: 'public/assets/celestial/mercury.jpg'
+  },
+  // 11. Venus
+  {
+    name: 'Venus',
+    material: 'VENUS — Supercritical CO₂ & Runaway Greenhouse Effect',
+    discovery: "Earth's twin in size and density, wrapped in reflective clouds of toxic sulfuric acid and a crushing 92-bar atmosphere. Intense greenhouse warming drives surface temperatures above 465°C.",
+    image: 'public/assets/celestial/venus.jpg'
+  },
+  // 12. Neptune
+  {
+    name: 'Neptune',
+    material: 'NEPTUNE — Methane-Rich Atmosphere & Supersonic Storms',
+    discovery: 'The outermost ice giant planet, glowing vivid blue due to atmospheric methane. Neptune experiences the most violent windstorms in the solar system, with speeds exceeding 2,100 km/h.',
+    image: 'public/assets/celestial/neptune.jpg'
   }
 ];
 
@@ -1369,8 +1377,7 @@ function initInfiniteMenuPage() {
     return {
       image: c.image,
       title: c.name.toUpperCase(),
-      description: `<span class="celestial-mat-badge">${c.material}</span><span class="celestial-disc-text">${c.discovery}</span>`,
-      link: 'moon-base.html'
+      description: `<span class="celestial-mat-badge">${c.material}</span><span class="celestial-disc-text">${c.discovery}</span>`
     };
   });
 
@@ -1383,16 +1390,16 @@ function initInfiniteMenuPage() {
     pullBack: 1,
     stretch: 0.6,
     inertia: 0.6,
-    autoplay: 3,
-    grayscale: true,
-    dim: 0.5,
+    autoplay: 0,
+    grayscale: false,
+    dim: 0.4,
     intro: true,
     showInfo: true,
     theme: 'dark',
     accentColor: '#ffffff',
     onItemClick: (item, idx) => {
-      // Navigate to dedicated NASA Moon Base topic portal
-      window.location.href = 'moon-base.html';
+      // In-place selection and centering without external navigation
+      console.log('Selected Celestial Body:', item?.title, idx);
     }
   });
 }
@@ -1712,6 +1719,7 @@ class FullPageSectionController {
       document.getElementById('hero-page'),
       document.getElementById('missions-page'),
       document.getElementById('infinite-menu-page'),
+      document.getElementById('why-us'),
       document.getElementById('team-section'),
       document.getElementById('scientists-section'),
       document.getElementById('cosmos-section'),
@@ -1734,7 +1742,9 @@ class FullPageSectionController {
   initObserver() {
     const observer = new IntersectionObserver((entries) => {
       entries.forEach(entry => {
-        if (entry.isIntersecting && entry.intersectionRatio >= 0.5) {
+        const isWhyUs = entry.target.id === 'why-us';
+        const ratioNeeded = isWhyUs ? 0.2 : 0.5;
+        if (entry.isIntersecting && entry.intersectionRatio >= ratioNeeded) {
           const idx = this.sections.indexOf(entry.target);
           if (idx !== -1 && !this.isAnimating) {
             this.currentIndex = idx;
@@ -1743,9 +1753,12 @@ class FullPageSectionController {
               history.replaceState(null, null, hash);
             }
           }
+          if (entry.target.id === 'team-section') {
+            window.jangleTeamCards?.(1.15);
+          }
         }
       });
-    }, { threshold: 0.5 });
+    }, { threshold: [0.2, 0.5] });
 
     this.sections.forEach(s => observer.observe(s));
   }
@@ -1762,11 +1775,16 @@ class FullPageSectionController {
 
   goTo(index, smooth = true) {
     if (index < 0 || index >= this.sections.length) return;
+    const isPrev = index < this.currentIndex;
     this.currentIndex = index;
     this.isAnimating = true;
 
     const targetSection = this.sections[index];
-    const targetTop = targetSection.offsetTop;
+    let targetTop = targetSection.offsetTop;
+
+    if (targetSection.id === 'why-us' && isPrev) {
+      targetTop = targetSection.offsetTop + targetSection.offsetHeight - window.innerHeight;
+    }
 
     window.scrollTo({
       top: targetTop,
@@ -1776,6 +1794,10 @@ class FullPageSectionController {
     const hash = '#' + targetSection.id;
     if (window.location.hash !== hash) {
       history.replaceState(null, null, hash);
+    }
+
+    if (targetSection.id === 'team-section') {
+      setTimeout(() => window.jangleTeamCards?.(1.15), smooth ? 280 : 50);
     }
 
     if (this.animTimeout) clearTimeout(this.animTimeout);
@@ -1833,6 +1855,49 @@ class FullPageSectionController {
 
       // If cursor is over the FlexCarousel, let it handle wheel events natively (cycling cards)
       if (e.target && e.target.closest('.flex-carousel')) return;
+
+      // Smooth controlled scroll through why-us section
+      if (currentSection && currentSection.id === 'why-us') {
+        const currentScroll = window.scrollY || window.pageYOffset || 0;
+        const sectionTop = currentSection.offsetTop;
+        const sectionHeight = currentSection.offsetHeight;
+        const viewportHeight = window.innerHeight;
+        const maxScroll = Math.max(0, sectionTop + sectionHeight - viewportHeight);
+        const atTop = currentScroll <= sectionTop + 20;
+        const atBottom = currentScroll >= maxScroll - 20;
+
+        if (e.deltaY > 0) {
+          if (!atBottom) {
+            e.preventDefault();
+            const scrollStep = Math.min(Math.max(Math.abs(e.deltaY) * 1.5, 140), 280);
+            const targetScroll = Math.min(currentScroll + scrollStep, maxScroll);
+            window.scrollTo({
+              top: targetScroll,
+              behavior: 'smooth'
+            });
+            return;
+          } else {
+            e.preventDefault();
+            this.next();
+            return;
+          }
+        } else if (e.deltaY < 0) {
+          if (!atTop) {
+            e.preventDefault();
+            const scrollStep = Math.min(Math.max(Math.abs(e.deltaY) * 1.5, 140), 280);
+            const targetScroll = Math.max(currentScroll - scrollStep, sectionTop);
+            window.scrollTo({
+              top: targetScroll,
+              behavior: 'smooth'
+            });
+            return;
+          } else {
+            e.preventDefault();
+            this.prev();
+            return;
+          }
+        }
+      }
 
       e.preventDefault();
 
@@ -2301,12 +2366,47 @@ document.addEventListener('DOMContentLoaded', () => {
   initCosmosOrbitGallery();
   initInsideNasaSection();
   initResearchSection();
+  window.initWhyUsSection?.();
   new FullPageSectionController();
+
+  // Mount React Bits SplashCursor strictly in Hero Section with dark blue flame styling
+  try {
+    const heroPage = document.getElementById('hero-page');
+    if (heroPage) {
+      window.splashCursor = new VanillaSplashCursor(heroPage, {
+        colors: [
+          '#020b42', // Deep dark midnight blue base
+          '#001a75', // Dark royal flame
+          '#002ecb', // Intense cobalt flame
+          '#0044ff', // Electric blue flame core
+          '#001899', // Deep sapphire flame
+          '#0033d4'  // Vivid blue flame crest
+        ],
+        rainbow: false,
+        colorSpeed: 0.8,
+        intensity: 1.35,
+        size: 1.05,
+        force: 1.3,
+        swirl: 4.5,
+        trail: 1.15,
+        momentum: 1.0,
+        shading: 0.92,
+        glow: 0.35,
+        clickSplash: true,
+        intro: true,
+        contained: true,
+        zIndex: 15,
+        theme: 'dark'
+      });
+    }
+  } catch (err) {
+    console.warn('SplashCursor initialization notice:', err);
+  }
 
   console.log('🚀 Infinite Void — Video & Lunar Crew Engine Active.');
 });
 
-// ─── 10. OUR RESEARCH DOCUMENTS (React Bits Folder Integration • 8 Dossiers, 4 Per Row) ───
+// ─── 10. OUR REFERENCES (React Bits Folder Integration • 8 Dossiers, 4 Per Row) ───
 function initResearchSection() {
   const gridRoot = document.getElementById('research-grid-root');
   if (!gridRoot) return;
@@ -2342,13 +2442,18 @@ function initResearchSection() {
       mode: 'flap',
       variant: dossier.variant || 'glass',
       color: dossier.color,
-      size: 0.74,
+      size: 0.58,
       speed: 1.15,
       tilt: 0.3,
       bounce: 0.18,
       intro: false,
       zoomOnClick: true,
       draggable: true,
+      onItemClick: (item, index) => {
+        if (item && item.url) {
+          window.open(item.url, '_blank', 'noopener,noreferrer');
+        }
+      },
       onOpenChange: (open) => {
         try {
           if (window.tacticalAudio) {
