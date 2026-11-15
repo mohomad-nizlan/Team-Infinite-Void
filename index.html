@@ -9,7 +9,7 @@
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Instrument+Serif:ital@0;1&family=Anton&family=Orbitron:wght@400;600;800;900&family=Rajdhani:wght@400;500;600;700&family=Space+Grotesk:wght@300;400;500;600;700&display=swap" rel="stylesheet">
-  <link rel="stylesheet" href="style.css?v=20261115_learn_more_white">
+  <link rel="stylesheet" href="style.css?v=20261115_missions_dropdown">
   <link rel="stylesheet" href="InfiniteMenu.css?v=20261022a">
   <link rel="stylesheet" href="DriftWall.css?v=20261115_no_blue_outline">
   <link rel="stylesheet" href="FlexCarousel.css?v=20261022f">
@@ -217,10 +217,52 @@
     </div>
   </div>
 
-  <!-- ===== 2ND PAGE: 26 NASA & DEEP SPACE MISSIONS WITH DISCARDED EQUIPMENT ===== -->
+  <!-- ===== 2ND PAGE: 25 NASA & DEEP SPACE MISSIONS WITH DISCARDED EQUIPMENT ===== -->
   <section id="missions-page" class="missions-page">
     <div class="missions-bg-image" id="missions-bg-image"></div>
     <div class="missions-overlay-gradient"></div>
+
+    <!-- RIGHT TOP CORNER: MISSIONS & SECTIONS SEARCH DROPDOWN (From Uiverse.io by ilkhoeri) -->
+    <div class="missions-dropdown-wrap" id="missions-dropdown-wrap">
+      <button
+        id="missions-dropdown-btn"
+        class="missions-search-btn [--background:#000000] [--color:#ffffff] [--muted:#242424] [--muted-foreground:#9c9c9c] [--border:#2e2e2e] relative inline-flex items-center whitespace-nowrap transition-colors focus-visible:outline-none focus-visible:ring-1 focus-visible:ring-ring disabled:pointer-events-none disabled:opacity-50 border border-[--border] bg-[--background] hover:bg-[--muted] text-[--muted-foreground] hover:text-[--color] px-4 py-2 justify-start rounded-[0.5rem] text-sm font-normal shadow-none h-8 w-64"
+        type="button"
+        aria-expanded="false"
+        aria-haspopup="listbox"
+        aria-label="Select mission or page"
+      >
+        <span class="missions-btn-text">Search missions...</span>
+        <kbd
+          class="kbd-shortcut pointer-events-none absolute right-[0.3rem] top-[0.3rem] flex h-5 select-none items-center gap-1 rounded border border-[--border] bg-[--muted] px-1.5 font-mono text-[10px] font-medium opacity-100 [&_span]:text-xs"
+        >
+          <span>⌘</span>K
+        </kbd>
+      </button>
+
+      <!-- Dropdown Panel -->
+      <div id="missions-dropdown-menu" class="missions-dropdown-menu" aria-hidden="true">
+        <div class="missions-dropdown-search">
+          <svg class="search-svg" width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#00f0ff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+            <circle cx="11" cy="11" r="8"></circle>
+            <line x1="21" y1="21" x2="16.65" y2="16.65"></line>
+          </svg>
+          <input
+            type="text"
+            id="missions-dropdown-input"
+            class="missions-dropdown-input"
+            placeholder="Search missions & pages..."
+            autocomplete="off"
+            spellcheck="false"
+          >
+          <button id="missions-dropdown-clear" class="missions-dropdown-clear" aria-label="Clear filter" style="display:none;">✕</button>
+        </div>
+
+        <div class="missions-dropdown-list" id="missions-dropdown-list" role="listbox">
+          <!-- Dynamically populated from NASA_RELIC_MISSIONS + SECTIONS -->
+        </div>
+      </div>
+    </div>
 
     <div class="missions-layout">
       <!-- LEFT: OPTION WHEEL (Shifted further to the left) -->
@@ -921,6 +963,6 @@
   </section>
 
   <script src="whyUs.js?v=20261114l"></script>
-  <script type="module" src="main.js?v=20261115_rivishani_new"></script>
+  <script type="module" src="main.js?v=20261115_missions_dropdown"></script>
 </body>
 </html>
