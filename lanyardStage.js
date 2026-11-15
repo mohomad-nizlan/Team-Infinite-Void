@@ -2,7 +2,7 @@
    INFINITE VOID — MINIMALIST BLACK & WHITE LANYARD ENGINE
    Clean black & white badge cards matching reference design
    Front: White card, subtle logo, @handle, B&W portrait, Name below
-   Back:  Assigned Crew Role (Team Leader, Coding, Researcher, Speaker)
+   Back:  Assigned Crew Role (Team Leader, Developer, Content Writer, Presenter)
    Strap: Pure dark woven strap (#111111), polished silver clamp
    Single continuous 3D WebGL scene with 6 cards in 1 row & full overlap
    ============================================================== */
@@ -518,9 +518,16 @@ function drawCardBack(canvas, member) {
 
   // 2. Position / Role (Huge, bold, maximum legibility)
   ctx.fillStyle = '#050505';
-  ctx.font = '800 135px "Space Grotesk", "Rajdhani", sans-serif';
+  const roleText = member.role.toUpperCase();
+  const maxRoleWidth = w - 160;
+  let roleFontSize = 135;
+  ctx.font = `800 ${roleFontSize}px "Space Grotesk", "Rajdhani", sans-serif`;
   ctx.letterSpacing = '8px';
-  ctx.fillText(member.role.toUpperCase(), w / 2, 590);
+  while (ctx.measureText(roleText).width > maxRoleWidth && roleFontSize > 75) {
+    roleFontSize -= 4;
+    ctx.font = `800 ${roleFontSize}px "Space Grotesk", "Rajdhani", sans-serif`;
+  }
+  ctx.fillText(roleText, w / 2, 590);
 
   // 3. Social Icons: Instagram & LinkedIn below position (Much larger and prominent)
   const iconSize = 200;
@@ -866,7 +873,7 @@ export function initUnifiedLanyardStage() {
     {
       id: 'rifa',
       name: 'Rifa',
-      role: 'Team Lead',
+      role: 'Team Leader',
       handle: '@rifa',
       front: '/assets/badge_rifa_color.png?v=20261115_full_bottom', 
       strap: '#0077ff',
@@ -879,7 +886,7 @@ export function initUnifiedLanyardStage() {
     {
       id: 'rivishani',
       name: 'Rivishani',
-      role: 'Coding',
+      role: 'Content Writer',
       handle: '@rivishani',
       front: '/assets/badge_rivishani_color.png?v=20261115_color',
       strap: '#0077ff',
@@ -892,7 +899,7 @@ export function initUnifiedLanyardStage() {
     {
       id: 'aathiqa',
       name: 'Aathiqa',
-      role: 'Coding',
+      role: 'Developer',
       handle: '@aathiqa',
       front: '/assets/badge_atheeqa_color.png?v=20261115_balanced_natural_v2',
       strap: '#0077ff',
@@ -905,7 +912,7 @@ export function initUnifiedLanyardStage() {
     {
       id: 'nizlan',
       name: 'Nizlan',
-      role: 'Researcher',
+      role: 'Developer',
       handle: '@nizlan',
       front: '/assets/badge_nizlan_color.png?v=20261115_color',
       strap: '#0077ff',
@@ -918,7 +925,7 @@ export function initUnifiedLanyardStage() {
     {
       id: 'biyon',
       name: 'Biyon',
-      role: 'Researcher',
+      role: 'Content Writer',
       handle: '@biyon',
       front: '/assets/badge_biyon_color.png?v=20261115_balanced_natural_v2',
       strap: '#0077ff',
@@ -931,7 +938,7 @@ export function initUnifiedLanyardStage() {
     {
       id: 'Luqman',
       name: 'Luqman',
-      role: 'Speaker',
+      role: 'Editor',
       handle: '@luqman',
       front: '/assets/badge_luqman_color.png?v=20261115_color2',
       strap: '#0077ff',
