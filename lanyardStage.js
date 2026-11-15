@@ -893,7 +893,7 @@ export function initUnifiedLanyardStage() {
       color: '#ffffff',
       metal: 'silver',
       finish: 'glossy',
-      instagram: '',
+      instagram: 'https://www.instagram.com/rashi_rochellz/',
       linkedin: 'https://www.linkedin.com/in/rivishani-kumarage-17594a326/'
     },
     {
