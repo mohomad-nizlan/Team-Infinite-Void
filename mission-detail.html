@@ -267,6 +267,7 @@
     "site": "Sea of Tranquility",
     "status": "Crew returned; descent stage and surface instruments remain",
     "img": "public/assets/missions/apollo11.jpg",
+    "overview_img": "public/assets/mission_images/apollo_11_1.jpg",
     "relics": [
       "Eagle Lunar Module Descent Stage",
       "Passive Seismic Experiment (PSE)",
@@ -288,6 +289,7 @@
     "site": "Ocean of Storms",
     "status": "Crew returned; Intrepid descent stage and ALSEP remain",
     "img": "public/assets/missions/apollo11.jpg",
+    "overview_img": "public/assets/mission_images/apollo_12_1.jpg",
     "relics": [
       "Intrepid Descent Stage Base",
       "Apollo Lunar Surface Experiments Package (ALSEP)",
@@ -835,14 +837,14 @@
 
     // ─── GALLERY IMAGES ──────────────────────────────────────────────
     const MOON_GALLERY = [
-      'https://images.unsplash.com/photo-1446776858070-70c3d5ed6758?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1614314107768-6018061b5b72?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1541185933-ef5d8ed016c2?auto=format&fit=crop&w=1200&q=80'
+      'public/assets/mission_images/apollo_11_2.jpg',
+      'public/assets/mission_images/apollo_11_3.jpg',
+      'public/assets/mission_images/apollo_11_4.jpg',
     ];
     const MARS_GALLERY = [
-      'https://images.unsplash.com/photo-1614728894747-a83421e2b9c9?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1573588028698-f4759befb09a?auto=format&fit=crop&w=1200&q=80',
-      'https://images.unsplash.com/photo-1446776877081-d282a0f896e2?auto=format&fit=crop&w=1200&q=80'
+      'public/assets/mission_images/apollo_12_2.jpg',
+      'public/assets/mission_images/apollo_12_3.jpg',
+      'public/assets/mission_images/apollo_12_4.jpg',
     ];
     const DEEP_SPACE_GALLERY = [
       'https://images.unsplash.com/photo-1451187580459-43490279c0fa?auto=format&fit=crop&w=1200&q=80',
@@ -950,7 +952,7 @@
       if (overviewDesc) overviewDesc.textContent = mission.desc;
       const overviewImg = document.getElementById('overview-img');
       if (overviewImg) {
-        overviewImg.src = mission.img;
+        overviewImg.src = mission.overview_img;
         overviewImg.alt = `${mission.name} mission equipment`;
       }
       const overviewCaption = document.getElementById('overview-img-caption');
