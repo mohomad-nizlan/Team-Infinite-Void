@@ -6,7 +6,7 @@
   <title>Mission Detail | Infinite Void</title>
   <meta name="description" content="Detailed mission portal for NASA historic missions — discarded equipment on Moon and Mars.">
   <link rel="icon" type="image/png" href="public/assets/logo.png">
-  <link rel="stylesheet" href="mission-detail.css">
+  <link rel="stylesheet" href="mission-detail.css?v=20261115_telemetry_pro">
   <link rel="stylesheet" href="CircularGallery.css">
 </head>
 <body>
@@ -215,24 +215,30 @@
     <!-- ==============================================================
          7. DATA BAR
          ============================================================== -->
-    <section class="section-data-bar" aria-label="Mission Data">
+    <section class="section-data-bar" aria-label="Mission Telemetry Data">
       <div class="nasa-container">
         <div class="data-bar-flex" id="data-bar-flex">
-          <div class="data-pill">
-            <span class="data-pill-icon" aria-hidden="true">📅</span>
-            <span id="data-year">YEAR: —</span>
+          <div class="data-metric">
+            <span class="data-metric-label">YEAR</span>
+            <span class="data-metric-val" id="data-year">—</span>
           </div>
-          <div class="data-pill">
-            <span class="data-pill-icon" aria-hidden="true">🌍</span>
-            <span id="data-body">BODY: —</span>
+          <div class="data-metric-divider" aria-hidden="true"></div>
+          <div class="data-metric">
+            <span class="data-metric-label">BODY</span>
+            <span class="data-metric-val" id="data-body">—</span>
           </div>
-          <div class="data-pill">
-            <span class="data-pill-icon" aria-hidden="true">📍</span>
-            <span id="data-site">SITE: —</span>
+          <div class="data-metric-divider" aria-hidden="true"></div>
+          <div class="data-metric">
+            <span class="data-metric-label">SITE</span>
+            <span class="data-metric-val" id="data-site">—</span>
           </div>
-          <div class="data-pill">
-            <span class="data-pill-icon" aria-hidden="true">🛰️</span>
-            <span id="data-status">STATUS: —</span>
+          <div class="data-metric-divider" aria-hidden="true"></div>
+          <div class="data-metric data-metric--status">
+            <span class="data-metric-label">STATUS</span>
+            <span class="data-metric-val">
+              <span class="status-dot" aria-hidden="true"></span>
+              <span id="data-status">—</span>
+            </span>
           </div>
         </div>
       </div>
@@ -1329,15 +1335,15 @@
         });
       }
 
-      // ── Data bar ──
+      // ── Telemetry Data Bar ──
       const dataYear = document.getElementById('data-year');
-      if (dataYear) dataYear.textContent = `YEAR: ${mission.year}`;
+      if (dataYear) dataYear.textContent = mission.year;
       const dataBody = document.getElementById('data-body');
-      if (dataBody) dataBody.textContent = `BODY: ${mission.body}`;
+      if (dataBody) dataBody.textContent = mission.body;
       const dataSite = document.getElementById('data-site');
-      if (dataSite) dataSite.textContent = `SITE: ${mission.site}`;
+      if (dataSite) dataSite.textContent = mission.site;
       const dataStatus = document.getElementById('data-status');
-      if (dataStatus) dataStatus.textContent = `STATUS: ${status}`;
+      if (dataStatus) dataStatus.textContent = status;
     }
 
     // ─── BOOT ───────────────────────────────────────────────────────

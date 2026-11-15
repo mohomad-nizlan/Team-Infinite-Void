@@ -836,13 +836,15 @@ body.theme-deepspace .status-label {
 }
 
 /* ==============================================================
-   8. DATA BAR (Metrics)
+   8. DATA BAR (Aerospace Telemetry Ribbon — Matte Dark Luxury)
    ============================================================== */
 .section-data-bar {
-  background: var(--bg-white-section);
-  border-top: 1px solid #e2e8f0;
-  border-bottom: 1px solid #e2e8f0;
-  padding: 1.6rem 0;
+  background: #080a10;
+  border-top: 1px solid rgba(255, 255, 255, 0.08);
+  border-bottom: 1px solid rgba(255, 255, 255, 0.08);
+  padding: 1.5rem 0;
+  position: relative;
+  z-index: 5;
 }
 
 .data-bar-flex {
@@ -853,26 +855,65 @@ body.theme-deepspace .status-label {
   gap: 1.5rem;
 }
 
-.data-pill {
+.data-metric {
   display: flex;
-  align-items: center;
-  gap: 0.65rem;
-  font-size: 0.84rem;
-  font-weight: 700;
-  letter-spacing: 0.4px;
-  color: #0f172a;
+  flex-direction: column;
+  gap: 0.3rem;
+  min-width: 0;
 }
 
-.data-pill-icon {
+.data-metric-label {
+  font-family: var(--ff-orbitron, 'Orbitron', monospace);
+  font-size: 0.65rem;
+  font-weight: 700;
+  letter-spacing: 1.6px;
+  color: #71717a;
+  text-transform: uppercase;
+}
+
+.data-metric-val {
+  font-family: var(--ff-rajdhani, 'Space Grotesk', -apple-system, sans-serif);
+  font-size: 1.15rem;
+  font-weight: 600;
+  letter-spacing: 0.5px;
+  color: #ffffff;
   display: inline-flex;
   align-items: center;
-  justify-content: center;
-  width: 28px;
-  height: 28px;
+  gap: 0.5rem;
+  white-space: nowrap;
+}
+
+.data-metric-val .status-dot {
+  width: 7px;
+  height: 7px;
   border-radius: 50%;
-  background: #f1f5f9;
-  font-size: 0.95rem;
+  background: #22c55e;
+  box-shadow: 0 0 8px rgba(34, 197, 94, 0.5);
   flex-shrink: 0;
+}
+
+.data-metric-divider {
+  width: 1px;
+  height: 30px;
+  background: rgba(255, 255, 255, 0.08);
+}
+
+@media (max-width: 900px) {
+  .data-bar-flex {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 1.25rem;
+  }
+  .data-metric-divider {
+    display: none;
+  }
+}
+
+@media (max-width: 540px) {
+  .data-bar-flex {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+  }
 }
 
 /* ==============================================================
