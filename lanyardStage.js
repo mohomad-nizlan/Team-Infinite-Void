@@ -888,7 +888,7 @@ export function initUnifiedLanyardStage() {
       name: 'Rivishani',
       role: 'Content Writer',
       handle: '@rivishani',
-      front: '/assets/badge_rivishani_color.png?v=20261115_color',
+      front: '/assets/badge_rivishani_color.png?v=20261115_new_portrait',
       strap: '#0077ff',
       color: '#ffffff',
       metal: 'silver',

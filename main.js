@@ -4,7 +4,7 @@
    ============================================================== */
 import * as THREE from 'three';
 import { OrbitControls } from 'three/addons/controls/OrbitControls.js';
-import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261114_color';
+import { initUnifiedLanyardStage } from './lanyardStage.js?v=20261115_rivishani_new';
 import { VanillaInfiniteMenu } from './InfiniteMenu.js?v=20261021t';
 import { VanillaDriftWall, NASA_INSIDE_ITEMS } from './DriftWall.js?v=20261022a';
 import { VanillaFlexCarousel, NASA_SCIENTIST_ITEMS } from './FlexCarousel.js?v=20261022f';
