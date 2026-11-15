@@ -1181,10 +1181,6 @@ function updateMissionShowcase(idx) {
   if (paragraph) {
     paragraph.textContent = mission.desc;
   }
-
-  if (typeof window.updateMissionDropdownLabel === 'function') {
-    window.updateMissionDropdownLabel(idx);
-  }
 }
 
 function initMissionsPage() {
@@ -1243,249 +1239,6 @@ function initMissionsPage() {
       window.location.href = `mission-detail.html?mission=${idx}`;
     };
   }
-
-  initMissionsDropdown();
-}
-
-function initMissionsDropdown() {
-  const wrap = document.getElementById('missions-dropdown-wrap');
-  const btn = document.getElementById('missions-dropdown-btn');
-  const menu = document.getElementById('missions-dropdown-menu');
-  const input = document.getElementById('missions-dropdown-input');
-  const clearBtn = document.getElementById('missions-dropdown-clear');
-  const listEl = document.getElementById('missions-dropdown-list');
-  const btnLabels = btn ? btn.querySelectorAll('.missions-btn-text') : [];
-
-  if (!btn || !menu || !listEl) return;
-
-  const SECTIONS_NAV = [
-    { name: 'Home', hash: '#hero-page', badge: 'PAGE' },
-    { name: 'Missions Showcase', hash: '#missions-page', badge: 'PAGE' },
-    { name: 'Cosmic Discoveries (3D Sphere)', hash: '#infinite-menu-page', badge: 'PAGE' },
-    { name: 'Why This Mission Matters (Earth)', hash: '#why-us', badge: 'PAGE' },
-    { name: 'Deep Space Experience', hash: '#experience', badge: 'PAGE' },
-    { name: 'NASA Scientists & Pioneers', hash: '#scientists-section', badge: 'PAGE' },
-    { name: 'Inside NASA Facilities', hash: '#inside-nasa-section', badge: 'PAGE' },
-    { name: 'Scientific References', hash: '#research-section', badge: 'PAGE' },
-    { name: 'The Team Infinite Void', hash: '#team-section', badge: 'PAGE' }
-  ];
-
-  let isOpen = false;
-  let focusedIndex = -1;
-
-  function openDropdown() {
-    isOpen = true;
-    menu.classList.add('is-open');
-    menu.setAttribute('aria-hidden', 'false');
-    btn.setAttribute('aria-expanded', 'true');
-    btn.classList.add('is-active');
-    renderList(input ? input.value : '');
-    if (input) {
-      setTimeout(() => input.focus(), 60);
-    }
-  }
-
-  function closeDropdown() {
-    isOpen = false;
-    menu.classList.remove('is-open');
-    menu.setAttribute('aria-hidden', 'true');
-    btn.setAttribute('aria-expanded', 'false');
-    btn.classList.remove('is-active');
-    focusedIndex = -1;
-  }
-
-  function toggleDropdown() {
-    if (isOpen) closeDropdown();
-    else openDropdown();
-  }
-
-  btn.addEventListener('click', (e) => {
-    e.stopPropagation();
-    toggleDropdown();
-  });
-
-  // Global click outside to close
-  document.addEventListener('click', (e) => {
-    if (isOpen && wrap && !wrap.contains(e.target)) {
-      closeDropdown();
-    }
-  });
-
-  // Global Cmd+K / Ctrl+K shortcut
-  window.addEventListener('keydown', (e) => {
-    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
-      e.preventDefault();
-      const missionsSection = document.getElementById('missions-page');
-      if (missionsSection) {
-        missionsSection.scrollIntoView({ behavior: 'smooth' });
-      }
-      openDropdown();
-    } else if (e.key === 'Escape' && isOpen) {
-      closeDropdown();
-      btn.focus();
-    }
-  });
-
-  function selectMission(idx) {
-    if (window.missionsOptionWheel) {
-      window.missionsOptionWheel.applyTarget(idx, true);
-    } else {
-      updateMissionShowcase(idx);
-    }
-    const missionsSection = document.getElementById('missions-page');
-    if (missionsSection) {
-      missionsSection.scrollIntoView({ behavior: 'smooth' });
-    }
-    closeDropdown();
-  }
-
-  function selectSection(hash) {
-    const el = document.querySelector(hash);
-    if (el) {
-      el.scrollIntoView({ behavior: 'smooth' });
-    }
-    closeDropdown();
-  }
-
-  function renderList(query = '') {
-    const q = query.trim().toLowerCase();
-    focusedIndex = -1;
-
-    // Filter missions
-    const filteredMissions = NASA_RELIC_MISSIONS.map((m, idx) => ({ mission: m, originalIdx: idx }))
-      .filter(({ mission }) => {
-        if (!q) return true;
-        return (
-          mission.name.toLowerCase().includes(q) ||
-          mission.body.toLowerCase().includes(q) ||
-          mission.year.toLowerCase().includes(q) ||
-          (mission.site && mission.site.toLowerCase().includes(q))
-        );
-      });
-
-    // Filter sections
-    const filteredSections = SECTIONS_NAV.filter(s => {
-      if (!q) return true;
-      return s.name.toLowerCase().includes(q) || 'sections pages navigation'.includes(q);
-    });
-
-    if (filteredMissions.length === 0 && filteredSections.length === 0) {
-      listEl.innerHTML = `<div class="missions-dropdown-empty">No missions or pages matching "<span style="color:#00f0ff">${query}</span>"</div>`;
-      return;
-    }
-
-    let html = '';
-
-    if (filteredMissions.length > 0) {
-      html += `<div class="missions-group-title">HISTORIC MISSIONS (${filteredMissions.length})</div>`;
-      filteredMissions.forEach(({ mission, originalIdx }) => {
-        const isCurrent = window._currentMissionIdx === originalIdx;
-        const bodyClass = `tag-${mission.body.toLowerCase().replace(/\s+/g, '-')}`;
-
-        html += `
-          <div class="missions-dropdown-item ${isCurrent ? 'is-selected' : ''}" data-type="mission" data-idx="${originalIdx}" role="option">
-            <div class="dropdown-item-left">
-              <span class="dropdown-item-num">${String(originalIdx + 1).padStart(2, '0')}</span>
-              <span class="dropdown-item-title">${mission.name}</span>
-            </div>
-            <div class="dropdown-item-right">
-              <span class="dropdown-body-tag ${bodyClass}">${mission.body}</span>
-              <span class="dropdown-item-year">${mission.year}</span>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    if (filteredSections.length > 0) {
-      html += `<div class="missions-group-title" style="margin-top: 6px;">SITE SECTIONS</div>`;
-      filteredSections.forEach((section) => {
-        html += `
-          <div class="missions-dropdown-item" data-type="section" data-hash="${section.hash}" role="option">
-            <div class="dropdown-item-left">
-              <span class="dropdown-item-num">✦</span>
-              <span class="dropdown-item-title">${section.name}</span>
-            </div>
-            <div class="dropdown-item-right">
-              <span class="dropdown-body-tag tag-page">PAGE</span>
-            </div>
-          </div>
-        `;
-      });
-    }
-
-    listEl.innerHTML = html;
-
-    // Attach click handlers
-    listEl.querySelectorAll('.missions-dropdown-item').forEach(itemEl => {
-      itemEl.addEventListener('click', () => {
-        const type = itemEl.getAttribute('data-type');
-        if (type === 'mission') {
-          const idx = parseInt(itemEl.getAttribute('data-idx'), 10);
-          selectMission(idx);
-        } else if (type === 'section') {
-          const hash = itemEl.getAttribute('data-hash');
-          selectSection(hash);
-        }
-      });
-    });
-  }
-
-  // Input event
-  if (input) {
-    input.addEventListener('input', () => {
-      if (clearBtn) clearBtn.style.display = input.value ? 'block' : 'none';
-      renderList(input.value);
-    });
-
-    input.addEventListener('keydown', (e) => {
-      const items = listEl.querySelectorAll('.missions-dropdown-item');
-      if (!items.length) return;
-
-      if (e.key === 'ArrowDown') {
-        e.preventDefault();
-        focusedIndex = (focusedIndex + 1) % items.length;
-        updateFocus(items);
-      } else if (e.key === 'ArrowUp') {
-        e.preventDefault();
-        focusedIndex = (focusedIndex - 1 + items.length) % items.length;
-        updateFocus(items);
-      } else if (e.key === 'Enter') {
-        e.preventDefault();
-        const activeItem = focusedIndex >= 0 ? items[focusedIndex] : items[0];
-        if (activeItem) activeItem.click();
-      }
-    });
-  }
-
-  function updateFocus(items) {
-    items.forEach((it, i) => {
-      it.classList.toggle('is-focused', i === focusedIndex);
-      if (i === focusedIndex) {
-        it.scrollIntoView({ block: 'nearest' });
-      }
-    });
-  }
-
-  if (clearBtn) {
-    clearBtn.addEventListener('click', () => {
-      if (input) {
-        input.value = '';
-        clearBtn.style.display = 'none';
-        renderList('');
-        input.focus();
-      }
-    });
-  }
-
-  // Update button text when mission changes
-  window.updateMissionDropdownLabel = function(idx) {
-    if (btnLabels.length && NASA_RELIC_MISSIONS[idx]) {
-      btnLabels.forEach(el => {
-        el.textContent = NASA_RELIC_MISSIONS[idx].name;
-      });
-    }
-  };
 }
 
 // ─── CELESTIAL BODIES: SPACE MATERIALS & DISCOVERIES ─────────
@@ -1583,6 +1336,311 @@ const CELESTIAL_BODIES_DISCOVERIES = [
   }
 ];
 
+function focusCelestialBody(targetItemIdx) {
+  if (!window.infiniteMenu || !window.infiniteMenu.state) return;
+  const menu = window.infiniteMenu;
+  const list = menu.items;
+  if (!list || !list.length) return;
+  let bestTile = -1;
+  let bestDist = Infinity;
+  const front = typeof menu.state.front === 'number' ? menu.state.front : 0;
+  const totalTiles = menu.state.tiles ? menu.state.tiles.length : 144;
+  for (let i = 0; i < totalTiles; i++) {
+    const itemIndex = (menu.state.assign[i] ?? 0) % list.length;
+    if (itemIndex === targetItemIdx) {
+      const dist = Math.abs(i - front);
+      if (dist < bestDist) {
+        bestDist = dist;
+        bestTile = i;
+      }
+    }
+  }
+  if (bestTile !== -1) {
+    menu.goTo(bestTile);
+    menu.activate(bestTile);
+  }
+}
+
+function initCosmicDropdown() {
+  const wrap = document.getElementById('cosmic-dropdown-wrap');
+  const btn = document.getElementById('cosmic-dropdown-btn');
+  const menu = document.getElementById('cosmic-dropdown-menu');
+  const input = document.getElementById('cosmic-dropdown-input');
+  const clearBtn = document.getElementById('cosmic-dropdown-clear');
+  const listEl = document.getElementById('cosmic-dropdown-list');
+  const btnText = btn ? btn.querySelector('.cosmic-btn-text') : null;
+
+  if (!btn || !menu || !listEl) return;
+
+  const SECTIONS_NAV = [
+    { name: 'Home', hash: '#hero-page', badge: 'PAGE' },
+    { name: 'Historic Missions', hash: '#missions-page', badge: 'PAGE' },
+    { name: 'Cosmic Discoveries (3D Sphere)', hash: '#infinite-menu-page', badge: 'PAGE' },
+    { name: 'Why This Mission Matters (Earth)', hash: '#why-us', badge: 'PAGE' },
+    { name: 'Deep Space Experience', hash: '#experience', badge: 'PAGE' },
+    { name: 'NASA Scientists & Pioneers', hash: '#scientists-section', badge: 'PAGE' },
+    { name: 'Inside NASA Facilities', hash: '#inside-nasa-section', badge: 'PAGE' },
+    { name: 'Scientific References', hash: '#research-section', badge: 'PAGE' },
+    { name: 'The Team Infinite Void', hash: '#team-section', badge: 'PAGE' }
+  ];
+
+  let isOpen = false;
+  let focusedIndex = -1;
+
+  function openDropdown() {
+    isOpen = true;
+    menu.classList.add('is-open');
+    menu.setAttribute('aria-hidden', 'false');
+    btn.setAttribute('aria-expanded', 'true');
+    btn.classList.add('is-active');
+    renderList(input ? input.value : '');
+    if (input) {
+      setTimeout(() => input.focus(), 60);
+    }
+  }
+
+  function closeDropdown() {
+    isOpen = false;
+    menu.classList.remove('is-open');
+    menu.setAttribute('aria-hidden', 'true');
+    btn.setAttribute('aria-expanded', 'false');
+    btn.classList.remove('is-active');
+    focusedIndex = -1;
+  }
+
+  function toggleDropdown() {
+    if (isOpen) closeDropdown();
+    else openDropdown();
+  }
+
+  btn.addEventListener('click', (e) => {
+    e.stopPropagation();
+    toggleDropdown();
+  });
+
+  document.addEventListener('click', (e) => {
+    if (isOpen && wrap && !wrap.contains(e.target)) {
+      closeDropdown();
+    }
+  });
+
+  // Global Cmd+K / Ctrl+K shortcut
+  window.addEventListener('keydown', (e) => {
+    if ((e.metaKey || e.ctrlKey) && e.key.toLowerCase() === 'k') {
+      e.preventDefault();
+      const cosmicSection = document.getElementById('infinite-menu-page');
+      if (cosmicSection) {
+        cosmicSection.scrollIntoView({ behavior: 'smooth' });
+      }
+      openDropdown();
+    } else if (e.key === 'Escape' && isOpen) {
+      closeDropdown();
+      btn.focus();
+    }
+  });
+
+  function selectBody(idx) {
+    focusCelestialBody(idx);
+    if (btnText && CELESTIAL_BODIES_DISCOVERIES[idx]) {
+      btnText.textContent = CELESTIAL_BODIES_DISCOVERIES[idx].name;
+    }
+    const cosmicSection = document.getElementById('infinite-menu-page');
+    if (cosmicSection) {
+      cosmicSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    closeDropdown();
+  }
+
+  function selectMission(idx) {
+    if (window.missionsOptionWheel) {
+      window.missionsOptionWheel.applyTarget(idx, true);
+    } else if (typeof updateMissionShowcase === 'function') {
+      updateMissionShowcase(idx);
+    }
+    const missionsSection = document.getElementById('missions-page');
+    if (missionsSection) {
+      missionsSection.scrollIntoView({ behavior: 'smooth' });
+    }
+    closeDropdown();
+  }
+
+  function selectSection(hash) {
+    const el = document.querySelector(hash);
+    if (el) {
+      el.scrollIntoView({ behavior: 'smooth' });
+    }
+    closeDropdown();
+  }
+
+  function renderList(query = '') {
+    const q = query.trim().toLowerCase();
+    focusedIndex = -1;
+
+    // 1. Filter Celestial Bodies (13 items)
+    const filteredBodies = CELESTIAL_BODIES_DISCOVERIES.map((b, idx) => ({ body: b, originalIdx: idx }))
+      .filter(({ body }) => {
+        if (!q) return true;
+        return (
+          body.name.toLowerCase().includes(q) ||
+          body.material.toLowerCase().includes(q) ||
+          body.discovery.toLowerCase().includes(q)
+        );
+      });
+
+    // 2. Filter Missions (25 items)
+    const filteredMissions = NASA_RELIC_MISSIONS.map((m, idx) => ({ mission: m, originalIdx: idx }))
+      .filter(({ mission }) => {
+        if (!q) return true;
+        return (
+          mission.name.toLowerCase().includes(q) ||
+          mission.body.toLowerCase().includes(q) ||
+          mission.year.toLowerCase().includes(q) ||
+          (mission.site && mission.site.toLowerCase().includes(q))
+        );
+      });
+
+    // 3. Filter Sections
+    const filteredSections = SECTIONS_NAV.filter(s => {
+      if (!q) return true;
+      return s.name.toLowerCase().includes(q) || 'sections pages navigation'.includes(q);
+    });
+
+    if (filteredBodies.length === 0 && filteredMissions.length === 0 && filteredSections.length === 0) {
+      listEl.innerHTML = `<div class="cosmic-dropdown-empty">No results found for "${query}"</div>`;
+      return;
+    }
+
+    let html = '';
+
+    // Celestial Bodies first
+    if (filteredBodies.length > 0) {
+      html += `<div class="cosmic-group-title">COSMIC BODIES (${filteredBodies.length})</div>`;
+      filteredBodies.forEach(({ body, originalIdx }) => {
+        const currentActive = window.infiniteMenu?.active ?? -1;
+        const isCurrent = currentActive === originalIdx;
+        html += `
+          <div class="cosmic-dropdown-item ${isCurrent ? 'is-selected' : ''}" data-type="body" data-idx="${originalIdx}" role="option">
+            <div class="cosmic-item-left">
+              <span class="cosmic-item-num">${String(originalIdx + 1).padStart(2, '0')}</span>
+              <span class="cosmic-item-title">${body.name}</span>
+            </div>
+            <div class="cosmic-item-right">
+              <span class="cosmic-tag">COSMIC</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Historic Missions second
+    if (filteredMissions.length > 0) {
+      html += `<div class="cosmic-group-title" style="margin-top: 6px;">HISTORIC MISSIONS (${filteredMissions.length})</div>`;
+      filteredMissions.forEach(({ mission, originalIdx }) => {
+        const isCurrent = window._currentMissionIdx === originalIdx;
+        html += `
+          <div class="cosmic-dropdown-item ${isCurrent ? 'is-selected' : ''}" data-type="mission" data-idx="${originalIdx}" role="option">
+            <div class="cosmic-item-left">
+              <span class="cosmic-item-num">${String(originalIdx + 1).padStart(2, '0')}</span>
+              <span class="cosmic-item-title">${mission.name}</span>
+            </div>
+            <div class="cosmic-item-right">
+              <span class="cosmic-tag">${mission.body}</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    // Site Sections third
+    if (filteredSections.length > 0) {
+      html += `<div class="cosmic-group-title" style="margin-top: 6px;">SITE SECTIONS</div>`;
+      filteredSections.forEach((section) => {
+        html += `
+          <div class="cosmic-dropdown-item" data-type="section" data-hash="${section.hash}" role="option">
+            <div class="cosmic-item-left">
+              <span class="cosmic-item-num">✦</span>
+              <span class="cosmic-item-title">${section.name}</span>
+            </div>
+            <div class="cosmic-item-right">
+              <span class="cosmic-tag">PAGE</span>
+            </div>
+          </div>
+        `;
+      });
+    }
+
+    listEl.innerHTML = html;
+
+    listEl.querySelectorAll('.cosmic-dropdown-item').forEach(itemEl => {
+      itemEl.addEventListener('click', () => {
+        const type = itemEl.getAttribute('data-type');
+        if (type === 'body') {
+          const idx = parseInt(itemEl.getAttribute('data-idx'), 10);
+          selectBody(idx);
+        } else if (type === 'mission') {
+          const idx = parseInt(itemEl.getAttribute('data-idx'), 10);
+          selectMission(idx);
+        } else if (type === 'section') {
+          const hash = itemEl.getAttribute('data-hash');
+          selectSection(hash);
+        }
+      });
+    });
+  }
+
+  if (input) {
+    input.addEventListener('input', () => {
+      if (clearBtn) clearBtn.style.display = input.value ? 'block' : 'none';
+      renderList(input.value);
+    });
+
+    input.addEventListener('keydown', (e) => {
+      const items = listEl.querySelectorAll('.cosmic-dropdown-item');
+      if (!items.length) return;
+
+      if (e.key === 'ArrowDown') {
+        e.preventDefault();
+        focusedIndex = (focusedIndex + 1) % items.length;
+        updateFocus(items);
+      } else if (e.key === 'ArrowUp') {
+        e.preventDefault();
+        focusedIndex = (focusedIndex - 1 + items.length) % items.length;
+        updateFocus(items);
+      } else if (e.key === 'Enter') {
+        e.preventDefault();
+        const activeItem = focusedIndex >= 0 ? items[focusedIndex] : items[0];
+        if (activeItem) activeItem.click();
+      }
+    });
+  }
+
+  function updateFocus(items) {
+    items.forEach((it, i) => {
+      it.classList.toggle('is-focused', i === focusedIndex);
+      if (i === focusedIndex) {
+        it.scrollIntoView({ block: 'nearest' });
+      }
+    });
+  }
+
+  if (clearBtn) {
+    clearBtn.addEventListener('click', () => {
+      if (input) {
+        input.value = '';
+        clearBtn.style.display = 'none';
+        renderList('');
+        input.focus();
+      }
+    });
+  }
+
+  window.updateCosmicDropdownLabel = function(name) {
+    if (btnText && name) {
+      btnText.textContent = name;
+    }
+  };
+}
+
 function initInfiniteMenuPage() {
   const root = document.getElementById('infinite-menu-root');
   if (!root) return;
@@ -1612,10 +1670,21 @@ function initInfiniteMenuPage() {
     theme: 'dark',
     accentColor: '#ffffff',
     onItemClick: (item, idx) => {
-      // In-place selection and centering without external navigation
       console.log('Selected Celestial Body:', item?.title, idx);
+      if (item && item.title) {
+        const bodyName = CELESTIAL_BODIES_DISCOVERIES[idx]?.name || item.title;
+        window.updateCosmicDropdownLabel?.(bodyName);
+      }
+    },
+    onActiveChange: (item, idx) => {
+      if (item && item.title) {
+        const bodyName = CELESTIAL_BODIES_DISCOVERIES[idx]?.name || item.title;
+        window.updateCosmicDropdownLabel?.(bodyName);
+      }
     }
   });
+
+  initCosmicDropdown();
 }
 
 /* ==============================================================
