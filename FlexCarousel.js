@@ -155,7 +155,7 @@ export const NASA_SCIENTIST_ITEMS = [
     impact: "Formulated the Chandrasekhar Limit governing stellar supernova collapses."
   },
   {
-    src: "https://images.unsplash.com/photo-1517976487502-5f65f3f98c8c?auto=format&fit=crop&w=1200&q=80",
+    src: "https://images.unsplash.com/photo-1446776811953-b23d57bd21aa?auto=format&fit=crop&w=1200&q=80",
     alt: "Orbital ascent trajectory and booster stage tracking",
     title: "Dr. Sally Ride",
     subtitle: "Astrophysicist & First American Woman Astronaut in Orbit",
