@@ -584,23 +584,24 @@ img {
 
 
 /* ==============================================================
-   HERO STATUS PILL
+   HERO STATUS BOX (Data Telemetry Box)
    ============================================================== */
 .mission-status-pill {
   display: inline-flex;
   align-items: center;
-  gap: 0.65rem;
-  background: rgba(15, 23, 42, 0.75);
-  backdrop-filter: blur(10px);
-  -webkit-backdrop-filter: blur(10px);
+  gap: 0.75rem;
+  background: rgba(11, 18, 33, 0.88);
+  backdrop-filter: blur(12px);
+  -webkit-backdrop-filter: blur(12px);
   border: 1px solid rgba(255, 255, 255, 0.18);
-  padding: 0.5rem 1.15rem;
-  border-radius: 999px;
+  border-left: 3px solid #fc3d21;
+  padding: 0.55rem 1.15rem;
+  border-radius: 2px;
   font-size: 0.85rem;
   color: rgba(255, 255, 255, 0.95);
   margin-top: 1rem;
   max-width: 100%;
-  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.4);
+  box-shadow: 0 4px 20px rgba(0, 0, 0, 0.45);
 }
 
 .status-indicator-dot {
