@@ -2019,6 +2019,66 @@ class FullPageSectionController {
     this.initObserver();
     this.detectInitialSection();
     this.bindEvents();
+    this.initPageNavArrows();
+  }
+
+  initPageNavArrows() {
+    const nav = document.getElementById('section-nav-arrows');
+    const upBtn = document.getElementById('nav-arrow-up');
+    const downBtn = document.getElementById('nav-arrow-down');
+    if (!nav || !upBtn || !downBtn) return;
+
+    upBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      this.prev();
+    });
+
+    downBtn.addEventListener('click', (e) => {
+      e.preventDefault();
+      e.stopPropagation();
+      this.next();
+    });
+
+    this.updateNavArrowsVisibility();
+
+    let scrollRaf = null;
+    window.addEventListener('scroll', () => {
+      if (scrollRaf) return;
+      scrollRaf = requestAnimationFrame(() => {
+        scrollRaf = null;
+        this.updateNavArrowsVisibility();
+      });
+    }, { passive: true });
+  }
+
+  updateNavArrowsVisibility() {
+    const nav = document.getElementById('section-nav-arrows');
+    if (!nav) return;
+
+    const currentSection = this.sections[this.currentIndex];
+    const currentId = currentSection ? currentSection.id : '';
+
+    const scrollY = window.scrollY || document.documentElement.scrollTop;
+    const hero = document.getElementById('hero-page');
+    const team = document.getElementById('team-section');
+
+    let isHero = currentId === 'hero-page';
+    let isTeam = currentId === 'team-section';
+
+    if (hero && scrollY < hero.offsetHeight * 0.4) {
+      isHero = true;
+    }
+
+    if (team) {
+      const teamRect = team.getBoundingClientRect();
+      if (teamRect.top < window.innerHeight * 0.5 && teamRect.bottom >= 0) {
+        isTeam = true;
+      }
+    }
+
+    const isVisible = !isHero && !isTeam;
+    nav.classList.toggle('is-visible', isVisible);
   }
 
   initObserver() {
@@ -2034,6 +2094,7 @@ class FullPageSectionController {
             if (window.location.hash !== hash) {
               history.replaceState(null, null, hash);
             }
+            this.updateNavArrowsVisibility();
           }
           if (entry.target.id === 'team-section') {
             window.jangleTeamCards?.(1.15);
@@ -2052,6 +2113,7 @@ class FullPageSectionController {
     // Snap directly on initial load
     setTimeout(() => {
       this.goTo(this.currentIndex, false);
+      this.updateNavArrowsVisibility();
     }, 100);
   }
 
@@ -2060,6 +2122,7 @@ class FullPageSectionController {
     const isPrev = index < this.currentIndex;
     this.currentIndex = index;
     this.isAnimating = true;
+    this.updateNavArrowsVisibility();
 
     const targetSection = this.sections[index];
     let targetTop = targetSection.offsetTop;
@@ -2087,6 +2150,7 @@ class FullPageSectionController {
     if (this.animTimeout) clearTimeout(this.animTimeout);
     this.animTimeout = setTimeout(() => {
       this.isAnimating = false;
+      this.updateNavArrowsVisibility();
     }, smooth ? 650 : 50);
   }
 
