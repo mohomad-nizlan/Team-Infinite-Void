@@ -1131,42 +1131,6 @@
         "alt": "Launch of Pioneer 11 spacecraft"
       }
     ]
-  },
-  {
-    "name": "Kepler Space Telescope",
-    "year": "2009",
-    "body": "Deep Space",
-    "site": "Earth-trailing orbit around the Sun",
-    "status": "Retired telescope continues orbiting the Sun",
-    "img": "public/assets/missions/kepler.jpg",
-    "overview_img": "public/assets/mission_images/kepler_1.jpg",
-    "relics": [
-      "0.95m Aperture Schmidt Telescope Optics",
-      "42-CCD Science Focal Plane Array (95 Megapixels)",
-      "Solar Array Panels & Heat Radiator Panels",
-      "Reaction Wheels Assembly (Failed & Retired)",
-      "Cold-Gas Thrusters & Spacecraft Bus Structure"
-    ],
-    "desc": "Kepler launched in 2009 to monitor the brightness of stars and search for planets around them. Its observations changed the understanding of how common planetary systems are in our galaxy. Rather than flying to another planet, Kepler stayed in a solar orbit that gradually trails Earth, keeping a stable view of large star fields. Engineers extended its science through the innovative K2 mission after spacecraft pointing problems reduced its original capability. In October 2018 the telescope ran out of the fuel needed for continued operations, and NASA retired it in its safe orbit. The dark telescope remains far from Earth as a silent observer.",
-    "purpose": "Kepler's purpose was to discover exoplanets using the transit method. When a planet crosses in front of its star from our viewpoint, the star dims by a tiny amount; repeated measurements can reveal a planet's orbital period and approximate size. A precision photometer and telescope monitored the brightness of many stars with exceptional stability. Scientists also investigated how frequently Earth-size planets might occur and what the distribution of planetary systems says about planet formation. Later K2 observations continued planetary research and broadened the range of astrophysical studies made possible by the spacecraft's photometric data.",
-    "equipment_text": "The abandoned hardware is the Kepler spacecraft itself, including the telescope optics, photometer, sunshade, spacecraft bus, communications antenna, solar panels, thrusters and attitude-control systems. It was not a lander and deposited no instruments on the Moon, Mars or a newly discovered exoplanet. Its safe orbit is around the Sun, not a graveyard orbit immediately around Earth. No separate probe is known to have detached to visit a planetary surface. The data archive, including light curves and planet-candidate analyses, survives on Earth and is not the same thing as the inactive physical telescope.",
-    "reason_discard": "Kepler's original precision pointing was affected by reaction-wheel failures, but engineers repurposed the mission as K2 using a different pointing strategy. That innovation extended scientific work for years. Ultimately the remaining fuel for necessary spacecraft orientation and operations ran out in 2018, so continued accurate observations and communications could not be sustained. NASA retired the craft in place rather than attempting an impossible recovery or risking uncontrolled operations. Kepler's loss was not a crash. The spacecraft remains on a solar orbit safely separated from Earth, while the discoveries made during its operational lifetime continue to be examined.",
-    "scientific_value": "Kepler provided evidence that planets are common around other stars, with thousands of confirmed discoveries associated with its data and many more candidates studied. Its precise brightness measurements revealed a wide variety of planet sizes, orbital periods and system architectures. The same archive supported research on stellar oscillations, flares and other astrophysical phenomena. Kepler changed exoplanet science from a search for unusual individual worlds into a statistical study of planetary populations. It also demonstrated the scientific value of stable, long-duration observations and of reusing a spacecraft creatively after serious hardware limitations arose.",
-    "future_value": "Kepler's future value lies primarily in its data and the methods it inspired. Researchers can reanalyze light curves with new algorithms, combine them with observations from later telescopes and revisit planet candidates as better measurements become available. The mission provides an excellent case study in spacecraft adaptation through K2 and in making the best possible science before consumables are exhausted. Its inactive body remains an orbital artifact, not surface waste. A website could visualize a tiny brightness dip in a star's light and contrast the telescope's silent physical state with the continuing discovery potential of its data archive.",
-    "gallery": [
-      {
-        "src": "public/assets/mission_images/kepler_2.jpg",
-        "alt": "Illustration of Kepler Space Telescope in space"
-      },
-      {
-        "src": "public/assets/mission_images/kepler_3.jpg",
-        "alt": "Technicians test the Kepler Space Telescope"
-      },
-      {
-        "src": "public/assets/mission_images/kepler_4.jpg",
-        "alt": "Model of Kepler Telescope"
-      }
-    ]
   }
 ];
 
@@ -1214,7 +1178,7 @@
     function getMissionStatus(mission) {
       const name = mission.name.toLowerCase();
       if (name.includes('surveyor 2') || name.includes('surveyor 4')) return 'Impacted (Crash)';
-      if (name.includes('dawn') || name.includes('kepler')) return 'Retired in Orbit';
+      if (name.includes('dawn')) return 'Retired in Orbit';
       if (name.includes('pioneer 10') || name.includes('pioneer 11')) return 'Interstellar Trajectory';
       if (name.includes('near shoemaker')) return 'Landed on Asteroid 433 Eros';
       if (name.includes('ingenuity')) return 'Permanently Grounded (72 Flights)';

@@ -1128,8 +1128,8 @@ export const RESEARCH_DOSSIERS = [
         url: 'https://science.nasa.gov/mission/near-shoemaker/'
       },
       {
-        title: 'Pioneers & Kepler',
-        description: 'Interstellar probes and trailing exoplanet observatory.',
+        title: 'Pioneers (10 & 11)',
+        description: 'Interstellar probes continuing on outward paths beyond our solar system.',
         url: 'https://science.nasa.gov/mission/pioneer-10/'
       }
     ]
